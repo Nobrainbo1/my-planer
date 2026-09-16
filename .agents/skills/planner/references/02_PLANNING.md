@@ -203,6 +203,6 @@ Break down the architecture into an ordered list of tasks with dependencies.
 
 > **Orchestrator:** Review the Execution Plan. Approve, request changes, or provide feedback.
 
-> Use the template at [`templates/execution_plan.md`](./templates/execution_plan.md) to structure the plan.
+> Use the template at [`execution_plan.md`](../resources/templates/execution_plan.md) to structure the plan.
 
 > **Proceed to [Phase 3: Tooling](./03_TOOLING.md)** once the Execution Plan is approved.

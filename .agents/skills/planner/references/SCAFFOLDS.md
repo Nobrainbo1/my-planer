@@ -130,7 +130,7 @@ Not every project needs an MCP server or a cloud service. These lightweight opti
 
 ### Creating Your Own Skills
 
-When no existing skill covers your need, create a custom one using the **[Skill Creation Guide](./templates/skill_creation_guide.md)**.
+When no existing skill covers your need, create a custom one using the **[Skill Creation Guide](../resources/templates/skill_creation_guide.md)**.
 
 The guide includes:
 - **SKILL.md anatomy** — the two critical YAML fields and how to write effective trigger descriptions

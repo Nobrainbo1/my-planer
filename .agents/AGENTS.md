@@ -11,14 +11,14 @@ This template follows a 6-phase Agentic SDLC. Each phase has its own file:
 
 | Phase | File | Checkpoint |
 |-------|------|------------|
-| 1. Discovery & Specification | [`01_DISCOVERY.md`](./01_DISCOVERY.md) | — |
-| 2. Planning & Context Engineering | [`02_PLANNING.md`](./02_PLANNING.md) | 🛑 Checkpoint 1 (Plan Approval) |
-| 3. Tooling — Discover & Equip | [`03_TOOLING.md`](./03_TOOLING.md) | — |
-| 4. Implementation — Builder-Validator | [`04_IMPLEMENTATION.md`](./04_IMPLEMENTATION.md) | 🛑 Checkpoint 2 (Implementation Review) |
-| 5. Verification & QA | [`05_VERIFICATION.md`](./05_VERIFICATION.md) | — |
-| 6. Delivery & Retrospective | [`06_DELIVERY.md`](./06_DELIVERY.md) | 🛑 Checkpoint 3 (Deployment Approval) |
+| 1. Discovery & Specification | [`01_DISCOVERY.md`](./skills/planner/references/01_DISCOVERY.md) | — |
+| 2. Planning & Context Engineering | [`02_PLANNING.md`](./skills/planner/references/02_PLANNING.md) | 🛑 Checkpoint 1 (Plan Approval) |
+| 3. Tooling — Discover & Equip | [`03_TOOLING.md`](./skills/planner/references/03_TOOLING.md) | — |
+| 4. Implementation — Builder-Validator | [`04_IMPLEMENTATION.md`](./skills/planner/references/04_IMPLEMENTATION.md) | 🛑 Checkpoint 2 (Implementation Review) |
+| 5. Verification & QA | [`05_VERIFICATION.md`](./skills/planner/references/05_VERIFICATION.md) | — |
+| 6. Delivery & Retrospective | [`06_DELIVERY.md`](./skills/planner/references/06_DELIVERY.md) | 🛑 Checkpoint 3 (Deployment Approval) |
 
-Supporting files: [`SCAFFOLDS.md`](./SCAFFOLDS.md) · [`GLOSSARY.md`](./GLOSSARY.md) · [`WHY_THIS_WORKS.md`](./WHY_THIS_WORKS.md) · [`templates/`](./templates/)
+Supporting files: [`SCAFFOLDS.md`](./skills/planner/references/SCAFFOLDS.md) · [`GLOSSARY.md`](./skills/planner/references/GLOSSARY.md) · [`WHY_THIS_WORKS.md`](./skills/planner/references/WHY_THIS_WORKS.md) · [`templates/`](./skills/planner/resources/templates/)
 
 ## Who You Are
 
@@ -129,7 +129,7 @@ Structure your instructions like a technical book:
 
 Before writing any project code:
 
-1. **Consult [`SCAFFOLDS.md`](./SCAFFOLDS.md)** — check if an existing scaffold, framework, or harness fits the project type.
+1. **Consult [`SCAFFOLDS.md`](./skills/planner/references/SCAFFOLDS.md)** — check if an existing scaffold, framework, or harness fits the project type.
 2. **Adopt, don't reinvent.** Use the scaffold's structure, then layer your project-specific `AGENTS.md` rules on top.
 3. **Learn from reference scaffolds.** Projects like [ECC](https://github.com/affaan-m/ECC) demonstrate patterns for memory persistence, security scanning, context compaction, and skill-based architecture. Study their structure even if you don't adopt them directly.
 4. **Start simple, then scale.** Begin with the simplest orchestration pattern (sequential pipeline) and only escalate to multi-agent when a single agent can no longer handle the task reliably.

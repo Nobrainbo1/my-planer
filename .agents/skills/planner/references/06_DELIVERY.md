@@ -156,7 +156,7 @@ If the project spans multiple sessions, or if work is being passed to another ag
 - [ ] Context warnings noted (non-obvious gotchas)
 ```
 
-> Use the template at [`templates/handoff_artifact.md`](./templates/handoff_artifact.md) to structure the handoff.
+> Use the template at [`handoff_artifact.md`](../resources/templates/handoff_artifact.md) to structure the handoff.
 
 **When to create a handoff:**
 - Context window approaching ~70% capacity (create handoff *before* compaction)
@@ -179,7 +179,7 @@ The retrospective should cover:
 - **Tools & harness learnings** — what worked, what didn't, what's missing
 - **Decision log** — key decisions and rationale for future reference
 
-> Use the template at [`templates/retrospective.md`](./templates/retrospective.md) for the full structure.
+> Use the template at [`retrospective.md`](../resources/templates/retrospective.md) for the full structure.
 
 ---
 

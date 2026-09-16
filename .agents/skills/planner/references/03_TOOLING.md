@@ -144,7 +144,7 @@ If no existing tool meets the need, create a minimal custom tool. Choose the rig
 
 | What You Need | Create | Guide |
 |---------------|--------|-------|
-| **Agent behavior / workflow / methodology** (e.g., debugging discipline, review process, deployment checklist) | A `SKILL.md` file | See [`templates/skill_creation_guide.md`](./templates/skill_creation_guide.md) — 5 proven body patterns, starter templates, quality checklist |
+| **Agent behavior / workflow / methodology** (e.g., debugging discipline, review process, deployment checklist) | A `SKILL.md` file | See [`skill_creation_guide.md`](../resources/templates/skill_creation_guide.md) — 5 proven body patterns, starter templates, quality checklist |
 | **External capability** (e.g., database migration, API wrapper, file processor) | A CLI tool or MCP server | See the specification template below |
 | **Both** (methodology + tool) | A skill directory with `SKILL.md` + `scripts/` | Combine both guides — the skill instructs, the script executes |
 
@@ -259,6 +259,6 @@ Based on the tech stack [chosen in Phase 2], here are the recommended tools:
 
 A fully documented **Harness Configuration** listing every tool the agent has access to, how it was sourced (discovered vs. built), and how to configure it.
 
-> Use the template at [`templates/tool_discovery_report.md`](./templates/tool_discovery_report.md) to document the discovery process.
+> Use the template at [`tool_discovery_report.md`](../resources/templates/tool_discovery_report.md) to document the discovery process.
 
 > **Proceed to [Phase 4: Implementation](./04_IMPLEMENTATION.md)** once the harness is assembled.

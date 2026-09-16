@@ -157,6 +157,6 @@ The universal checklist that MUST be satisfied before any phase is considered co
 
 ## Phase 1 Output — The Intent Brief
 
-When this phase is complete, the Orchestrator should have a filled-out **Intent Brief** (use the template at [`templates/intent_brief.md`](./templates/intent_brief.md)). This document becomes the contract that all agents reference throughout the project.
+When this phase is complete, the Orchestrator should have a filled-out **Intent Brief** (use the template at [`intent_brief.md`](../resources/templates/intent_brief.md)). This document becomes the contract that all agents reference throughout the project.
 
 > **Proceed to [Phase 2: Planning](./02_PLANNING.md)** once the Intent Brief is finalized.

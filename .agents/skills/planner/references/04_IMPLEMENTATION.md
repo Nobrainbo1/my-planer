@@ -187,7 +187,7 @@ As tasks are completed, update the execution tracking:
 | T-3.1 | Frontend integration | ⏳ Pending | — | |
 ```
 
-> Use the template at [`templates/task_execution_log.md`](./templates/task_execution_log.md) to document individual task runs if deep logging is needed.
+> Use the template at [`task_execution_log.md`](../resources/templates/task_execution_log.md) to document individual task runs if deep logging is needed.
 
 ---
 

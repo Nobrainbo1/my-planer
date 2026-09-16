@@ -203,7 +203,7 @@ Run through the DoD defined in Phase 1:
 [If NEEDS REMEDIATION, list specific blockers and proposed fixes]
 ```
 
-> Use the template at [`templates/verification_report.md`](./templates/verification_report.md) to structure the full report.
+> Use the template at [`verification_report.md`](../resources/templates/verification_report.md) to structure the full report.
 
 ---
 
