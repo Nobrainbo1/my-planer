@@ -1,5 +1,5 @@
 ---
-description: "Phase 2: Agentic Planning & Context Engineering. Builds the execution roadmap with configurable detail levels."
+description: "Phase 2: Agentic Planning & Context Engineering. Builds the execution roadmap."
 phase: 2
 checkpoint: true
 ---
@@ -10,28 +10,17 @@ checkpoint: true
 
 > **Paper Concept:** *"Context Engineering"* — The quality of agent output is bounded by the quality and structure of context provided. Design the complete information package: system instructions, codebase maps, tool definitions (MCP), and memory summaries.
 
+> **💡 Why This Phase Exists:** Without this, you jump into coding without understanding the architecture. You build Component A, then realize it needs data from Component B that doesn't exist yet. Planning makes your assumptions visible — when you write them down, you give your future self a chance to catch wrong assumptions before they become wrong code. **On paper:** Draw boxes for components, arrows for data flow. List your assumptions. Pick your tech stack.
+
 ---
 
-## Step 2.0 — Detail Level Selection
+## Step 2.0 — Planning Depth
 
-> **Orchestrator Decision:** Choose the level of detail for this planning phase.
-
-### 🔹 HIGH-LEVEL Overview
-*Best for: initial exploration, stakeholder communication, early-stage projects where the tech stack is not yet decided.*
+> The planning phase produces a comprehensive, reviewable Execution Plan. The agent should provide full detail so the Orchestrator can review it as if doing a code review before a single line is written.
 
 The agent will produce:
-- A **plain-English architectural narrative** explaining how the system works conceptually.
+- A **plain-English architectural narrative** explaining how the system works end-to-end.
 - A **component diagram** showing the major parts and how they relate.
-- **Tech stack recommendations** with pros/cons, explained in accessible language with some technical terms defined.
-- A **risk summary** in business-friendly terms.
-- An **estimated effort breakdown** by component (T-shirt sizing: S/M/L/XL).
-
-The tone is: *"Explain this to a smart person who isn't deeply technical but is tech-literate."*
-
-### 🔸 LOW-LEVEL Overview
-*Best for: approved projects, hands-on implementation, teams who need to review code-level decisions.*
-
-The agent will produce everything in the High-Level overview, PLUS:
 - **Detailed tech stack specification** including exact versions, package names, and configuration options.
 - **File-by-file change plan** — which files will be created, modified, or deleted, and what each change does.
 - **Data flow diagrams** showing how data moves through the system at the function/API level.
@@ -39,14 +28,12 @@ The agent will produce everything in the High-Level overview, PLUS:
 - **Dependency graph** — how every module interacts with every other module, including third-party dependencies.
 - **Code interaction map** — which functions call which, which components render which, which services talk to which.
 - **Edge case analysis** — what happens when things go wrong at each boundary.
+- **Risk summary** with mitigation strategies.
 - **Test plan** — specific test cases with inputs, expected outputs, and test types.
-
-The tone is: *"Give me everything I need to review this as if I were doing a code review before a single line is written."*
 
 ```markdown
 ### Planning Configuration
 
-- **Detail Level:** [ ] HIGH-LEVEL  /  [ ] LOW-LEVEL
 - **Focus Areas:** [e.g., "Focus on the API layer" or "Full stack"]
 - **Constraints:** [e.g., "Must use existing database schema" or "Greenfield"]
 ```
@@ -68,11 +55,12 @@ Before planning, the agent must gather all relevant context. This is the foundat
 
 #### 2. Codebase Context
 *Repository structure, architectural patterns, and cross-repo dependencies.*
-- [ ] Map the existing file/folder structure
-- [ ] Identify architectural patterns in use (MVC, microservices, monolith, etc.)
-- [ ] List all existing dependencies and their versions
-- [ ] Identify any existing tests and their coverage
+- [ ] Map the existing file/folder structure (e.g., use `tree -L 3` or `fd` or `ls -R`)
+- [ ] Identify architectural patterns in use (e.g., use `grep` or `rg` for common framework markers)
+- [ ] List all existing dependencies and their versions (e.g., read `package.json`, `requirements.txt`, or `Cargo.toml`)
+- [ ] Identify any existing tests and their coverage (e.g., search for `*.test.*` or `test/` folders)
 - [ ] Note any legacy code or technical debt
+- [ ] Search for existing similar implementations before writing new ones
 
 #### 3. Tool/Skill Context
 *What the agent can DO — via MCP servers, APIs, CLIs, and plugins.*
@@ -94,7 +82,7 @@ Before planning, the agent must gather all relevant context. This is the foundat
 
 Based on gathered context, propose the system architecture.
 
-### High-Level Architecture Template
+### Architecture Template
 ```markdown
 ### Architecture Overview
 
@@ -113,10 +101,7 @@ Based on gathered context, propose the system architecture.
 | Database | [e.g., PostgreSQL 16] | [Reason] | [e.g., SQLite, MongoDB] |
 | AI/LLM | [e.g., Claude 4 via API] | [Reason] | [e.g., GPT-4.5, Gemini 2.5] |
 | Hosting | [e.g., Vercel + Supabase] | [Reason] | [e.g., AWS, Railway] |
-```
 
-### Low-Level Architecture Template (in addition to above)
-```markdown
 #### Data Flow
 [Step-by-step flow of a primary user action through the system]
 1. User clicks [button] → triggers [function] in [file]
@@ -202,7 +187,7 @@ Break down the architecture into an ordered list of tasks with dependencies.
 ```
 🛑 CHECKPOINT REQUEST — Phase 2 Complete
 
-[SUMMARY] The Execution Plan has been created at [detail level].
+[SUMMARY] The Execution Plan has been created.
 [ARTIFACTS]
   - Architecture diagram / narrative
   - Tech stack decisions with rationale
@@ -216,6 +201,8 @@ Break down the architecture into an ordered list of tasks with dependencies.
   4. Proceed to Phase 3 (Tooling) or revise?
 ```
 
-> **Orchestrator:** Review the Execution Plan. Approve, request changes, or toggle the detail level and re-run.
+> **Orchestrator:** Review the Execution Plan. Approve, request changes, or provide feedback.
+
+> Use the template at [`templates/execution_plan.md`](./templates/execution_plan.md) to structure the plan.
 
 > **Proceed to [Phase 3: Tooling](./03_TOOLING.md)** once the Execution Plan is approved.

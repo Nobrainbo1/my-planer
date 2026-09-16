@@ -7,8 +7,7 @@ type: template
 
 > **Date:** [YYYY-MM-DD]  
 > **Orchestrator:** [Your Name]  
-> **Status:** Draft / In Review / Approved  
-> **Detail Level:** HIGH-LEVEL / LOW-LEVEL
+> **Status:** Draft / In Review / Approved
 
 ---
 
@@ -123,9 +122,6 @@ type: template
 
 ## 9. Approval
 
-| Phase | Approver | Date | Status |
-|-------|----------|------|--------|
-| Intent Brief | [Orchestrator] | [date] | Pending / Approved |
-| Execution Plan | [Orchestrator] | [date] | Pending / Approved |
-| Implementation | [Orchestrator] | [date] | Pending / Approved |
-| Deployment | [Orchestrator] | [date] | Pending / Approved |
+| Approver | Date | Status |
+|----------|------|--------|
+| [Orchestrator] | [date] | Pending / Approved |

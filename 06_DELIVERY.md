@@ -10,6 +10,8 @@ checkpoint: true
 
 > **Paper Concept:** The paper emphasizes that agentic engineering is an **iterative discipline**. Each project should feed learnings back into the harness configuration, improving agent performance over time.
 
+> **💡 Why This Phase Exists:** Without this, you ship and immediately forget everything you learned. Next project, same mistakes. The retrospective loop makes the template *improve itself* — after every project, you update the rules, add new skills, remove tools that didn't work. Project 10 runs smoother than project 1 because the workflow evolved. This phase also handles **handoffs** — passing context to the next session or team member, because the model is stateless and starts every new session knowing nothing. **On paper:** Write down what went well, what went wrong, and what to change next time.
+
 ---
 
 ## Step 6.1 — PR / Changeset Packaging
@@ -86,8 +88,10 @@ Whether using Git PRs, patch files, or direct deployment, create a structured su
 - [ ] Error rates normal (no spike in monitoring).
 - [ ] Performance within expected range.
 - [ ] Logs clean (no unexpected errors).
+```
 
 #### 🛑 FINAL CHECKPOINT — Deployment Approval
+
 ```
 🛑 CHECKPOINT REQUEST — Ready for Deployment
 
@@ -97,7 +101,6 @@ Whether using Git PRs, patch files, or direct deployment, create a structured su
 [ROLLBACK PLAN] [documented above]
 
 [DECISION NEEDED] Approve deployment?
-```
 ```
 
 ---
@@ -136,42 +139,47 @@ Whether using Git PRs, patch files, or direct deployment, create a structured su
 
 ---
 
+## Step 6.3.5 — Session Handoff Artifact
+
+If the project spans multiple sessions, or if work is being passed to another agent or team member, create a **Handoff Artifact** before ending the session.
+
+> **Why this matters:** Models are stateless — the next session starts with zero context. A handoff artifact is the bridge between sessions. Without it, the next agent wastes time rediscovering decisions, re-reading files, and potentially contradicting prior work.
+
+```markdown
+### Handoff Checklist
+
+- [ ] System state documented (what exists, what's working, what's partial)
+- [ ] Key decisions recorded with rationale
+- [ ] Unresolved blockers and tech debt listed
+- [ ] Entry points identified (files to read first)
+- [ ] Next action items prioritized
+- [ ] Context warnings noted (non-obvious gotchas)
+```
+
+> Use the template at [`templates/handoff_artifact.md`](./templates/handoff_artifact.md) to structure the handoff.
+
+**When to create a handoff:**
+- Context window approaching ~70% capacity (create handoff *before* compaction)
+- End of a work session (even if the project isn't complete)
+- Before switching to a different agent or model
+- When handing off to a human team member
+
+---
+
 ## Step 6.4 — Retrospective
 
 The most important step for long-term improvement. Capture learnings and feed them back into the workflow.
 
-```markdown
-### Project Retrospective
+The retrospective should cover:
+- **What went well** — tools, processes, and decisions that saved time or prevented issues
+- **What could be improved** — friction points, rework, and missed opportunities
+- **What surprised you** — unexpected behaviors, edge cases, or learnings
+- **Agent performance metrics** — autonomy rate, escalation count, self-corrections, time saved
+- **Workflow improvements** — concrete actions to apply to the template for the next project
+- **Tools & harness learnings** — what worked, what didn't, what's missing
+- **Decision log** — key decisions and rationale for future reference
 
-#### What Went Well
-- [e.g., "The tool discovery phase saved significant time by finding an existing MCP server for database access."]
-- [e.g., "The Builder-Validator loop caught 12 issues before human review."]
-- [e.g., "High-Level planning let us align with stakeholders before committing to tech decisions."]
-
-#### What Could Be Improved
-- [e.g., "The Intent Brief lacked specific edge case definitions, causing rework in Phase 4."]
-- [e.g., "Agent hit retry limit 3 times on CSS layout issues — needs better UI testing tools."]
-- [e.g., "Planning phase took too long — consider starting with High-Level and drilling down only where needed."]
-
-#### Workflow Improvements to Apply
-| Improvement | Action | Apply To |
-|-------------|--------|----------|
-| [e.g., Add CSS-specific test tools] | Add Storybook visual testing to 03_TOOLING.md | Phase 3 |
-| [e.g., Edge case template] | Add edge case section to Intent Brief template | Phase 1 |
-| [e.g., Increase retry limit for UI tasks] | Update AGENTS.md retry table | AGENTS.md |
-
-#### Agent Performance Metrics
-| Metric | Value |
-|--------|-------|
-| Tasks completed autonomously (no escalation) | [X / Y] |
-| Tasks requiring escalation | [X / Y] |
-| Total self-correction cycles | [count] |
-| Avg self-corrections per task | [count] |
-| False positives (agent flagged issue that wasn't real) | [count] |
-| Missed issues (found in human review) | [count] |
-| Total time (wall clock) | [duration] |
-| Estimated time without agent | [duration] |
-```
+> Use the template at [`templates/retrospective.md`](./templates/retrospective.md) for the full structure.
 
 ---
 
@@ -202,6 +210,7 @@ Based on the retrospective, update the workflow template itself.
 - ✅ Change package documented and ready for deployment.
 - ✅ Deployment executed (or artifacts handed off).
 - ✅ Documentation updated.
+- ✅ Session handoff artifact created (if multi-session).
 - ✅ Retrospective completed.
 - ✅ Workflow improvements captured and applied.
 

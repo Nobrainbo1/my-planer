@@ -10,6 +10,8 @@ checkpoint: false
 
 > **Paper Concept:** *"Evals, not vibes."* The paper argues that AI-generated code must be held to the same (or higher) bar as human-written code. Automated evaluation pipelines replace gut-feel verification.
 
+> **💡 Why This Phase Exists:** "It works on my machine." Code that passes the happy path can still fail on edge cases, have a security vulnerability, or silently break an existing feature. Don't *feel* like it works — *prove* it works. Every requirement from Phase 1 should trace to a test here. If you can't point to proof, you don't know it works. **On paper:** Go through your Definition of Done. For each item: does it pass? Yes → next. No → fix it.
+
 ---
 
 ## Step 5.1 — Full Test Suite Execution
@@ -109,7 +111,7 @@ Run the complete test suite, not just individual task tests.
 - [ ] **Error messages** — no stack traces or internal details exposed to users.
 
 #### Secret Scanning
-- **Tool:** [e.g., git-secrets, trufflehog, gitleaks]
+- **Tool:** [e.g., gitleaks, trufflehog]
 - **Command:** [e.g., `gitleaks detect`]
 - **Findings:** [count — should be 0]
 ```
@@ -200,5 +202,11 @@ Run through the DoD defined in Phase 1:
 
 [If NEEDS REMEDIATION, list specific blockers and proposed fixes]
 ```
+
+> Use the template at [`templates/verification_report.md`](./templates/verification_report.md) to structure the full report.
+
+---
+
+> **Orchestrator Gate:** Review the Verification Summary above. If the verdict is ❌ NEEDS REMEDIATION, direct the agent to fix the issues before proceeding. Only approve transition to Phase 6 when the verdict is ✅ READY FOR DELIVERY.
 
 > **Proceed to [Phase 6: Delivery](./06_DELIVERY.md)** if the verdict is READY FOR DELIVERY.

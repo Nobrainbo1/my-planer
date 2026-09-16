@@ -10,6 +10,8 @@ checkpoint: true
 
 > **Paper Concept:** *"The Builder-Validator Chain"* — A deterministic structure where an agent's output is immediately verified by a secondary specialized test or automated test suite. The agent writes code, attempts to build, runs tests, and self-corrects up to a retry limit before escalating.
 
+> **💡 Why This Phase Exists:** Code without a feedback loop just keeps going in one direction. If the first approach is wrong, you end up with 500 lines of wrong code instead of catching it at line 50. The Builder-Validator pattern is like pairing a junior dev (writes code) with a senior reviewer (checks it). Neither is useful alone — generation without verification is vibe coding; verification without generation is just complaining. **On paper:** Code a small piece. Test it. Fix bugs. Repeat. If stuck after 3 attempts, step back and reconsider.
+
 ---
 
 ## Step 4.0 — Pre-Implementation Checklist
@@ -144,7 +146,9 @@ If validation fails:
   B. [Simplify the requirement]
   C. [Skip this task and proceed]
   D. [Orchestrator provides manual fix direction]
-```
+  E. **[Git Rollback: e.g., `git reset --hard HEAD` to revert failed attempts]**
+
+> **💡 Source Control as a Safety Net:** Always initialize a git repository (`git init`) before starting Phase 4. If the agent goes down a rabbit hole of failed self-corrections, the Orchestrator can easily revert the workspace using `git stash` or `git checkout .` rather than manually untangling broken code.
 
 ### 4.1.4 — Critic (Self-Review Against Spec)
 
@@ -183,6 +187,8 @@ As tasks are completed, update the execution tracking:
 | T-3.1 | Frontend integration | ⏳ Pending | — | |
 ```
 
+> Use the template at [`templates/task_execution_log.md`](./templates/task_execution_log.md) to document individual task runs if deep logging is needed.
+
 ---
 
 ## Step 4.3 — Incremental Commits & Branch Hygiene
@@ -203,6 +209,18 @@ Types:
 
 Example: `feat(api): add user registration endpoint`
 ```
+
+---
+
+## Step 4.4 — Context Health & Compaction
+
+> **Context window management is critical during implementation.** Code generation eats tokens quickly.
+
+- **Monitor:** Watch your context window capacity.
+- **Warning at ~70%:** When you reach 70% capacity, pause execution. Do not wait until 100% or the agent will crash mid-task.
+- **Handoff Buffer:** Always leave enough context window room to generate the Session Handoff Artifact (Phase 6).
+- **Compaction:** If approaching the limit, request **explicit Orchestrator approval** to perform context compaction.
+  - *Example:* "I am at 75% capacity. Should I generate a handoff artifact and start a new session, or compact the current context (clear early conversation history) to continue?"
 
 ---
 

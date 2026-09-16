@@ -10,6 +10,8 @@ checkpoint: false
 
 > **Paper Concept:** *"Spec-Driven Development"* — AI agents perform significantly better when given formal, standardized requirement documents rather than conversational chat history.
 
+> **💡 Why This Phase Exists:** Without this, you build the wrong thing. The agent codes for 2 hours, then you realize the requirements were ambiguous and half the work is wasted. A 15-minute spec saves 2 hours of wrong code. Specs are cheaper than rewrites. **On paper:** Write what you want in plain sentences, then ask "what would convince me this is done?" — that's your Definition of Done.
+
 ---
 
 ## Step 1.1 — Problem Statement
@@ -70,7 +72,7 @@ Define what the system must *do*. Use concrete, testable language.
 |----|-------------|----------|---------------------|
 | FR-01 | [The system must...] | Must Have | [Given X, When Y, Then Z] |
 | FR-02 | [The system must...] | Should Have | [Given X, When Y, Then Z] |
-| FR-03 | [The system should...] | Nice to Have | [Given X, When Y, Then Z] |
+| FR-03 | [The system should...] | Could Have | [Given X, When Y, Then Z] |
 ```
 
 **Priority Scale (MoSCoW):**

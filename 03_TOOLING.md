@@ -10,6 +10,8 @@ checkpoint: false
 
 > **Critical Rule:** **DISCOVER before you BUILD.** For every capability needed, the agent must first search for existing, battle-tested tools. Only create custom tooling when no adequate solution exists or when integration cost exceeds build cost.
 
+> **💡 Why This Phase Exists:** Without this, you reinvent the wheel. You spend 3 hours writing a custom tool when a well-maintained npm package does the same thing. The ecosystem of skills, MCP servers, and packages is huge — your custom tool should be the last resort, not the first instinct. **On paper:** For each capability you need, Google for 5 minutes before building it yourself.
+
 ---
 
 ## Step 3.0 — Scaffold Consultation
@@ -25,7 +27,7 @@ Before discovering individual tools, check if an existing scaffold can jumpstart
 | A scaffold exists that covers 80%+ of needs | **Adopt it.** Layer project-specific rules on top. |
 | A scaffold covers 50-80% of needs | **Fork or extend it.** Fill gaps with individual tools below. |
 | No adequate scaffold exists | **Proceed to Step 3.1** — assemble tools individually. |
-| Starting from absolute zero (no codebase, no tech stack) | **Check Category 6 in SCAFFOLDS.md** for project-type starters (Next.js, FastAPI, etc.) and **Category 1** for agent harness scaffolds (ECC, agent-project, etc.) |
+| Starting from absolute zero (no codebase, no tech stack) | **Check Category 8 in SCAFFOLDS.md** for project-type starters (Next.js, FastAPI, etc.) and **Category 1** for agent harness scaffolds (ECC, agent-project, etc.) |
 
 ---
 
@@ -105,7 +107,7 @@ For each Tool Need (T-XX):
    └─ If nothing adequate was found in steps 1-5:
       • Document why existing solutions are insufficient.
       • Design the minimal custom tool needed.
-      • Follow the Custom Tool Creation template (Step 3.3).
+      • Follow the Custom Tool Creation template (Step 3.4).
 ```
 
 ---
@@ -256,5 +258,7 @@ Based on the tech stack [chosen in Phase 2], here are the recommended tools:
 ## Phase 3 Output
 
 A fully documented **Harness Configuration** listing every tool the agent has access to, how it was sourced (discovered vs. built), and how to configure it.
+
+> Use the template at [`templates/tool_discovery_report.md`](./templates/tool_discovery_report.md) to document the discovery process.
 
 > **Proceed to [Phase 4: Implementation](./04_IMPLEMENTATION.md)** once the harness is assembled.

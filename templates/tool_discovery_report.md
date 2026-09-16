@@ -6,7 +6,7 @@ type: template
 # Tool Discovery Report — [Project/Feature Name]
 
 > **Date:** [YYYY-MM-DD]  
-> **Execution Plan:** [link to execution_plan.md]
+> **Execution Plan:** [Execution Plan](./execution_plan.md)
 
 ---
 
@@ -28,30 +28,30 @@ type: template
 - **Available:** [Yes/No — tool name]
 - **Adequate:** [Yes/No — reason]
 
-#### Step 2 — MCP Servers
+#### Step 2 — Agent Skills/Plugins
+- **Searched:** [sources checked]
+- **Candidates Found:** [list or "none"]
+
+#### Step 3 — MCP Servers
 - **Searched:** [registries checked]
 - **Candidates Found:**
   | Server Name | Source | Score | Notes |
   |-------------|--------|-------|-------|
   | [name] | [registry] | [X.X] | [notes] |
 
-#### Step 3 — Package Registries
+#### Step 4 — Package Registries
 - **Searched:** [registries checked]
 - **Candidates Found:**
   | Package | Registry | Score | Notes |
   |---------|----------|-------|-------|
   | [name] | [npm/pypi/etc] | [X.X] | [notes] |
 
-#### Step 4 — APIs
+#### Step 5 — APIs
 - **Searched:** [sources checked]
 - **Candidates Found:**
   | API | Provider | Score | Notes |
   |-----|----------|-------|-------|
   | [name] | [provider] | [X.X] | [notes] |
-
-#### Step 5 — Agent Skills/Plugins
-- **Searched:** [sources checked]
-- **Candidates Found:** [list or "none"]
 
 #### Step 6 — Custom Build Required?
 - **Required:** [Yes/No]

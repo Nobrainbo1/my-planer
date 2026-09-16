@@ -22,15 +22,34 @@ This workflow is a **modular system of Markdown files**, each handling one phase
 
 | File | Phase | Purpose |
 |------|-------|---------|
+| [`WHY_THIS_WORKS.md`](./WHY_THIS_WORKS.md) | **Start here** | The thinking behind every design decision — teaches you to build workflows without AI |
+| [`GLOSSARY.md`](./GLOSSARY.md) | Reference | Plain-English definitions of AI coding terms (model, harness, context, handoff, etc.) |
 | [`AGENTS.md`](./AGENTS.md) | Global | Universal agent rules, identity & orchestrator mindset |
-| [`SCAFFOLDS.md`](./SCAFFOLDS.md) | Reference | Catalog of scaffolds, frameworks, and harnesses by project type |
+| [`SCAFFOLDS.md`](./SCAFFOLDS.md) | Reference | Catalog of scaffolds, skills, MCP servers, and harnesses by project type |
 | [`01_DISCOVERY.md`](./01_DISCOVERY.md) | Phase 1 | Intent definition, constraints, stakeholder alignment |
 | [`02_PLANNING.md`](./02_PLANNING.md) | Phase 2 | Context engineering, execution plan, detail-level toggle |
 | [`03_TOOLING.md`](./03_TOOLING.md) | Phase 3 | Tool & skill discovery, evaluation, and creation (MCP, Skills, APIs) |
 | [`04_IMPLEMENTATION.md`](./04_IMPLEMENTATION.md) | Phase 4 | Builder-Validator loop, Actor-Critic pattern |
 | [`05_VERIFICATION.md`](./05_VERIFICATION.md) | Phase 5 | Self-review, evals, security scanning, DoD checklist |
 | [`06_DELIVERY.md`](./06_DELIVERY.md) | Phase 6 | PR packaging, deployment, handoff, retrospective |
-| [`templates/`](./templates/) | — | Intent brief, execution plan, tool discovery report, retrospective, **skill creation guide** |
+| [`templates/`](./templates/) | — | Intent brief, execution plan, tool discovery, handoff, verification, task log, retrospective |
+
+## Reading Order — For Humans
+
+```
+📖 If you're learning this system, read in this order:
+
+1. WHY_THIS_WORKS.md        → 20 min — understand the thinking behind every phase
+2. README.md (this file)    →  5 min — see the full structure
+3. GLOSSARY.md              →  reference — look up terms as you go
+4. AGENTS.md                →  5 min — understand agent identity + your role as orchestrator
+5. 01_DISCOVERY.md          →  try it — fill out templates/intent_brief.md for a real project
+6. 02_PLANNING.md           →  fill out templates/execution_plan.md
+7. SCAFFOLDS.md + 03_TOOLING→  when you need tools — browse the catalog
+8. 04_IMPLEMENTATION.md     →  during building
+9. 05_VERIFICATION.md       →  before shipping
+10. 06_DELIVERY.md          →  ship it, then fill out templates/retrospective.md
+```
 
 ---
 
@@ -52,13 +71,19 @@ These files use **standard Markdown with optional YAML frontmatter**, making the
 
 ## How to Use This Template
 
-### For a New Project
+### Quick Start — Minimal Path
+For small projects or simple scripts, you don't need all 6 phases. Use this 3-step minimum:
+1. **Drop `AGENTS.md`** into your project root.
+2. **Write a quick `intent_brief.md`** (Phase 1) so the agent knows what to build.
+3. **Point the agent at `04_IMPLEMENTATION.md`** and say "Build this."
+
+### Full Workflow — For New Projects
 1. **Copy this entire `template_workflow/` directory** into your project root (or a `.workflow/` subdirectory).
 2. **Start at `01_DISCOVERY.md`** — fill out the Intent Brief template for your project.
 3. **Progress sequentially** through each phase, using checkpoints to pause and review.
 4. **Customize** — as the project matures, the templates in `templates/` become your project-specific specs.
 
-### For an Existing Project
+### Full Workflow — For Existing Projects
 1. **Start at `03_TOOLING.md`** — audit your existing toolchain and fill gaps.
 2. **Use `02_PLANNING.md`** to create a structured plan for the next feature or refactor.
 3. **Follow `04_IMPLEMENTATION.md`** through `06_DELIVERY.md` for execution.
@@ -67,35 +92,32 @@ These files use **standard Markdown with optional YAML frontmatter**, making the
 
 ## The Agentic SDLC at a Glance
 
-```
-┌──────────────────────────────────────────────────────────────────┐
-│                    ORCHESTRATOR (Human)                          │
-│         Judgment · Verification · Direction · Governance         │
-└──────────────┬───────────────────────────────────┬───────────────┘
-               │                                   │
-               ▼                                   ▼
-  ┌─────────────────────┐             ┌─────────────────────────┐
-  │  Phase 1: DISCOVERY  │────────▶   │  Phase 2: PLANNING       │
-  │  Intent & Constraints│            │  Context & Execution Plan │
-  └──────────┬──────────┘             └──────────┬──────────────┘
-             │                                    │
-             │        🛑 CHECKPOINT 1             │
-             │        (Orchestrator Approval)      │
-             │                                    │
-             ▼                                    ▼
-  ┌─────────────────────┐             ┌─────────────────────────┐
-  │  Phase 3: TOOLING    │────────▶   │  Phase 4: IMPLEMENTATION │
-  │  Discover & Equip    │            │  Builder-Validator Loop   │
-  └──────────┬──────────┘             └──────────┬──────────────┘
-             │                                    │
-             │        🛑 CHECKPOINT 2             │
-             │        (Orchestrator Review)        │
-             │                                    │
-             ▼                                    ▼
-  ┌─────────────────────┐             ┌─────────────────────────┐
-  │  Phase 5: VERIFY     │────────▶   │  Phase 6: DELIVERY       │
-  │  Evals & DoD         │            │  Package & Retrospective  │
-  └─────────────────────┘             └─────────────────────────┘
+```text
+ ┌─────────────────────────────────────────────────────────┐
+ │                  ORCHESTRATOR (Human)                   │
+ │       Judgment · Verification · Direction · Safety      │
+ └───────────────────────────┬─────────────────────────────┘
+                             │
+ ┌───────────────────────────▼─────────────────────────────┐
+ │ 1. DISCOVERY          ▶   2. PLANNING                   │
+ │ (Intent & Scope)          (Context & Execution Plan)    │
+ └───────────────────────────┬─────────────────────────────┘
+                             │
+                    🛑 CHECKPOINT 1: Plan Approval
+                             │
+ ┌───────────────────────────▼─────────────────────────────┐
+ │ 3. TOOLING            ▶   4. IMPLEMENTATION             │
+ │ (Discover & Equip)        (Builder-Validator Loop)      │
+ └───────────────────────────┬─────────────────────────────┘
+                             │
+                    🛑 CHECKPOINT 2: Implementation Review
+                             │
+ ┌───────────────────────────▼─────────────────────────────┐
+ │ 5. VERIFICATION       ▶   6. DELIVERY                   │
+ │ (Evals & DoD)             (Package & Retrospective)     │
+ └───────────────────────────┬─────────────────────────────┘
+                             │
+                    🛑 CHECKPOINT 3: Deployment Approval
 ```
 
 ---

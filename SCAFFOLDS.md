@@ -92,6 +92,19 @@ ECC Architecture:
 | **SDL-MCP** | Community | Symbol Delta Ledger — compacts large codebases into high-signal context for coding agents. | Large codebases with token budget pressure |
 | **Basemind** | Community | Unified context layer (code-maps, RAG, shared memory) over MCP. | Coding agents needing structured codebase awareness |
 
+### Free & Local Memory Alternatives
+
+Not every project needs an MCP server or a cloud service. These lightweight options work anywhere:
+
+| Approach | How It Works | Setup | Best For |
+|----------|-------------|-------|----------|
+| **Plain Markdown `.memory/` directory** | Create a `.memory/` folder in your project root. Store decision logs, context summaries, and handoff artifacts as `.md` files. Agent reads them at session start. | Zero setup — just create the directory | Any project, any harness. Simplest possible memory. |
+| **Obsidian Vault** | Use an [Obsidian](https://obsidian.md/) vault as your project knowledge base. Interlinked markdown notes with tags, backlinks, and graph view. Free for local use. | Install Obsidian, create vault in project | Teams who want visual knowledge graphs and bidirectional linking |
+| **Logseq** | Open-source, local-first knowledge base with outliner-style notes and graph view. Stores as plain Markdown/Org files. | Install [Logseq](https://logseq.com/), point to project directory | Privacy-focused teams who want an open-source Obsidian alternative |
+| **`AGENTS.md` memory section** | Add a `## Memory` section to your project's AGENTS.md. List key decisions, patterns, and warnings. Loaded automatically by most harnesses. | Zero setup — already in your workflow | Quick, minimal memory for small projects |
+
+> **💡 Recommendation:** Start with `.memory/` directory + handoff artifacts. Upgrade to Obsidian or an MCP memory server only if your project spans 10+ sessions or involves multiple agents.
+
 ---
 
 ## Category 5: Agent Skills (SKILL.md Ecosystem)
@@ -175,7 +188,7 @@ my-project/
 
 | Project Type | Recommended Scaffolds | Notes |
 |-------------|----------------------|-------|
-| **Web App (Full-Stack)** | Next.js starter, T3 Stack, create-react-app | Layer your AGENTS.md on top |
+| **Web App (Full-Stack)** | Next.js starter, T3 Stack, Vite | Layer your AGENTS.md on top |
 | **API / Backend** | FastAPI template, Express generator, Hono starter | Add OpenAPI spec for agent context |
 | **CLI Tool** | oclif, Commander.js, Click (Python), Clap (Rust) | Agents excel at CLI tools |
 | **Mobile App** | Expo (React Native), Flutter starter | Specify platform constraints in Intent Brief |
@@ -184,6 +197,8 @@ my-project/
 | **Browser Extension** | Plasmo, WXT, chrome-extension-boilerplate | Tight security constraints needed |
 | **MCP Server** | MCP TypeScript SDK, MCP Python SDK | Use official SDK templates |
 | **Documentation Site** | Docusaurus, Astro Starlight, MkDocs | Agents can generate + maintain docs |
+
+> **💡 Design Reference:** For web UX/UI design inspiration, browse [Mobbin](https://mobbin.com/discover/apps/web/latest) — a curated library of real-world web and mobile app designs. Not free, but an excellent starting point for layout patterns, component design, and user flows before building.
 
 ---
 
@@ -264,7 +279,7 @@ topic:mcp-server OR topic:agent-skills OR topic:agentic-workflow
 |----------|-----------|---------|
 | **npm** | `npx skills search <keyword>` | `npx skills search security` |
 | **npm** | Search `mcp-server-*` packages | `npm search mcp-server-postgres` |
-| **PyPI** | Search `mcp-server-*` packages | `pip search mcp-server` |
+| **PyPI** | Browse [pypi.org/search/?q=mcp-server](https://pypi.org/search/?q=mcp-server) | `uv add mcp-server-*` (recommended — see [uv docs](https://docs.astral.sh/uv/)) |
 | **crates.io** | Search `mcp` tagged crates | For Rust MCP servers |
 
 ### Tier 4: Community & Social
@@ -273,7 +288,7 @@ topic:mcp-server OR topic:agent-skills OR topic:agentic-workflow
 |--------|-----------------|
 | **GitHub Trending** | Repos tagged `mcp`, `agent-skills`, `agentic` |
 | **Reddit** | r/ClaudeAI, r/cursor, r/LocalLLaMA for community tools |
-| **X/Twitter** | Follow @anthropaborgs, @addyosmani, @mcaborgs for skill announcements |
+| **X/Twitter** | Follow @AnthropicAI, @addyosmani for skill announcements |
 | **Discord** | Claude Code, Cursor, Cline community servers |
 
 ### Evaluation Checklist for New Discoveries
