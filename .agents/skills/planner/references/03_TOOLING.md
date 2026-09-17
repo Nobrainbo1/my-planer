@@ -77,6 +77,22 @@ For each Tool Need (T-XX):
       • GitHub: "SKILL.md" in:path <your-domain>
       → If YES: Install with `npx skills add <repo> --skill <name>`, evaluate (Step 3.3).
 
+2b. FOR MODE A PIPELINE AGENTS: SEARCH PERSONA LIBRARIES
+   └─ Does an existing persona match each agent the pipeline will create?
+      Sources to check (in order):
+      • msitarzewski/agency-agents — 279+ division-organized personas (engineering,
+        design, product, testing, security, and 13 more divisions)
+      • VoltAgent/awesome-agent-skills and the sources above for persona variants
+      → If YES: Map each pipeline agent to the single most relevant persona file.
+        Record exact repository-relative paths plus a pinned commit SHA in
+        EXECUTION_PLAN.md. Do NOT clone or install during planning. Retrieval
+        happens at execution time fetching only the mapped files with
+        no-cone sparse checkout (leading-slash file patterns; cone mode
+        rejects file paths — see planner SKILL.md Step 4A for verified
+        commands). Evaluate fetched personas with the matrix in Step 3.3
+        before adopting their guidance.
+   → If NO: Document why no persona fits; write the role from the intent.
+
 3. SEARCH MCP SERVER REGISTRIES
    └─ Is there an existing MCP server that provides this capability?
       Sources to check (in order):

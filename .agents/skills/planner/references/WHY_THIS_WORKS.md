@@ -134,9 +134,13 @@ Builder writes code → Validator checks it → Builder fixes issues → Validat
 
 This is like having a junior developer (Builder) paired with a senior reviewer (Validator). The Builder generates; the Validator verifies. Neither is useful alone — generation without verification is vibe coding; verification without generation is just complaining.
 
-**Why 3 retries then escalate?** Because self-correction has diminishing returns. If the agent can't fix a problem in 3 attempts, it's almost certainly missing information, not making random errors. At that point, asking the human is *cheaper* than trying a 4th time.
+**Why a shared five-round fix budget?** A bounded correction loop prevents endless retries. Each task gets one initial attempt, excluded from the budget, then at most 5 total fix rounds shared across build, test, spec review, and quality/test review. Expected TDD Red is not a fix round. Persist the count across sessions and phases; stop and escalate after 5 failed fix rounds, with no automatic sixth round. See the [Phase 4 policy](./04_IMPLEMENTATION.md).
 
-**On paper:** Code a small piece. Test it. Fix bugs. Repeat. If stuck after 3 attempts, step back and reconsider.
+For fix rounds 4–5, request a higher-tier model if available. Record actual availability and selection; never claim a model switch that did not occur. If unavailable, record the limitation and use a fresh reviewer at the available tier. If subagent review is unavailable, acceptance remains blocked unless the [canonical human-review fallback](./04_IMPLEMENTATION.md#401--canonical-fallback-when-fresh-agents-are-unavailable) is authorized and both ordered reviews approve the candidate.
+
+Escalate security issues, scope changes, destructive actions, and missing permissions immediately, regardless of the remaining budget.
+
+**On paper:** Code a small piece. Test it. Investigate failures before fixing them. Track the shared fix count and seek human help when the budget is exhausted; safety concerns cannot wait.
 
 ---
 
@@ -182,11 +186,11 @@ These are style choices — the system works fine if you swap them:
 - **File-per-phase structure.** You could put everything in one big file. Separate files just make it easier for agents to load only what they need (progressive disclosure).
 - **MoSCoW prioritization.** Use whatever prioritization you like — numbered priority, T-shirt sizing, whatever works for your team.
 
-### When to Break All the Rules
+### Scale the Process, Keep the Gates
 
-- **Hackathons / prototypes:** Skip Phases 1-3 entirely. Just build. The cost curve doesn't apply when you're exploring, not shipping.
-- **Emergency fixes:** Skip to Phase 4 (just fix the bug), then do a quick Phase 5 (verify it works). Do the retrospective later.
-- **Tiny tasks:** A 10-minute fix doesn't need a spec. Use your judgment.
+- **Hackathons / prototypes:** Use a timeboxed Spike with a brief intent and small execution plan. Obtain explicit approval of both before experiment code or scaffolding.
+- **Emergency fixes:** Use a focused One-Shot specification and plan. Read-only diagnosis can start immediately; implementation still needs both approvals and fresh verification.
+- **Tiny tasks:** Keep the intent and plan short, but retain explicit approvals, acceptance criteria, and applicable verification. Combine phase work where useful; never omit its approval or evidence requirements.
 
 ### How to Create Your Own Phase
 

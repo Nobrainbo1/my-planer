@@ -1,219 +1,130 @@
 ---
-description: "Phase 6: Delivery, Handoff & Retrospective. Package the work, deploy, and capture learnings for future iterations."
+description: "Phase 6: Whole-branch review, approval-gated delivery, safe workspace retention, handoff, and retrospective."
 phase: 6
 checkpoint: true
 ---
 
 # Phase 6: Delivery, Handoff & Retrospective
 
-> **Goal:** Package the verified implementation for deployment, create a clear handoff document, and conduct a retrospective to improve the workflow for the next iteration.
+> **Goal:** Package verified work, obtain separate action approvals, and preserve evidence and lessons for the next session. Delivery can be an uncommitted handoff; it does not always mean deployment.
 
-> **Paper Concept:** The paper emphasizes that agentic engineering is an **iterative discipline**. Each project should feed learnings back into the harness configuration, improving agent performance over time.
+## Step 6.0 — Whole-Branch Completion Review
 
-> **💡 Why This Phase Exists:** Without this, you ship and immediately forget everything you learned. Next project, same mistakes. The retrospective loop makes the template *improve itself* — after every project, you update the rules, add new skills, remove tools that didn't work. Project 10 runs smoother than project 1 because the workflow evolved. This phase also handles **handoffs** — passing context to the next session or team member, because the model is stateless and starts every new session knowing nothing. **On paper:** Write down what went well, what went wrong, and what to change next time.
+Before any merge, review the **entire branch against the approved base**, not only the last commit or individual task diffs.
 
----
+1. Read the approved brief, plan, task ledger, and [verification report](../resources/templates/verification_report.md). Require fresh Phase 5 evidence and transition approval. Identify the base branch and merge base, current HEAD, and uncommitted content identity.
+2. Inspect all included commits, the complete base-to-candidate diff, staged and unstaged changes, and untracked files. For an uncommitted handoff, include the intended working-tree diff in the candidate. Preserve unrelated work; do not include it in the changeset or silently claim it was reviewed.
+3. Use a fresh reviewer for broad spec compliance, then a distinct fresh quality/test reviewer after spec approval. Review interactions between tasks, contracts, security, regressions, tests, documentation, dependencies, and deployment effects. Record reviewer identities, actual models if known, exact reviewed state, findings, and verdicts. If subagent reviews are unavailable, apply only the [Phase 4 canonical fallback](./04_IMPLEMENTATION.md#401--canonical-fallback-when-fresh-agents-are-unavailable): two distinct named human reviewers, neither the implementer, spec first then quality/test. Record human fallback authorization and each review's exact candidate, scope, evidence, and verdict. Missing either approval blocks completion; single-agent permission covers implementation only and self-review never satisfies independence. Whole-branch reviews are additional to each task's review pair.
+4. Assign findings to their owning task and use its remaining shared fix budget. Follow [four-phase debugging](./05_VERIFICATION.md), revalidate every fix, repeat ordered reviews, and run fresh broad required suites on the final candidate. A changed base, conflict resolution, or candidate change invalidates affected prior approval and evidence. Do not merge until the new state is reviewed and verified.
+5. Inspect git history and status for accidental files, secrets, unrelated commits, unresolved conflicts, or unintended staging. Record the result. Do not rewrite history or discard work merely to make it look clean.
+
+A required failure or missing check blocks merge and delivery readiness. Required tests cannot be waived. Only nonblocking advisories with explicit human acceptance within the approved brief's security thresholds may remain. Escalate security, scope, destructive actions, and missing permissions immediately; do not wait for five failed fix rounds.
 
 ## Step 6.1 — PR / Changeset Packaging
 
-Whether using Git PRs, patch files, or direct deployment, create a structured summary of all changes.
+Prepare a local summary within approved file scope. Creating a PR or publishing artifacts requires explicit approval. Include:
 
 ```markdown
 ### Change Package Summary
-
-#### Title
-[Concise title describing the overall change]
-
-#### Description
-[2-3 paragraph description of what was built, why, and how it relates to the original Intent Brief]
-
-#### Change Statistics
-- **Files created:** [count]
-- **Files modified:** [count]
-- **Files deleted:** [count]
-- **Total lines added:** [count]
-- **Total lines removed:** [count]
-- **Tests added:** [count]
-- **Dependencies added:** [list with versions]
-- **Dependencies removed:** [list]
-
-#### Changes by Component
-| Component | Files Changed | Summary |
-|-----------|--------------|---------|
-| [e.g., API Layer] | [list] | [what changed] |
-| [e.g., Frontend] | [list] | [what changed] |
-| [e.g., Database] | [list] | [what changed] |
-| [e.g., Configuration] | [list] | [what changed] |
-
-#### Verification Evidence
-- Unit tests: ✅ [X/Y passing]
-- Integration tests: ✅ [X/Y passing]
-- Lint: ✅ Clean
-- Security audit: ✅ No critical issues
-- Performance: ✅ Targets met
-
-#### Breaking Changes
-- [ ] None
-- [ ] Yes — [describe breaking changes and migration path]
-
-#### Rollback Plan
-[How to undo these changes if something goes wrong in production]
+- Title and purpose: [relation to approved brief]
+- Candidate: [branch, base/current revision, uncommitted diff identity]
+- Statistics: [files and lines added/changed/deleted; tests; dependency changes]
+- Components: [paths and behavior changes]
+- Verification: [report and evidence IDs, actual statuses and counts]
+- Whole-branch reviews: [reviewers, reviewed state, verdicts]
+- Breaking changes and migration path: [details or none]
+- Blocking issues: [details or none; never move required failures to advisories]
+- Accepted nonblocking advisories: [impact, owner, approval reference]
+- Recovery plan: [trigger, preserved state, exact proposed actions, data impact, approval boundary]
+- Requested next action: [retain local handoff, commit, PR, or deployment decision]
 ```
 
----
+Do not prefill successful test or security results. Copy only evidence from the verified candidate. A recovery plan is not permission to execute it. No automatic destructive rollback is allowed.
+
+### Separate Action Approvals
+
+| Action | Required approval and checks |
+|--------|------------------------------|
+| Commit | Explicit commit approval; inspect status, diffs, and recent history; stage only owned intended files; never secrets. |
+| Push | Separate push approval naming remote and branch; inspect outgoing commits. |
+| Create PR | Explicit PR approval; inspect complete branch diff, base, and tracking. |
+| Merge | Separate merge approval for the reviewed candidate and target; complete whole-branch review and fresh checks first. |
+| Deploy | Separate environment-specific deployment approval at Checkpoint 3, including candidate and recovery plan. |
+| Delete worktree | Separate deletion approval for the exact path after preservation and cleanliness checks. |
+
+Plan approval, task acceptance, or approval of one action does not grant the others. Preserve uncommitted work when commit approval is absent. No forced push, reset, clean, branch deletion, or history rewrite is implied by this protocol. Any destructive recovery needs its own explicit approval and impact review.
 
 ## Step 6.2 — Deployment Checklist
 
-```markdown
-### Deployment Checklist
+Before requesting deployment approval:
 
-#### Pre-Deployment
-- [ ] All verification checks pass (Phase 5).
-- [ ] Environment variables configured for target environment.
-- [ ] Database migrations ready (if applicable).
-- [ ] Feature flags configured (if applicable).
-- [ ] Monitoring and alerting set up for new endpoints/features.
-- [ ] Rollback plan documented and tested.
+- [ ] Phase 5 checks and whole-branch reviews approve the exact delivery candidate.
+- [ ] No required tests or checks are failed, blocked, skipped, or unrun.
+- [ ] Target environment, credentials, permissions, and configuration are confirmed without logging secrets.
+- [ ] Database migrations and data impact are reviewed; schema changes need separate permission.
+- [ ] Feature flags, monitoring, alerts, and health checks are ready where applicable.
+- [ ] Recovery steps, triggers, backups, data-loss risk, and responsible owner are documented and tested safely in an authorized environment.
+- [ ] Exact deployment sequence and post-deployment smoke checks are recorded.
 
-#### Deployment Steps
-1. [Step 1: e.g., Run database migrations]
-2. [Step 2: e.g., Deploy backend service]
-3. [Step 3: e.g., Deploy frontend build]
-4. [Step 4: e.g., Verify health checks]
-5. [Step 5: e.g., Enable feature flag]
-
-#### Post-Deployment Verification
-- [ ] Health check endpoints responding.
-- [ ] Core user flows working (manual smoke test).
-- [ ] Error rates normal (no spike in monitoring).
-- [ ] Performance within expected range.
-- [ ] Logs clean (no unexpected errors).
+```text
+CHECKPOINT 3 — Deployment Approval
+[SUMMARY] Actual verification verdict and whole-branch review references.
+[CANDIDATE] Revision, artifact identity, target environment.
+[RISKS] Known nonblocking advisories and their human acceptance; any blockers prevent deployment.
+[RECOVERY] Proposed steps, triggers, data impact, and required permissions.
+[DECISION NEEDED] Approve deployment of this candidate to this environment?
 ```
 
-#### 🛑 FINAL CHECKPOINT — Deployment Approval
+After approval, execute only the approved steps. Record command/cwd/revision/exit/output evidence for each step. Verify health, core user flows, error rates, performance, and logs with fresh results. If checks fail, stop rollout, preserve evidence, and escalate immediately for security or destructive recovery. Do not automatically run a rollback or assume deployment approval authorizes destructive database restoration.
 
-```
-🛑 CHECKPOINT REQUEST — Ready for Deployment
-
-[SUMMARY] All verification passed. Change package documented.
-[ENVIRONMENT] [staging / production]
-[RISK LEVEL] [Low / Medium / High]
-[ROLLBACK PLAN] [documented above]
-
-[DECISION NEEDED] Approve deployment?
-```
-
----
+If deployment is not requested or approved, hand off artifacts and record `NOT DEPLOYED`; do not claim a live release.
 
 ## Step 6.3 — Documentation Update
 
-```markdown
-### Documentation Deliverables
+Update only approved deliverables as applicable: README setup and usage, change log, API documentation, architecture records, and operations runbook. Do not create or change extra files without scope approval. Do not add comments unless requested.
 
-- [ ] **README.md** — Updated with new features, setup instructions, and usage.
-- [ ] **CHANGELOG.md** — Entry added for this release.
-- [ ] **API Documentation** — Updated with new endpoints (if applicable).
-- [ ] **Architecture Documentation** — Updated if architecture changed.
-- [ ] **Runbook / Ops Guide** — Updated with new operational procedures (if applicable).
-```
-
-### CHANGELOG Entry Template
 ```markdown
 ## [Version] — [Date]
-
 ### Added
-- [New feature or capability]
-
+- [New feature]
 ### Changed
-- [Modified behavior or refactored component]
-
+- [Modified behavior]
 ### Fixed
-- [Bug fix description]
-
+- [Bug fix]
 ### Removed
-- [Deprecated feature or file removed]
-
+- [Approved removal]
 ### Security
-- [Security-related changes]
+- [Security change]
 ```
 
----
+## Step 6.3.5 — Session Handoff and Workspace Retention
 
-## Step 6.3.5 — Session Handoff Artifact
+Use [the handoff template](../resources/templates/handoff_artifact.md) when that artifact is authorized; otherwise record handoff in the chosen local ledger. Preserve:
 
-If the project spans multiple sessions, or if work is being passed to another agent or team member, create a **Handoff Artifact** before ending the session.
+- System state: what works, what is partial, and what is blocked.
+- Workspace path, branch, base/current revision, owned diff identity, and unrelated changes.
+- Exact ledger path, current task, consumed fix rounds, pending reviews, evidence references, and next command/action.
+- Key decisions and safe rulings with rationale, affected requirements, impact, and reversal path.
+- Unresolved issues, accepted advisories, approvals granted or still needed, and files to read first.
 
-> **Why this matters:** Models are stateless — the next session starts with zero context. A handoff artifact is the bridge between sessions. Without it, the next agent wastes time rediscovering decisions, re-reading files, and potentially contradicting prior work.
+Create this record before compaction, session end, agent/model changes, or human handoff. On resume, compare the actual workspace with the saved state and revalidate stale evidence.
 
-```markdown
-### Handoff Checklist
+### Git Cleanliness and Worktree Cleanup
 
-- [ ] System state documented (what exists, what's working, what's partial)
-- [ ] Key decisions recorded with rationale
-- [ ] Unresolved blockers and tech debt listed
-- [ ] Entry points identified (files to read first)
-- [ ] Next action items prioritized
-- [ ] Context warnings noted (non-obvious gotchas)
-```
+Inspect status, staged/unstaged diffs, untracked files, history, and the worktree list. Record clean or dirty truthfully for each relevant workspace. Dirty uncommitted delivery is allowed as a retained handoff, but is not a clean completed merge or deployment.
 
-> Use the template at [`handoff_artifact.md`](../resources/templates/handoff_artifact.md) to structure the handoff.
-
-**When to create a handoff:**
-- Context window approaching ~70% capacity (create handoff *before* compaction)
-- End of a work session (even if the project isn't complete)
-- Before switching to a different agent or model
-- When handing off to a human team member
-
----
+Before deleting a worktree, confirm separate human approval of its exact path, no active agent uses it, and all required changes and ledger/output evidence are durably preserved outside it in an approved location. Check for uncommitted and untracked work; unresolved content blocks deletion. Do not force removal or delete a branch implicitly. If permission or safe preservation is absent, retain the worktree and report cleanup pending. After authorized cleanup, recheck worktree list and status to prove the result.
 
 ## Step 6.4 — Retrospective
 
-The most important step for long-term improvement. Capture learnings and feed them back into the workflow.
-
-The retrospective should cover:
-- **What went well** — tools, processes, and decisions that saved time or prevented issues
-- **What could be improved** — friction points, rework, and missed opportunities
-- **What surprised you** — unexpected behaviors, edge cases, or learnings
-- **Agent performance metrics** — autonomy rate, escalation count, self-corrections, time saved
-- **Workflow improvements** — concrete actions to apply to the template for the next project
-- **Tools & harness learnings** — what worked, what didn't, what's missing
-- **Decision log** — key decisions and rationale for future reference
-
-> Use the template at [`retrospective.md`](../resources/templates/retrospective.md) for the full structure.
-
----
+Use [the retrospective template](../resources/templates/retrospective.md) only within approved output scope. Capture what worked, what failed, surprises, tools and harness limitations, safe rulings, and decision rationale. Include task counts, shared fix rounds, escalations, unavailable models/reviewers, and verification gaps. Do not invent time-saved metrics or claim a model upgrade without evidence.
 
 ## Step 6.5 — Harness Evolution
 
-Based on the retrospective, update the workflow template itself.
-
-```markdown
-### Harness Updates
-
-#### Rules to Add to AGENTS.md
-- [New rule based on lessons learned]
-
-#### New Tools to Add to Phase 3 Defaults
-- [Tool discovered during this project that should be standard]
-
-#### Templates to Update
-- [Which template file] — [what to add/change]
-
-#### Workflow Process Changes
-- [Any phase-level changes to the workflow itself]
-```
-
----
+Propose concrete improvements to rules, tools, templates, and workflow based on evidence. Record expected impact and owner. Apply them only under a separately approved scope; a retrospective does not authorize modifying the harness or installing tools automatically.
 
 ## Phase 6 Output
 
-- ✅ Change package documented and ready for deployment.
-- ✅ Deployment executed (or artifacts handed off).
-- ✅ Documentation updated.
-- ✅ Session handoff artifact created (if multi-session).
-- ✅ Retrospective completed.
-- ✅ Workflow improvements captured and applied.
+Report actual state for each item: changeset prepared, whole-branch review, verification, action approvals, commit/push/merge/deployment, git cleanliness, workspace retention or approved cleanup, handoff, retrospective, and proposed improvements. Use `COMPLETE`, `BLOCKED`, `PENDING APPROVAL`, or justified `N/A`; no default completion claims.
 
----
-
-> **🔄 CYCLE COMPLETE.** Return to [Phase 1: Discovery](./01_DISCOVERY.md) for the next feature, iteration, or project.
+Return to [Phase 1: Discovery](./01_DISCOVERY.md) for the next approved iteration. Retained work and unresolved blockers remain visible in the ledger.

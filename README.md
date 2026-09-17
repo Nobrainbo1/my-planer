@@ -22,34 +22,32 @@ This workflow is a **modular system of Markdown files**, each handling one phase
 
 | File | Phase | Purpose |
 |------|-------|---------|
-| [`WHY_THIS_WORKS.md`](./WHY_THIS_WORKS.md) | **Start here** | The thinking behind every design decision — teaches you to build workflows without AI |
-| [`GLOSSARY.md`](./GLOSSARY.md) | Reference | Plain-English definitions of AI coding terms (model, harness, context, handoff, etc.) |
-| [`AGENTS.md`](./AGENTS.md) | Global | Universal agent rules, identity & orchestrator mindset |
-| [`SCAFFOLDS.md`](./SCAFFOLDS.md) | Reference | Catalog of scaffolds, skills, MCP servers, and harnesses by project type |
-| [`01_DISCOVERY.md`](./01_DISCOVERY.md) | Phase 1 | Intent definition, constraints, stakeholder alignment |
-| [`02_PLANNING.md`](./02_PLANNING.md) | Phase 2 | Context engineering, execution plan, detail-level toggle |
-| [`03_TOOLING.md`](./03_TOOLING.md) | Phase 3 | Tool & skill discovery, evaluation, and creation (MCP, Skills, APIs) |
-| [`04_IMPLEMENTATION.md`](./04_IMPLEMENTATION.md) | Phase 4 | Builder-Validator loop, Actor-Critic pattern |
-| [`05_VERIFICATION.md`](./05_VERIFICATION.md) | Phase 5 | Self-review, evals, security scanning, DoD checklist |
-| [`06_DELIVERY.md`](./06_DELIVERY.md) | Phase 6 | PR packaging, deployment, handoff, retrospective |
-| [`templates/`](./templates/) | — | Intent brief, execution plan, tool discovery, handoff, verification, task log, retrospective |
+| [`WHY_THIS_WORKS.md`](./.agents/skills/planner/references/WHY_THIS_WORKS.md) | **Start here** | The thinking behind every design decision — teaches you to build workflows without AI |
+| [`GLOSSARY.md`](./.agents/skills/planner/references/GLOSSARY.md) | Reference | Plain-English definitions of AI coding terms (model, harness, context, handoff, etc.) |
+| [`AGENTS.md`](./.agents/AGENTS.md) | Global | Universal agent rules, identity & orchestrator mindset |
+| [`SCAFFOLDS.md`](./.agents/skills/planner/references/SCAFFOLDS.md) | Reference | Catalog of scaffolds, skills, MCP servers, and harnesses by project type |
+| [`01_DISCOVERY.md`](./.agents/skills/planner/references/01_DISCOVERY.md) | Phase 1 | Scope classification, discovery interviews, live domain glossary, intent approval |
+| [`02_PLANNING.md`](./.agents/skills/planner/references/02_PLANNING.md) | Phase 2 | Exact execution tasks, architecture decision gates, preflight conflict checks |
+| [`03_TOOLING.md`](./.agents/skills/planner/references/03_TOOLING.md) | Phase 3 | Tool, skill, and optional persona discovery and evaluation |
+| [`04_IMPLEMENTATION.md`](./.agents/skills/planner/references/04_IMPLEMENTATION.md) | Phase 4 | Fresh subagents, ordered independent reviews, TDD, persistent execution ledger |
+| [`05_VERIFICATION.md`](./.agents/skills/planner/references/05_VERIFICATION.md) | Phase 5 | Fresh evidence, systematic debugging, security checks, requirement coverage |
+| [`06_DELIVERY.md`](./.agents/skills/planner/references/06_DELIVERY.md) | Phase 6 | Whole-branch review, approved delivery, handoff, retrospective |
+| [`templates/`](./.agents/skills/planner/resources/templates/) | — | Intent brief, context, execution plan, ADR, tool discovery, handoff, verification, task log, retrospective |
 
 ## Reading Order — For Humans
 
-```
-📖 If you're learning this system, read in this order:
+Use the links in the Structure table. Phase and supporting references live in `.agents/skills/planner/references/`; shipped templates live in `.agents/skills/planner/resources/templates/`.
 
-1. WHY_THIS_WORKS.md        → 20 min — understand the thinking behind every phase
-2. README.md (this file)    →  5 min — see the full structure
-3. GLOSSARY.md              →  reference — look up terms as you go
-4. AGENTS.md                →  5 min — understand agent identity + your role as orchestrator
-5. 01_DISCOVERY.md          →  try it — fill out templates/intent_brief.md for a real project
-6. 02_PLANNING.md           →  fill out templates/execution_plan.md
-7. SCAFFOLDS.md + 03_TOOLING→  when you need tools — browse the catalog
-8. 04_IMPLEMENTATION.md     →  during building
-9. 05_VERIFICATION.md       →  before shipping
-10. 06_DELIVERY.md          →  ship it, then fill out templates/retrospective.md
-```
+1. `WHY_THIS_WORKS.md` — understand the thinking behind every phase.
+2. `README.md` (this file) — see the full structure.
+3. `GLOSSARY.md` — look up terms as you go.
+4. `.agents/AGENTS.md` — understand agent identity and your role as orchestrator.
+5. `01_DISCOVERY.md` — draft project-local `INTENT_BRIEF.md`, maintain live `CONTEXT.md`, and obtain explicit intent approval.
+6. `02_PLANNING.md` — draft project-local `EXECUTION_PLAN.md` and obtain explicit approval of both exact artifact revisions before any code, including a Spike.
+7. `SCAFFOLDS.md` and `03_TOOLING.md` — read-only discovery can inform planning; installation needs separate approval.
+8. `04_IMPLEMENTATION.md` — execute approved tasks with SDD and TDD.
+9. `05_VERIFICATION.md` — collect evidence before shipping.
+10. `06_DELIVERY.md` — obtain delivery approvals and write a project-local retrospective from the template; preserve shipped originals.
 
 ---
 
@@ -69,24 +67,62 @@ These files use **standard Markdown with optional YAML frontmatter**, making the
 
 ---
 
+## Skills
+
+| Skill | Purpose |
+|-------|---------|
+| [planner](./.agents/skills/planner/SKILL.md) | Orchestrate discovery, approved planning, execution, and delivery |
+| [grill-with-docs](./.agents/skills/grill-with-docs/SKILL.md) | Standalone discovery interviews, live domain glossary, and architecture decisions |
+| [subagent-driven-development](./.agents/skills/subagent-driven-development/SKILL.md) | Standalone task execution with fresh implementers and ordered independent reviews |
+| [test-driven-development](./.agents/skills/test-driven-development/SKILL.md) | Standalone Red/Green/Refactor discipline |
+| [systematic-debugging](./.agents/skills/systematic-debugging/SKILL.md) | Standalone evidence-led root-cause diagnosis and verified fixes |
+
+Invocation depends on harness discovery and configuration; these files do not guarantee slash-command registration. If a skill is not discovered, explicitly ask the harness to read its linked `SKILL.md`. Standalone use does not bypass approval gates.
+
+## Planner Modes and Optional Personas
+
+- **Mode A — Agent application:** Build an agent application using the simplest suitable framework: CrewAI, LangGraph, or LangChain.
+- **Mode B — Guided implementation:** Create an approved execution plan and work through its tasks with the human.
+
+Mode A can optionally use the [Agency Agents](https://github.com/msitarzewski/agency-agents) persona library. During planning, browse the catalog read-only and map relevant pipeline roles to exact persona file paths and a pinned commit SHA in `EXECUTION_PLAN.md`. Leave roles without a suitable match unmapped.
+
+Retrieve mapped personas only during approved execution using selective Git sparse checkout, then audit and adapt their guidance and record retrieval evidence in the ledger. This is plan-scoped retrieval, not an automatic per-task lazy loader. Mode B and plans without persona mappings do not retrieve this library. Persona documents are reference material, not executable agents or permission to install tools.
+
+The four local workflow skills above are permanent workflow components, not sandbox test artifacts or Agency Agents downloads. Load their instructions when the workflow calls for them; external tool and skill installation requires separate approval. These Markdown instructions depend on the consuming harness for execution and enforcement.
+
+## Integration Status
+
+The eight-task documentation handoff is complete: agent communication rules, discovery interviews, domain glossary, detailed planning and architecture decisions, reusable templates, subagent execution and test-first development, evidence-led verification and delivery, and planner/standalone skill integration. The original session specification is retained only as a retired `HANDOFF.md` stub; the rules, skills, and phase references are the maintained documentation.
+
+Verification covered documentation structure, local links, frontmatter, and cross-file policy consistency. It does not establish runtime enforcement or application correctness. No application test, lint, or typecheck pass is claimed for this documentation integration.
+
 ## How to Use This Template
 
+**Shared gate:** Spike, One-Shot, and Project work all require explicit human approval of both project-local `INTENT_BRIEF.md` and `EXECUTION_PLAN.md` before any implementation code, scaffold copying, or runnable experiment. Record approver, date, and exact artifact revisions; file presence, silence, and mode selection are not approval. Changed scope or architecture requires renewed approval. Read-only discovery may inform planning; installation needs separate approval.
+
+Confirm the target project root. Read the shipped [templates](./.agents/skills/planner/resources/templates/) and create project-local artifacts; never fill in or overwrite shipped template or scaffold originals. Maintain live `CONTEXT.md` from the [context template](./.agents/skills/planner/resources/templates/context_template.md): record resolved canonical terms and `_Avoid_` replacements immediately, not at the end. It is a glossary, not a plan or scratchpad.
+
 ### Quick Start — Minimal Path
-For small projects or simple scripts, you don't need all 6 phases. Use this 3-step minimum:
-1. **Drop `AGENTS.md`** into your project root.
-2. **Write a quick `intent_brief.md`** (Phase 1) so the agent knows what to build.
-3. **Point the agent at `04_IMPLEMENTATION.md`** and say "Build this."
+Small tasks use shorter artifacts, not weaker gates:
+1. **Load the rules and planner** from `.agents/AGENTS.md` and `.agents/skills/planner/SKILL.md` using your harness's supported instruction mechanism; preserve their relative paths.
+2. **Discover and plan** using Phases 1–3. Create `INTENT_BRIEF.md`, live `CONTEXT.md`, and `EXECUTION_PLAN.md` at the target root from template copies. Obtain explicit approval of both exact brief and plan revisions before any code, even for a Spike.
+3. **Execute and verify** the approved tasks using the shared SDD/TDD procedure below and Phases 4–6. Keep evidence and obtain separate delivery permissions.
 
 ### Full Workflow — For New Projects
-1. **Copy this entire `template_workflow/` directory** into your project root (or a `.workflow/` subdirectory).
-2. **Start at `01_DISCOVERY.md`** — fill out the Intent Brief template for your project.
-3. **Progress sequentially** through each phase, using checkpoints to pause and review.
-4. **Customize** — as the project matures, the templates in `templates/` become your project-specific specs.
+1. **Make the workflow available** with its `.agents/` layout intact and load the rules through your harness. Confirm a separate target project root for working artifacts; preserve shipped originals.
+2. **Start with Phase 1 discovery** and `grill-with-docs`. Classify the work, resolve blocking decisions, create `INTENT_BRIEF.md`, update live `CONTEXT.md`, and record explicit intent approval.
+3. **Use Phases 2–3 to plan**. Choose an agent application or guided implementation, inspect tools read-only, and create `EXECUTION_PLAN.md` with exact files, contracts, Red/Green/Refactor tasks, reviewers, and verification commands. Obtain explicit approval of both exact brief and plan revisions before any code, scaffold copying, or runnable Spike.
+4. **Execute Phases 4–6** using the shared SDD/TDD procedure below. Verify the final candidate, obtain delivery permissions, and create project-local handoff and retrospective artifacts from templates without changing shipped originals.
 
 ### Full Workflow — For Existing Projects
-1. **Start at `03_TOOLING.md`** — audit your existing toolchain and fill gaps.
-2. **Use `02_PLANNING.md`** to create a structured plan for the next feature or refactor.
-3. **Follow `04_IMPLEMENTATION.md`** through `06_DELIVERY.md` for execution.
+1. **Inspect the repository read-only** and load the rules. Use Phase 1 to establish or revise `INTENT_BRIEF.md` for the feature or refactor; verify approval evidence rather than assuming an existing brief is approved. Maintain live `CONTEXT.md` as terms are resolved.
+2. **Audit tooling and plan with Phases 2–3**. Preserve existing work and shipped originals; write the project-local `EXECUTION_PLAN.md`. Obtain explicit approval of both exact brief and plan revisions before any code, scaffold copying, or runnable Spike. Tool installation needs separate approval.
+3. **Execute Phases 4–6** using the shared SDD/TDD procedure below, revalidate affected checks after fixes, and leave a verified handoff unless delivery actions are explicitly authorized.
+
+### Shared Execution — SDD and TDD
+- **Subagent-Driven Development (SDD):** Use an isolated workspace and a fresh implementer per approved task. Persist progress and evidence in a project-local ledger, normally `.superpowers/sdd/<plan-id>/progress.md`. Review spec compliance first, then quality/tests with a distinct fresh reviewer. If dispatch is unavailable, disclose it and obtain an approved alternative; self-review is not independent review.
+- **Test-Driven Development (TDD):** Observe the intended failing test, write minimum passing production code, then refactor and rerun checks. Documentation-only work uses structural and link checks, not fabricated runtime tests.
+- **Verify and deliver:** Run required tests, build, lint, and typecheck on the final candidate. Record missing checks as `BLOCKED` or `NOT RUN`. Use `systematic-debugging` for unexpected failures. Commit, push, PR creation, merge, deployment, and worktree deletion each require explicit approval.
 
 ---
 
@@ -103,7 +139,7 @@ For small projects or simple scripts, you don't need all 6 phases. Use this 3-st
  │ (Intent & Scope)          (Context & Execution Plan)    │
  └───────────────────────────┬─────────────────────────────┘
                              │
-                    🛑 CHECKPOINT 1: Plan Approval
+                    🛑 CHECKPOINT 1: Intent + Execution Plan Approval
                              │
  ┌───────────────────────────▼─────────────────────────────┐
  │ 3. TOOLING            ▶   4. IMPLEMENTATION             │
@@ -155,7 +191,7 @@ The paper's core thesis is that **"generation is solved"** — the new craft is 
 3. **Spec-Driven Development** — Write executable contracts (Intent Briefs, acceptance criteria) instead of conversational prompts. Specs are the source of truth.
 4. **Evaluation Design** — Build automated quality gates that monitor agent performance, output accuracy, and cost in real-time. "Evals, not vibes."
 5. **Harness Design** — Configure the Model + Harness stack: rules files, tool permissions, sandbox boundaries, and observability.
-6. **Scaffold Awareness** — Know the ecosystem of existing frameworks, MCP servers, and starter templates (see [`SCAFFOLDS.md`](./SCAFFOLDS.md)). Discover before you build.
+6. **Scaffold Awareness** — Know the ecosystem of existing frameworks, MCP servers, and starter templates (see [`SCAFFOLDS.md`](./.agents/skills/planner/references/SCAFFOLDS.md)). Discover before you build.
 7. **Bounded Autonomy** — Set clear limits on what agents can do without approval. The most reliable systems give agents freedom within strict guardrails.
 8. **Retrospective Discipline** — After every project, evolve the harness. Update rules, add skills, remove friction. The workflow improves with every cycle.
 

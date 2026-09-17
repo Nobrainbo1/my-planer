@@ -102,13 +102,16 @@ type: template
 
 ## 7. Definition of Done
 
-- [ ] All "Must Have" functional requirements implemented and tested.
-- [ ] All tests passing.
-- [ ] Linting and type-checking clean.
-- [ ] No critical security vulnerabilities.
-- [ ] Documentation updated.
-- [ ] Orchestrator approved.
-- [ ] Change log updated.
+This checklist applies at delivery, not before discovery or planning can finish. Define applicable checks and security thresholds explicitly; do not treat template examples as approved requirements.
+
+- [ ] Every in-scope functional requirement has fresh passing test or documentation-check evidence.
+- [ ] All required runtime tests pass where applicable. Required skipped, blocked, or unrun checks prevent readiness.
+- [ ] Applicable configured lint, typecheck, and build checks pass. Record unavailable required checks as blocked.
+- [ ] Documentation-only work passes structural, link, fence, and acceptance readback checks; runtime checks are N/A with a scope reason, not fabricated passes.
+- [ ] Security findings meet the explicitly approved thresholds; unresolved threshold conflicts block readiness.
+- [ ] Required documentation and change log are updated.
+- [ ] Every task has ordered spec and quality/test approvals on the verified candidate, with authorized human-review substitutions recorded where needed.
+- [ ] Orchestrator approved delivery readiness; restricted delivery actions still need separate authorization.
 
 ---
 

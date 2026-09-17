@@ -1,7 +1,7 @@
 ---
 description: "Phase 1: Discovery & Specification. Transforms vague ideas into structured, executable intent."
 phase: 1
-checkpoint: false
+checkpoint: true
 ---
 
 # Phase 1: Discovery & Specification
@@ -10,16 +10,32 @@ checkpoint: false
 
 > **Paper Concept:** *"Spec-Driven Development"* — AI agents perform significantly better when given formal, standardized requirement documents rather than conversational chat history.
 
-> **💡 Why This Phase Exists:** Without this, you build the wrong thing. The agent codes for 2 hours, then you realize the requirements were ambiguous and half the work is wasted. A 15-minute spec saves 2 hours of wrong code. Specs are cheaper than rewrites. **On paper:** Write what you want in plain sentences, then ask "what would convince me this is done?" — that's your Definition of Done.
+> **Why This Phase Exists:** Without this, you build the wrong thing. The agent codes for 2 hours, then you realize the requirements were ambiguous and half the work is wasted. A 15-minute spec saves 2 hours of wrong code. Specs are cheaper than rewrites. **On paper:** Write what you want in plain sentences, then ask "what would convince me this is done?" — that's your Definition of Done.
 
 ---
+
+## Step 1.0 — Classify Scope and Lock Implementation
+
+Record the target project root and scope path in `INTENT_BRIEF.md`. All output paths in these phases are relative to that target project, not the workflow repository or skill directory.
+
+| Path | Use When | Required Planning |
+|------|----------|-------------------|
+| Spike | Test feasibility with throwaway code | Timebox, hypothesis, experiment, success/failure criteria, disposal plan, and a small execution plan |
+| One-Shot | Make a small, bounded change | Brief specification, acceptance criteria, and bite-sized execution tasks |
+| Project | Build a multi-step feature or a new application | Full specification, architecture, dependencies, risks, and execution tasks |
+
+Scope changes planning depth, never approval requirements. A Spike is not permission to code first.
+
+**Hard gate:** Do not implement, generate implementation code, copy scaffolds, or create runnable agent applications until the human explicitly approves both `INTENT_BRIEF.md` and `EXECUTION_PLAN.md`. This applies to every scope path and both automated and manual modes, including throwaway experiments. Read-only investigation and draft planning documents are allowed. Proposed code blocks in a draft plan are review material only; do not apply or execute them before approval.
+
+Record approver, date, approved artifact revision, and the explicit approval message or reference. Silence, scope classification, mode selection, and an existing unapproved document are not approval. A changed scope or design requires renewed approval before affected implementation. Dependency installation, deletion, schema changes, and deployment still require their separate permissions.
 
 ## Step 1.1 — Problem Statement
 
 Before any solution, articulate the problem clearly.
 
-### Instructions for the Orchestrator
-Answer these questions. Be as specific as possible. The agent will use these answers to build the Intent Brief.
+### Instructions for the Agent and Orchestrator
+Use the prompts below as an interview guide, not a bulk questionnaire. The agent gathers repository and environment facts with tools first. Ask the Orchestrator only for goals, preferences, or decisions that cannot be established from evidence.
 
 ```markdown
 ### Problem Statement
@@ -35,6 +51,38 @@ Answer these questions. Be as specific as possible. The agent will use these ans
 - **What happens if we don't solve it?**
   [Impact of inaction — helps prioritize]
 ```
+
+---
+
+## Step 1.1b — Grilling with Frontier Rounds
+
+A **Design Tree** maps decisions and the choices that depend on them. A **frontier** is the set of unresolved decisions whose parent choices are already known.
+
+1. Read the relevant files, existing tests, manifests, and configuration. Collect versions, current behavior, constraints, and conventions yourself. Record evidence as exact paths or tool results in `INTENT_BRIEF.md`; do not ask the human to look these up.
+2. Build a compact Design Tree in the brief's open questions. Track each decision's parent, status, answer, and effect on scope. Mark unknown facts as unverified; do not invent them.
+3. Ask only 1 to 3 frontier questions per round. Start with decisions that unblock the most dependent choices. Offer at most 2 to 3 viable options per question and state the essential trade-off.
+4. Give every question a plain-text `Recommendation:` line and a reason. Wait for the human's answers before opening dependent branches. Do not treat your recommendation as consent.
+5. Update the brief and the live glossary immediately after each answer. Remove branches that no longer apply. Repeat until blocking goals and preferences are resolved; record deferred non-blockers with their effect and owner.
+
+```text
+Round [number] — [frontier decision]
+Question: [goal or preference that needs a human decision]
+Options: [option A and trade-off]; [option B and trade-off]
+Recommendation: [preferred option and evidence-based reason]
+Depends on: [resolved parent decision or none]
+```
+
+If tools cannot establish a fact, record the blocker and request access or evidence. Do not convert an unknown technical fact into a preference question.
+
+### Live Domain Model — CONTEXT.md
+
+Create `CONTEXT.md` at the target project root using the skill template [`context_template.md`](../resources/templates/context_template.md) in the planner skill directory.
+
+- Record each resolved term immediately during the interview, not in a batch at the end.
+- Use one canonical term and a precise meaning shared by requirements, plans, code, and tests. This shared vocabulary is **ubiquitous language**.
+- Record aliases and `_Avoid_` terms with the canonical replacement and reason. Ask for clarification before merging terms with different meanings.
+- Keep definitions, domain relationships, short usage examples, and the source of agreement current. Revise entries when the human resolves a naming conflict.
+- `CONTEXT.md` is a glossary, never an implementation plan, task list, decision backlog, session log, or scratchpad. Keep unresolved decisions in `INTENT_BRIEF.md`, architecture decisions in the plan or ADRs, and execution history in the ledger.
 
 ---
 
@@ -138,16 +186,17 @@ Define how the system must *behave*. These become the guardrails for agent-gener
 
 ## Step 1.6 — Definition of Done (DoD)
 
-The universal checklist that MUST be satisfied before any phase is considered complete.
+Define this final acceptance checklist during discovery. It applies at delivery only, not before every phase. Discovery completes when its specification and glossary are reviewable; planning completes at plan approval. Neither phase requires implementation or passing implementation tests.
 
 ```markdown
 ### Definition of Done
 
-- [ ] All functional requirements have corresponding tests.
-- [ ] All tests pass (unit, integration, e2e as applicable).
-- [ ] Code passes linting and type-checking with zero errors.
+- [ ] All in-scope functional requirements have corresponding tests where runtime behavior applies.
+- [ ] All required tests pass (unit, integration, e2e as applicable).
+- [ ] Code passes linting and type-checking with zero errors where those checks apply.
+- [ ] Documentation-only deliverables pass structural checks (links, fences, structure, acceptance readback); these are not runtime evidence.
 - [ ] No known security vulnerabilities (dependency audit clean).
-- [ ] Documentation updated (README, API docs, inline comments).
+- [ ] Required documentation updated (README and API docs as applicable).
 - [ ] Self-review checklist completed by Agent (Phase 5).
 - [ ] Orchestrator has reviewed and approved (Checkpoint).
 - [ ] Change log updated with summary of modifications.
@@ -155,8 +204,11 @@ The universal checklist that MUST be satisfied before any phase is considered co
 
 ---
 
-## Phase 1 Output — The Intent Brief
+## Phase 1 Outputs and Acceptance
 
-When this phase is complete, the Orchestrator should have a filled-out **Intent Brief** (use the template at [`intent_brief.md`](../resources/templates/intent_brief.md)). This document becomes the contract that all agents reference throughout the project.
+- `INTENT_BRIEF.md` at the target project root: use [`intent_brief.md`](../resources/templates/intent_brief.md). Include scope classification, target root, problem, boundaries, requirements, constraints, stakeholders, delivery-only DoD, evidence, and Design Tree decisions.
+- `CONTEXT.md` at the same root: the live glossary of resolved terms, relationships, and `_Avoid_` replacements.
+- Resolve blocking questions. Record any deferred non-blockers, their owner, and their impact.
+- Obtain explicit human approval of the intent. Record approver, date, approved revision, and approval evidence in `INTENT_BRIEF.md`.
 
-> **Proceed to [Phase 2: Planning](./02_PLANNING.md)** once the Intent Brief is finalized.
+> **Proceed to [Phase 2: Planning](./02_PLANNING.md)** after intent approval. No implementation is authorized until `EXECUTION_PLAN.md` is also explicitly approved.

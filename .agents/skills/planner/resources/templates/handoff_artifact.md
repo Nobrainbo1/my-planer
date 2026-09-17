@@ -57,8 +57,8 @@ type: template
 > **Read these files first** to get up to speed quickly:
 
 1. **Primary source of truth:** [e.g., `AGENTS.md` — project rules and agent identity]
-2. **Current spec:** [e.g., `templates/intent_brief.md` — filled-out requirements]
-3. **Current plan:** [e.g., `templates/execution_plan.md` — approved task breakdown]
+2. **Current spec:** `INTENT_BRIEF.md` at the target project root — approved requirements and revision; `CONTEXT.md` alongside it contains resolved domain terms.
+3. **Current plan:** `EXECUTION_PLAN.md` at the target project root — approved task breakdown; include the exact project-local execution ledger path. Do not point to the shipped blank templates.
 4. **Main entry point:** [e.g., `src/index.ts` — application entry]
 5. **Test suite:** [e.g., `tests/` — run with `npm test`]
 
@@ -81,4 +81,4 @@ type: template
 - [e.g., "The `users` table migration has NOT been run on staging yet"]
 - [e.g., "The API rate limit from provider X is 100 req/min — the batch job needs throttling"]
 - [e.g., "File X is auto-generated — don't edit manually, modify the template instead"]
-- [e.g., "The test for feature Y is flaky ~10% of the time — known issue, not a real failure"]
+- [e.g., "The required test for feature Y failed intermittently. This remains a blocker pending investigation; preserve the failing run evidence, assign an owner, and revalidate the fix before readiness."]
