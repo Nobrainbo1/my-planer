@@ -51,4 +51,4 @@ Record each gate's evidence in `EXECUTION_PLAN.md`. A No or unknown result means
 
 ## Completion Check
 
-Read back each answer before the next round. Verify terms were saved immediately, `_Avoid_` replacements are clear, the glossary contains no tasks, and unresolved blockers remain visible. Check document structure and links after writes. Report resolved decisions, remaining blockers, and the next approval needed. Obtain explicit intent and plan approvals before handing implementation to SDD.
+Read back each answer before the next round. Verify terms were saved immediately, `_Avoid_` replacements are clear, the glossary contains no tasks, and unresolved blockers remain visible. Check document structure and links after writes. Report resolved decisions, remaining blockers, and the next approval needed. Obtain explicit intent and plan approvals before handing off to an external execution agent.

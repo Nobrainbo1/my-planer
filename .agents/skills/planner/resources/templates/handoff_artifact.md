@@ -30,7 +30,7 @@ type: template
 
 Read the authoritative ledger and approved task first. Compare workspace, candidate identity, artifact revisions, and saved evidence before resuming; revalidate stale state and preserve the existing fix count. A new worktree does not inherit uncommitted planning files. Verify any permitted copy against the authoritative revision; never resume from a stale or divergent copy.
 
-Read this template as a source and write only to an approved output path. Rewrite copied local links for that output's location and verify targets and headings. If this handoff must ship, freeze it as a deliverable under the Phase 4 candidate identity contract and store subsequent verdicts separately; do not mutate a reviewed snapshot.
+Read this template as a source and write only to an approved output path. Rewrite copied local links for that output's location and verify targets and headings. Store subsequent verdicts separately; do not mutate a reviewed snapshot.
 
 ## System State — What Exists Now
 

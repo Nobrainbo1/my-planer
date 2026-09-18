@@ -175,27 +175,18 @@ State a shell and working directory for any command that differs from the task d
 | 1 | [spec compliance reviewer] | All requested behavior or documentation structural criteria; no scope additions; exact approved paths/contracts | Pending | [findings and resolution] | [review record and requirement/test or structural-check mapping] |
 | 2 | [quality and test reviewer] | Maintainable minimal code; DRY/YAGNI; meaningful tests; actual Red/Green/Refactor evidence, or documentation structural equivalent with runtime N/A reason | Pending | [findings and resolution] | [review record and fresh verification or structural readback output] |
 
-Run spec review before quality review. Fix findings and rerun affected checks and reviews before completion. If subagent reviews are unavailable, use only the [Phase 4 canonical fallback](../../references/04_IMPLEMENTATION.md#401--canonical-fallback-when-fresh-agents-are-unavailable). Record human authorization and two distinct named human reviewers, neither the implementer, with exact candidate, scope, evidence, and verdict for each ordered review. Missing either approval blocks acceptance; self-review is never independent review. Follow the active workflow retry limits and record every fix round and escalation.
+Run spec review before quality review. Fix findings and rerun affected checks and reviews before completion. Record human authorization and two distinct named human reviewers with exact candidate, scope, evidence, and verdict for each ordered review. Missing either approval blocks acceptance.
 
-**Task acceptance:** [ ] Observed Red failure, Green pass, and Refactor/regression verification, OR documentation-only structural equivalent with observed pre-change defect, post-change check/readback evidence, and runtime checks marked `N/A` with a scope reason; [ ] Spec accepted; [ ] Quality/tests or documentation quality accepted; [ ] Ledger updated. Both ordered review approvals remain mandatory for either path. Predictions and unchecked evidence fields do not count as completion.
+**Task acceptance:** [ ] Verification criteria met; [ ] Spec accepted; [ ] Quality accepted. Both ordered review approvals remain mandatory for either path.
 
-## Execution Ledger and Resume Contract
+## Execution Handoff Contract
 
-- **Original target root / execution workspace:** [separate absolute paths; branch/worktree identity]
-- **Authoritative artifact map:** [brief, glossary, plan, ledger, verification report; each absolute path, owner, and approved write permissions]
-- **Copy or relocation handling:** [verify permitted copies against approved revision/content identity; keep copies non-authoritative; record authorized relocation and update all entry points]
-- **Deliverable file set / candidate identity:** [approved base, exact paths including additions/deletions, and content/diff identity; current HEAD recorded separately]
-- **Mutable evidence locations:** [explicit approved ledger/report/approval paths excluded from deliverable identity, not from accuracy/security inspection]
-- **Delivery snapshot finalization:** [artifacts that must ship, owner, freeze point before final checks/reviews, and separate approved location for later verdicts; or none]
-- **Ledger path:** [exact target-project-relative path and its authoritative absolute resolution, for example `.superpowers/sdd/feature-name/progress.md`]
-- **Approved intent/plan revisions and evidence:** [revisions; approver; date; approval reference]
-- **Workspace isolation:** [branch/worktree/path and integration owner; any single-agent fallback requires explicit human approval and covers implementation only, never approval of the implementer's own work; use the Phase 4 canonical fallback above]
+- **Original target root:** [absolute path]
+- **Authoritative artifact map:** [brief, glossary, plan]
+- **Ledger path:** [optional target-project-relative path for execution progress]
+- **Approved intent/plan revisions:** [revisions; approver; date; approval reference]
 
-Update the authoritative ledger after every action and review, not only at task completion. Pass absolute artifact paths to every fresh agent. A new worktree does not inherit uncommitted planning files; verify access to authoritative artifacts before dispatch. Copies remain non-authoritative unless an authorized relocation is recorded. Verify recorded state against the working tree and rerun stale checks; never infer completion from chat history.
-
-Use the Phase 4 candidate identity contract: routine updates to separately listed mutable evidence do not change deliverable identity, but remain traceable and subject to accuracy, scope, and secret checks. Never exclude intended deliverables. If an artifact must ship, freeze its contents into the candidate before final verification and ordered reviews, and store later verdicts in the separate approved evidence location. Any edit to a frozen deliverable requires revalidation and ordered review. Requirement or design changes still require renewed approval.
-
-Include required documentation and change log work as owned Phase 4 tasks, completed before final Phase 5 verification.
+Include required documentation and change log work as tasks in the plan.
 
 | Task | State | Implementer and Workspace | Last Action | Red/Green/Refactor Evidence | Spec Verdict | Quality Verdict | Blocker | Next Action |
 |------|-------|---------------------------|-------------|----------------------------|--------------|-----------------|---------|-------------|

@@ -74,21 +74,18 @@ When communicating with the Orchestrator, use this format:
 [OPTIONS] <proposed solutions for the Orchestrator to choose from>
 ```
 
-## Retry & Autonomy Limits
+## Autonomy & Governance Limits
 
-| Action | Autonomy Level | Retry Limit | Escalation |
-|--------|---------------|-------------|------------|
-| File read/search | Full autonomy | N/A | N/A |
-| Code generation | Plan-bounded | N/A | If deviating from plan |
-| Build, test, or review fix | Plan-bounded | Shared 5 fix rounds per task | After 5 failed fix rounds, escalate |
-| Dependency install | Requires approval | 0 | Always ask first |
-| File deletion | Requires approval | 0 | Always ask first |
-| Deployment | Requires approval | 0 | Always ask first |
-| Schema/DB changes | Requires approval | 0 | Always ask first |
+| Action | Autonomy Level | Escalation / Approval |
+|--------|---------------|-----------------------|
+| File read & repository search | Full autonomy | N/A |
+| Interviewing & Intent Brief drafting | Full autonomy | Ask 1-3 frontier questions per round |
+| Plan & Architecture drafting | Full autonomy | Submit for Checkpoint Approval when complete |
+| Dependency / Tool Installation | Requires approval | Always ask Orchestrator before installing |
+| File deletion or git commits | Requires approval | Always ask Orchestrator before modifying Git |
+| Code implementation / execution | Prohibited (Planner Only) | Hand off approved plan to external scaffolder |
 
-One initial attempt is followed by at most 5 total fix rounds per task. Build, test, and both reviews share this budget. Persist the counter across sessions. Expected TDD Red is not a fix round. For rounds 4 and 5, request a higher-tier model if available. Otherwise record the limitation and use a fresh reviewer at the available tier. Never claim an unavailable model switch or independent review. Missing review capability blocks acceptance until the human approves an alternative.
-
-Escalate security, scope, destructive actions, and missing permissions immediately; do not wait for five failures. Commit, push, PR creation, merge, deployment, and worktree deletion each require explicit approval. Preserve unrelated edits and never reset or delete work automatically.
+Escalate security, scope changes, destructive actions, and missing permissions immediately. Commit, push, PR creation, merge, deployment, and file deletions each require explicit human approval. Keep all planning artifacts well-structured and clear.
 
 ## Security & Secrets
 

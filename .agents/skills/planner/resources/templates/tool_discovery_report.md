@@ -73,7 +73,7 @@ Read this template as a source; never fill in the shipped original. Rewrite copi
 - **Other required permissions:** [action, exact scope and approval reference; or none]
 - **Actual action and validation:** [timestamp, command/cwd, exit code, output reference; NOT RUN until observed]
 
-Evaluate before installation or adoption. A score or harness approval is not install permission. Do not run discovery commands that download or execute unapproved packages. New custom tooling or scaffold implementation must be approved in the plan and executed through Phase 4's checks and ordered reviews.
+Evaluate before installation or adoption. A score or harness approval is not install permission. Do not run discovery commands that download or execute unapproved packages. New custom tooling or scaffold implementation must be approved in the plan and handed off to the execution agent.
 
 ---
 
