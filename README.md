@@ -74,13 +74,26 @@ If you inspect the `.agents/` folder, here is what powers the `/planner`:
 
 ---
 
+## 🤝 Recommended Execution Tools to Hand Off To
+
+Once IntentFlow generates your `EXECUTION_PLAN.md`, you can hand it off to any of these battle-tested tools:
+
+| Tool | Specialty | Best When |
+| :--- | :--- | :--- |
+| **[Superpowers](https://github.com/obra/superpowers)** | Strict TDD & Engineering Discipline | You want mandatory Red-Green-Refactor testing and subagent code reviews. |
+| **[ECC](https://github.com/affaan-m/ECC)** | Full Agent Operating System | You want persistent memory across sessions and hundreds of specialized skills. |
+| **[Roo Code](https://github.com/RooVetGit/Roo-Code) / Cline** | VS Code Autonomous Roles | You want fine-grained role control (Architect, Code, Test) inside VS Code. |
+| **[OpenHands](https://github.com/All-Hands-AI/OpenHands)** | Sandboxed Full-Stack Dev | You want autonomous Docker-isolated code generation and testing. |
+
+---
+
 ## ❓ Frequently Asked Questions
 
 **Q: Does `/planner` write code or install dependencies automatically?**  
 *A:* No! The `/planner` command is **Planner-Only**. It focuses 100% on getting the requirements, architecture, and task breakdown right. It will never modify your codebase or run code without your explicit approval.
 
 **Q: What coding tools can I use to build the plan?**  
-*A:* Any tool you like! Once you have `EXECUTION_PLAN.md`, you can give it to Cursor, Claude Code, Cline, ECC (Everything Claude Code), Superpower, or any human developer.
+*A:* Any tool you like! Once you have `EXECUTION_PLAN.md`, you can give it to Superpowers, ECC, Roo Code, Cline, Cursor, OpenHands, or any human developer.
 
 **Q: What if I want a single tool that does both planning and execution?**  
 *A:* We keep the main branch lightweight and dedicated to planning so it won't conflict with external coding agents. If you want to see our full monolithic framework design, check out the `backup-full-framework-idea` branch!

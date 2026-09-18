@@ -23,35 +23,27 @@ Catalog entries are discovery leads, not audited endorsements or guaranteed comp
 
 ## Category 1: Agent Harness & Meta-Scaffolds
 
-*These scaffolds structure how your AI agent operates. They provide the "operating system" layer on top of the model.*
+*These scaffolds structure how your AI agent operates. They provide the "operating system" and engineering discipline layer on top of the model.*
 
 | Scaffold | GitHub / Source | What It Does | Best For |
 |----------|----------------|-------------|----------|
-| **ECC (Everything Claude Code)** | [affaan-m/ECC](https://github.com/affaan-m/ECC) | A full harness OS for AI agents: skills, instincts, memory, security (AgentShield), context compaction. Enforces Plan → Test → Implement → Review → Verify → Remember → Improve. | Teams wanting a turnkey, opinionated agent harness with hundreds of pre-built skills |
+| **Superpowers** | [obra/superpowers](https://github.com/obra/superpowers) | Complete software development methodology for coding agents. Imposes Socratic brainstorming, bite-sized tasks, mandatory TDD (Red-Green-Refactor), and subagent review gates. Skills activate automatically based on context. | Teams wanting strict, non-negotiable engineering discipline and rigorous TDD |
+| **ECC (Everything Claude Code)** | [affaan-m/ECC](https://github.com/affaan-m/ECC) | A full harness OS for AI agents: skills, instincts, memory, security (AgentShield), context compaction. Enforces Plan → Test → Implement → Review → Verify → Remember → Improve. | Teams wanting a turnkey, opinionated agent harness with hundreds of pre-built skills and memory persistence |
+| **oh-my-pi** | [can1357/oh-my-pi](https://github.com/can1357/oh-my-pi) | Minimalist, extensible agent harness. Features core editing and shell tools, relying on modular Markdown capability files without framework lock-in. | Developers wanting a lightweight, unopinionated agent environment |
 | **agent-harness-generator** | [ruvnet/agent-harness-generator](https://github.com/ruvnet/agent-harness-generator) | Meta-harness that scaffolds your own branded agent environment. Manages skills, memory, and learning loops. | Building a custom-branded agent environment from scratch |
 | **agent-project** | [SuperiorByteWorks-LLC/agent-project](https://github.com/SuperiorByteWorks-LLC/agent-project) | Production-grade template using `AGENTS.md` as entry point for repo standards, CI/CD integration, AI review policies. | Enterprise repos that need agent-friendly governance baked in |
 | **CodelyTV/agent-harness** | [CodelyTV/agent-harness](https://github.com/CodelyTV/agent-harness) | Collection of skills, hooks, and utilities to enforce development conventions. | Teams wanting modular, plug-and-play quality enforcement |
 
-### ECC Deep Dive (Reference Scaffold)
+### Deep Dive: ECC vs. Superpowers (Which Should You Pick?)
 
-ECC is the most comprehensive example of a "harness as OS" approach. Key architectural patterns to learn from:
+Both ECC and Superpowers are industry-leading meta-harnesses, but they solve different challenges:
 
-```
-ECC Architecture:
-├── Skills/          # Hundreds of specialized behaviors (TDD, security, architecture)
-│   └── SKILL.md     # Each skill has instructions + scripts + resources
-├── Agents/          # Specialized subagent definitions (reviewer, architect, security)
-├── Rules/           # Always-active guardrails injected into every session
-├── Memory/          # Persistent knowledge across sessions (team patterns, decisions)
-├── Security/        # AgentShield — scans MCP servers, tool permissions, configs
-└── Context/         # Strategic context compaction to optimize token budget
-```
-
-**Key Patterns from ECC:**
-- **Selective Installation:** Don't load everything — pick only the skills/agents relevant to your project.
-- **Memory Persistence:** Agent "remembers" team patterns, past decisions, and coding standards across sessions.
-- **Security Scanning:** Agent audits its own tool permissions and MCP server configs for vulnerabilities.
-- **Context Compaction:** Automatically compress intermediate results to stay within token budgets.
+| Dimension | ECC (Everything Claude Code) | Superpowers (obra/superpowers) |
+| :--- | :--- | :--- |
+| **Core Philosophy** | **Full Agent Operating System** | **Rigorous Engineering Discipline** |
+| **Key Superpower** | Persistent memory across sessions, context compaction, and security scanning (AgentShield) | Mandatory TDD (agents cannot write code without failing tests), Socratic questioning, subagent review gates |
+| **Skill Invocation** | Modular on-demand commands & instructions | Context-aware auto-activating skills |
+| **Best Used When** | You need long-term memory across sessions and want an extensive library of specialized roles | You want bulletproof code quality and want to stop agents from rushing to write buggy code |
 
 ---
 
@@ -63,6 +55,8 @@ ECC Architecture:
 |-----------|--------|-------------|----------|
 | **LangGraph** | [langchain-ai/langgraph](https://github.com/langchain-ai/langgraph) | Stateful multi-agent workflows as graphs. Built-in persistence, human-in-the-loop checkpoints, flow control. | Complex, production-grade orchestration logic |
 | **CrewAI** | [crewai](https://github.com/joaomfg/crewai) | Role-based agent teams (coder, reviewer, researcher) collaborating on shared goals. | Multi-role collaboration projects |
+| **smolagents** | [huggingface/smolagents](https://github.com/huggingface/smolagents) | Minimalist code-agent framework where agents write and execute Python code snippets directly instead of JSON tool calls. | Lightweight Python pipelines, reduced LLM overhead |
+| **DSPy** | [stanfordnlp/dspy](https://github.com/stanfordnlp/dspy) | Programmatic framework to optimize LM prompts and pipeline weights algorithmically rather than manual prompt engineering. | Complex algorithmic prompting, self-optimizing pipelines |
 | **Mastra** | [mastra.ai](https://mastra.ai/) | TypeScript-native framework with built-in agents, workflows, memory, and observability. | TypeScript-first teams wanting integrated DX |
 | **Pydantic AI** | [pydantic/pydantic-ai](https://github.com/pydantic/pydantic-ai) | Type-safe agentic pipelines for Python with Pydantic validation. | Python teams prioritizing type safety |
 | **OpenAI Swarm** | [openai/swarm](https://github.com/openai/swarm) | Lightweight agent handoffs and routing between specialized agents. | Simple multi-agent routing |
@@ -70,16 +64,18 @@ ECC Architecture:
 
 ---
 
-## Category 3: Open-Source Coding Agents
+## Category 3: Open-Source Coding Agents & IDE Harnesses
 
-*Drop-in alternatives or complements to commercial coding agents. Use these when you need a fully customizable agent.*
+*Autonomous and supervised coding agents you can run locally or connect to your IDE.*
 
 | Agent | Source | What It Does | Best For |
 |-------|--------|-------------|----------|
-| **OpenCode** | [opencode-ai/opencode](https://github.com/opencode-ai/opencode) | Dual-agent (Plan/Build) terminal coding agent. Wide model support, TUI. | Open-source alternative to Claude Code |
-| **Aider** | [aider.chat](https://aider.chat/) | Terminal pair programmer with git-diff workflows. Preserves Git history. | Working within existing repos with clean git history |
-| **Cline** | [cline/cline](https://github.com/cline/cline) | VS Code extension for multi-file autonomous edits with step-by-step oversight. | VS Code users wanting autonomous but supervised editing |
-| **Kilo CLI** | [kilo-code/kilo](https://github.com/kilo-code/kilo) | Model-agnostic configurable agent connecting terminal to cloud/team workflows. | Teams needing flexible, cloud-connected terminal agent |
+| **OpenHands** | [All-Hands-AI/OpenHands](https://github.com/All-Hands-AI/OpenHands) | Docker-sandboxed autonomous AI software developer. Edits files, runs bash commands, browses the web, and resolves complex GitHub issues. | Full-stack autonomous project development in safe sandbox |
+| **Roo Code (Roo-Cline)** | [RooVetGit/Roo-Code](https://github.com/RooVetGit/Roo-Code) | Multi-role autonomous agent for VS Code. Switch between Architect, Code, Ask, and Test modes; custom system prompts and deep MCP support. | Developers who want fine-grained role control inside VS Code |
+| **SWE-agent** | [princeton-nlp/SWE-agent](https://github.com/princeton-nlp/SWE-agent) | Autonomous software engineering agent by Princeton. Uses an Agent-Computer Interface (ACI) tailored specifically to navigate and repair codebases. | Autonomous bug fixing and benchmark-grade issue resolution |
+| **Aider** | [aider.chat](https://aider.chat/) | Terminal pair programmer with git-diff workflows. Automatically commits cleanly to Git history. | Fast pair programming directly in your terminal |
+| **Cline** | [cline/cline](https://github.com/cline/cline) | VS Code extension for multi-file autonomous edits with step-by-step oversight. | VS Code users wanting step-by-step verified editing |
+| **OpenCode** | [opencode-ai/opencode](https://github.com/opencode-ai/opencode) | Dual-agent (Plan/Build) terminal coding agent with wide model support and TUI. | Terminal-first open-source alternative to Claude Code |
 
 ---
 

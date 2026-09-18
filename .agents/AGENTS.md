@@ -14,7 +14,7 @@ This template follows a strictly **Planner-Only** Agentic SDLC (Phases 1-3). It 
 | 1. Discovery — Grilling & Domain Modeling | [`01_DISCOVERY.md`](./skills/planner/references/01_DISCOVERY.md) | Intent approval |
 | 2. Planning — Zero-Context Tasks & ADR Gates | [`02_PLANNING.md`](./skills/planner/references/02_PLANNING.md) | Checkpoint 1 (Plan Approval) |
 | 3. Tooling — Discover & Equip | [`03_TOOLING.md`](./skills/planner/references/03_TOOLING.md) | Separate install approval |
-| Handoff | N/A | Provide approved `execution_plan.md` to Scaffolder |
+| Handoff — Scaffolder Transition | [`HANDOFF.md`](./skills/planner/references/HANDOFF.md) | Transition governance to execution agent |
 
 Supporting files: [`SCAFFOLDS.md`](./skills/planner/references/SCAFFOLDS.md) · [`GLOSSARY.md`](./skills/planner/references/GLOSSARY.md) · [`WHY_THIS_WORKS.md`](./skills/planner/references/WHY_THIS_WORKS.md) · [`templates/`](./skills/planner/resources/templates/)
 
