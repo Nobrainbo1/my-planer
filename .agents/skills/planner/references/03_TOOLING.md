@@ -222,6 +222,7 @@ Compile the final tool inventory into a harness configuration.
 | [e.g., @modelcontextprotocol/server-filesystem] | Official | File system access | `stdio` |
 | [e.g., @modelcontextprotocol/server-github] | Official | GitHub API access | `stdio`, needs PAT |
 | [e.g., @modelcontextprotocol/server-postgres] | Official | PostgreSQL queries | `stdio`, needs conn string |
+| **RTK (Run Time context)** | [rtk-ai/rtk] | Log & error tracking | **MANDATORY**: Token optimization |
 
 #### External APIs
 | API | Provider | Auth Method | Rate Limits |
@@ -286,4 +287,4 @@ A fully documented **Harness Configuration** listing every tool the agent has ac
 
 > Use the template at [`tool_discovery_report.md`](../resources/templates/tool_discovery_report.md) to document the discovery process.
 
-> **Proceed to [Phase 4: Implementation](./04_IMPLEMENTATION.md)** when prerequisite tools are available, required action approvals are recorded, and any changed plan has renewed approval and passed preflight. A custom tool planned as a Phase 4 task need not exist yet; order it before its consumers and ensure its own prerequisites are available. Record unmet prerequisites as blockers, never as assembled capability.
+> **Handoff Complete!** Once the tool discovery and execution plan are approved, your role as the Planner is finished. Provide the `execution_plan.md` to your external Agentic Scaffolder (e.g., ECC, Superpower, etc.) so it can begin the actual implementation.
