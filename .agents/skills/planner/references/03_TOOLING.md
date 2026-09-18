@@ -281,10 +281,42 @@ Based on the tech stack [chosen in Phase 2], here are the recommended tools:
 
 ---
 
+## Step 3.7 — In-Project Tool Installation & Conflict Safety Check
+
+Once the plan and tool selections are approved by the Orchestrator, install the tools directly into the project folder. Follow this strict preflight and transition sequence to prevent conflicts:
+
+### 1. Pre-Install Conflict Scan
+Before running any installation command, check for these 4 conflict types:
+
+| Conflict Type | Risk | Prevention Action |
+|---------------|------|-------------------|
+| **Harness & `AGENTS.md` Collision** | Incoming scaffolder (e.g., ECC) brings its own `AGENTS.md` or rule files, colliding with the planner's rules | Inspect whether the incoming tool installs root rule files. If yes, prepare to merge or yield governance to the incoming harness. |
+| **"Planner Only" Instruction Lock** | An execution agent reading our planner `AGENTS.md` sees "Execution Prohibited" and halts | Execute the **Handoff Transition Routine** below to update `AGENTS.md` before execution starts. |
+| **Environment Variable Collision** | Multiple tools or MCP servers using identical keys (e.g., `API_KEY`, `PORT`) | Namespace every variable in `.env.example` (e.g., `GITHUB_MCP_PAT`, `DB_PORT`). |
+| **Port / Stdio Resource Conflicts** | Two MCP servers or dev servers competing for the same port or stdio channel | Assign distinct ports and inspect MCP config JSON before starting services. |
+| **Package Dependency Version Lock** | Incompatible version constraints in `package.json` or `pyproject.toml` | Check existing project manifests and run dry-run installation checks before committing. |
+
+### 2. Tool Installation Protocol
+Execute installation in this order upon explicit user approval:
+1. **Mandatory Token Optimizer:** Install and configure [`rtk-ai/rtk`](https://github.com/rtk-ai/rtk) to filter large command outputs, build logs, and error traces.
+2. **Project Dependencies:** Initialize project manifests (`package.json`, `uv.lock`, etc.) if greenfield, and install approved libraries.
+3. **MCP Configuration:** Write approved server entries to the project's MCP configuration (e.g., `.cursor/mcp.json`, `.claude/mcp.json`).
+4. **Environment Template:** Populate `.env.example` with required placeholder variables. Do not write actual secrets.
+
+### 3. The Handoff & Transition Routine (Resolving `AGENTS.md`)
+To prevent the planner rules from blocking your coding agent or cluttering the workspace:
+1. **Archive Planner Internals:** Move planner guides (`references/`, templates) into `.planning/` or `docs/planning/` so the root directory remains clean for production source code.
+2. **Transform `AGENTS.md` for Execution:**
+   - **Scenario A (Using External Harness like ECC):** If an external harness is installed, yield root governance to ECC's rules and link `EXECUTION_PLAN.md` as the active specification.
+   - **Scenario B (Native Coding Agent like Cursor/Cline):** Update `AGENTS.md` to remove the "Planner Only" restriction and set autonomy: *"You are now in Execution Mode. Implement the tasks defined in `EXECUTION_PLAN.md` step-by-step."*
+
+---
+
 ## Phase 3 Output
 
-A fully documented **Harness Configuration** listing every tool the agent has access to, how it was sourced (discovered vs. built), and how to configure it.
+A fully equipped project folder containing:
+- Installed tools and dependencies (including `rtk-ai/rtk`).
+- Configured MCP servers and `.env.example`.
+- Cleaned workspace with `AGENTS.md` transitioned to authorize execution of `EXECUTION_PLAN.md`.
 
-> Use the template at [`tool_discovery_report.md`](../resources/templates/tool_discovery_report.md) to document the discovery process.
-
-> **Handoff Complete!** Once the tool discovery and execution plan are approved, your role as the Planner is finished. Provide the `execution_plan.md` to your external Agentic Scaffolder (e.g., ECC, Superpower, etc.) so it can begin the actual implementation.
+> **Handoff Ready!** The project is now fully planned, equipped, and ready for your execution agent to build.

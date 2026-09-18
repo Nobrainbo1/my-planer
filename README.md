@@ -58,8 +58,8 @@ IntentFlow separates **Thinking** from **Building** so you always stay in contro
    - 📄 **`INTENT_BRIEF.md`** — *What we're building:* Goals, scope, and target features.
    - 📖 **`CONTEXT.md`** — *Vocabulary:* A simple glossary of terms so the AI doesn't mix up concepts.
    - 🗺️ **`EXECUTION_PLAN.md`** — *The Master Blueprint:* A step-by-step roadmap breaking down every task, file, and test needed.
-3. **Review & Approve:** Read over the blueprint. Ask the AI to tweak anything you want to change. Once you approve it, planning is complete!
-4. **Handoff & Build:** Pass `EXECUTION_PLAN.md` to your favorite AI coding tool (Cursor, Cline, Claude Code, ECC, etc.) to start building your software!
+3. **Tool Conflict Check & In-Project Installation:** The AI checks for port or environment variable collisions, recommends required tools (like `rtk-ai/rtk` for token optimization), and installs them directly in your project upon your approval.
+4. **Clean Transition & Handoff:** The AI archives internal planner guides into `.planning/` and transitions `AGENTS.md` to authorize execution, leaving your project completely ready for your AI coding tool (Cursor, Cline, Claude Code, ECC, etc.) to build!
 
 ---
 

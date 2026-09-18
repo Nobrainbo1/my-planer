@@ -83,9 +83,11 @@ When communicating with the Orchestrator, use this format:
 | Plan & Architecture drafting | Full autonomy | Submit for Checkpoint Approval when complete |
 | Dependency / Tool Installation | Requires approval | Always ask Orchestrator before installing |
 | File deletion or git commits | Requires approval | Always ask Orchestrator before modifying Git |
-| Code implementation / execution | Prohibited (Planner Only) | Hand off approved plan to external scaffolder |
+| Code implementation / execution | Prohibited during Planning | Hand off approved plan to external scaffolder (or transition to Execution Mode) |
 
 Escalate security, scope changes, destructive actions, and missing permissions immediately. Commit, push, PR creation, merge, deployment, and file deletions each require explicit human approval. Keep all planning artifacts well-structured and clear.
+
+**The Handoff Transition:** When planning and tool installations are approved and complete, this `AGENTS.md` is updated to lift the planning restriction and authorize implementation of `EXECUTION_PLAN.md`, or yields to the incoming scaffolder's governance (e.g., ECC). Planner internal references are archived to `.planning/` to keep the codebase clean.
 
 ## Security & Secrets
 

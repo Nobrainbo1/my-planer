@@ -55,10 +55,16 @@ Record the choice. Mode selection does not authorize implementation. Both modes 
 
 For planning-only requests in either mode, stop here and hand over the brief, glossary, and plan with their actual approval status and outstanding execution prerequisites. Do not retrieve personas, install dependencies, copy scaffolds, or start implementation. Plan approval alone does not expand a planning-only request into execution.
 
-## Step 4 — Handoff to External Scaffolder
+## Step 4 — In-Project Tool Installation & Handoff Transition
 
-1. **Your Job is Done**: Once the execution plan and tool discovery are explicitly approved by the human, your role as the Planner is complete.
-2. **Do Not Execute**: Do NOT attempt to run code generation, do not clone personas, do not run test-driven development loops, and do not execute the plan.
-3. **Handoff**: Instruct the user to pass the finalized `EXECUTION_PLAN.md` and `CONTEXT.md` to their execution agent (e.g., ECC, Superpower, or another agentic framework) for the actual implementation (Phases 4-6).
+1. **Pre-Install Conflict Check**: Follow [Phase 3 §3.7](references/03_TOOLING.md#step-37--in-project-tool-installation--conflict-safety-check). Inspect for port/stdio collisions, `.env` collisions, and harness/`AGENTS.md` collisions before running installation.
+2. **Install Approved Tools**: With explicit human approval, install tools directly in the project folder:
+   - Mandatory: configure [`rtk-ai/rtk`](https://github.com/rtk-ai/rtk) for token and log optimization.
+   - Configure approved MCP servers in `.cursor/mcp.json` or `.claude/mcp.json`.
+   - Install approved project dependencies and create `.env.example`.
+3. **Transition `AGENTS.md` (Prevent Rule Conflict)**:
+   - Archive planner reference documents (`references/`, templates) into `.planning/` so the workspace is clean.
+   - Update `AGENTS.md` from "Planner Only" mode to "Execution Mode" (or yield root governance if an external harness like ECC provides its own rules), authorizing the coding agent to build the tasks in `EXECUTION_PLAN.md`.
+4. **Handoff**: The project folder is now fully equipped and ready for the execution agent (ECC, Cursor, Cline, etc.) to begin building.
 
-*End of Planner instructions. Remind the user they are ready for handoff!*
+*End of Planner instructions. Remind the user they are ready to build!*
