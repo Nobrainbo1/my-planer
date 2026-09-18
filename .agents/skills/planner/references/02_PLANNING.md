@@ -8,7 +8,7 @@ checkpoint: true
 
 > **Goal:** Transform the Intent Brief (Phase 1) into a detailed, reviewable **Execution Plan** that agents can follow step-by-step. The Orchestrator controls the depth of detail.
 
-> **Paper Concept:** *"Context Engineering"* — The quality of agent output is bounded by the quality and structure of context provided. Design the complete information package: system instructions, codebase maps, tool definitions (MCP), and memory summaries.
+> **Source concept:** Context engineering — Addy Osmani's [The New Software Lifecycle](https://addyosmani.com/blog/new-sdlc-vibe-coding/) summarizes six context types: instructions, knowledge, memory, examples, tools, and guardrails. This reference uses that verified summary, not a direct review of the Kaggle whitepaper. The collection checklist and approval/review gates below are local implementations.
 
 > **Why This Phase Exists:** Without this, you jump into coding without understanding the architecture. You build Component A, then realize it needs data from Component B that doesn't exist yet. Planning makes your assumptions visible — when you write them down, you give your future self a chance to catch wrong assumptions before they become wrong code. **On paper:** Draw boxes for components, arrows for data flow. List your assumptions. Pick your tech stack.
 
@@ -18,11 +18,17 @@ checkpoint: true
 
 > Write for a junior engineer with zero codebase context. Do not depend on chat history, implied conventions, or good design judgment. The plan must supply the exact paths, proposed code diffs or complete blocks, and verification commands needed to execute safely.
 
-Read the approved `INTENT_BRIEF.md` and live `CONTEXT.md` at the target project root. Write `EXECUTION_PLAN.md` at that same root. These artifact paths are relative to the target project, not the planner skill. Template links below resolve within the skill.
+Read the approved `INTENT_BRIEF.md` and live `CONTEXT.md` at the target project root. Write `EXECUTION_PLAN.md` at that same root. These artifact paths are relative to the target project, not the planner skill. Template links below resolve within the skill; rewrite copied links for each generated output's actual location and verify targets and headings.
+
+Record the original target root separately from each execution workspace. Choose one authoritative absolute path for the brief, glossary, plan, ledger, and verification report; record their owners and approved write permissions. Pass these paths to every fresh agent. A new worktree does not inherit uncommitted planning artifacts. Before dispatch, verify access to the authoritative files. Any permitted copies must match their approved revision/content identity and remain non-authoritative; record relocation explicitly rather than creating divergent live copies.
+
+Include required README, change log, API, and operations documentation as owned Phase 4 tasks. Finish these deliverables before final Phase 5 verification, not after delivery. Record the deliverable file set and separate mutable evidence locations using the Phase 4 candidate identity contract.
 
 Match detail to Spike, One-Shot, or Project scope without omitting execution essentials. Mark irrelevant sections N/A with a reason rather than inventing architecture. Use **DRY (Don't Repeat Yourself)**: reuse existing code and shared contracts instead of duplicating behavior. Use **YAGNI (You Aren't Gonna Need It)**: exclude speculative features, dependencies, and abstractions.
 
-**Hard gate:** No implementation or generated implementation code, including a Spike, scaffold, or automated agent application, until the human explicitly approves both the intent and execution plan revisions. Proposed code in the plan is review material, not authorization to apply or run it. Plan approval does not waive separate install, deletion, schema, or deployment permissions.
+**Hard gate (local policy):** No implementation or generated implementation code, including a Spike, scaffold, or automated agent application, until the human explicitly approves both the intent and execution plan revisions. Proposed code in the plan is review material, not authorization to apply or run it. Plan approval does not waive separate install, deletion, schema, or deployment permissions.
+
+Planning is iterative, not a one-way handoff. Findings from tooling, implementation, verification, or delivery return here and to discovery when requirements change. An approved, timeboxed Spike can inform revised requirements and a revised plan. Material changes require renewed approval of affected intent and plan revisions and a fresh preflight before affected implementation; both approvals must remain current.
 
 The agent will produce:
 - A **plain-English architectural narrative** explaining how the system works end-to-end.
@@ -35,7 +41,7 @@ The agent will produce:
 - **Code interaction map** — which functions call which, which components render which, which services talk to which.
 - **Edge case analysis** — what happens when things go wrong at each boundary.
 - **Risk summary** with mitigation strategies.
-- **Test plan** — specific test cases with inputs, expected outputs, and test types.
+- **Test plan** — specific test cases with inputs, expected outputs, and test types. Distinguish output evaluation (correctness of the final result) from trajectory evaluation (the observed execution path). Define evidence for tool calls, actual checks, and permission compliance; do not request or rely on hidden reasoning.
 
 ```markdown
 ### Planning Configuration
@@ -50,7 +56,11 @@ The agent will produce:
 
 Before planning, the agent must gather all relevant context. This is the foundation of *Context Engineering*.
 
-### Four Dimensions of Context (from the paper)
+### Four Context Collection Groups (Local Checklist)
+
+These groups organize collection; they are not the source's six-type taxonomy. Map Instruction to **instructions and guardrails**, Codebase to **knowledge and examples**, Tool/Skill to **tools, instructions, and guardrails**, and Session to **memory and knowledge**. Include examples such as fixtures and similar implementations, and guardrails such as scoped permissions and approval rules.
+
+Deliberately choose **static context** (core instructions, global memory, and guardrails loaded every turn) versus **dynamic context** (task-matched skills, retrieved documents, and tool results loaded on demand). Record and version the loading boundary and retrieval triggers in the plan. Balance token cost against missing essential rules; on-demand retrieval must not omit required guardrails.
 
 #### 1. Instruction Context
 *Rules, conventions, and organizational standards.*

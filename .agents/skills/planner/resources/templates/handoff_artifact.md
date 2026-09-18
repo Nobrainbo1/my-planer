@@ -12,6 +12,26 @@ type: template
 
 ---
 
+## Resume State — Read Before Acting
+
+- **Original target root / execution workspace:** [separate absolute paths]
+- **Branch / approved base / current revision:** [exact identities]
+- **Deliverable candidate:** [explicit file set, additions/deletions, and content/diff identity]
+- **Mutable evidence paths / frozen delivery snapshots:** [separate approved locations and snapshot identities]
+- **Authoritative brief / glossary / plan / ledger / verification report:** [absolute paths, owners, and approved write permissions; copies are non-authoritative]
+- **Approved intent and plan revisions:** [revisions, approver, date, explicit approval references]
+- **Owned files / preserved unrelated edits:** [paths and ownership]
+- **Current task / state / dependencies:** [stable ID, state, accepted prerequisites]
+- **Consumed fix rounds / remaining budget:** [per-task counts; initial 0, at most 5 total fixes]
+- **Pending ordered reviews:** [spec then quality/test, reviewer identities, exact candidate, verdict/evidence references; authorized fallback if used]
+- **Evidence / blockers / accepted advisories:** [durable references, owners, follow-up dates, acceptance evidence]
+- **Action approvals:** [commit, push, PR creation, merge, deployment, and worktree deletion separately; exact scope and reference or NOT AUTHORIZED]
+- **Next exact action:** [command or manual procedure, shell/cwd where relevant, prerequisites and permission needed]
+
+Read the authoritative ledger and approved task first. Compare workspace, candidate identity, artifact revisions, and saved evidence before resuming; revalidate stale state and preserve the existing fix count. A new worktree does not inherit uncommitted planning files. Verify any permitted copy against the authoritative revision; never resume from a stale or divergent copy.
+
+Read this template as a source and write only to an approved output path. Rewrite copied local links for that output's location and verify targets and headings. If this handoff must ship, freeze it as a deliverable under the Phase 4 candidate identity contract and store subsequent verdicts separately; do not mutate a reviewed snapshot.
+
 ## System State — What Exists Now
 
 ### Files & Structure
@@ -57,8 +77,8 @@ type: template
 > **Read these files first** to get up to speed quickly:
 
 1. **Primary source of truth:** [e.g., `AGENTS.md` — project rules and agent identity]
-2. **Current spec:** `INTENT_BRIEF.md` at the target project root — approved requirements and revision; `CONTEXT.md` alongside it contains resolved domain terms.
-3. **Current plan:** `EXECUTION_PLAN.md` at the target project root — approved task breakdown; include the exact project-local execution ledger path. Do not point to the shipped blank templates.
+2. **Current spec and glossary:** [authoritative absolute `INTENT_BRIEF.md` and `CONTEXT.md` paths from Resume State; approved requirements/revision and resolved terms]
+3. **Current plan and ledger:** [authoritative absolute `EXECUTION_PLAN.md` and ledger paths from Resume State; approved tasks, saved rounds, pending reviews]. Do not point to shipped blank templates or assume a new worktree contains these files.
 4. **Main entry point:** [e.g., `src/index.ts` — application entry]
 5. **Test suite:** [e.g., `tests/` — run with `npm test`]
 

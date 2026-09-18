@@ -13,7 +13,7 @@ The Builder implements one task. The Validator runs checks. A spec reviewer chec
 ## Step 4.0 — Pre-Implementation Gate
 
 - [ ] Intent Brief and Execution Plan have explicit Orchestrator approval.
-- [ ] Required tools and development environment are available. Missing permissions block the affected action immediately.
+- [ ] Prerequisite tools and development environment for the next task are available. Approved custom-tool tasks may precede consumers; those consumers remain blocked until their tool dependency is accepted. Missing permissions block the affected action immediately.
 - [ ] Inspect git status, current revision, base branch, and existing worktrees. Preserve unrelated edits and record their ownership.
 - [ ] Use an isolated git worktree or dedicated task branch. Record its absolute path, branch, base revision, and owned files. Do not work directly on a shared integration branch.
 - [ ] Check task dependencies, file collisions, and interface contracts before dispatch.
@@ -22,6 +22,14 @@ The Builder implements one task. The Validator runs checks. A spec reviewer chec
 - [ ] Identify exact build, lint, typecheck, test, and documentation validation commands from the project. Do not install tools without approval.
 
 Branch creation does not authorize commits or any destructive action. If the permitted file scope excludes the default ledger, choose an approved local ledger within scope or ask for permission before writing elsewhere.
+
+Before dispatch into a worktree, read the plan's authoritative artifact map. Record the original target root and execution workspace separately. Verify the brief, glossary, approved plan, and single writable ledger at their recorded absolute paths; uncommitted files do not appear in a new worktree automatically. Pass these paths to all agents. Copy only within approved locations, verify approved revision/content identity, and keep copies non-authoritative. Record any authorized relocation and update entry points before resuming.
+
+### Candidate Identity Contract
+
+Define the candidate as the approved base revision plus the explicit deliverable file set and its exact content/diff identity, including additions and deletions. Record current HEAD separately. Include all intended code, configuration, tests, and documentation; never exclude a deliverable to evade review. List mutable ledger, report, and approval-record paths separately from the candidate. Evidence-only updates do not change deliverable identity, but remain traceable and must be inspected for accuracy, scope, and secrets. Changes to requirements, approved design, or deliverable content still invalidate affected approvals and checks.
+
+If a plan, report, handoff, or other evidence artifact must itself ship, finalize and freeze its contents, include that snapshot in the deliverable set, and run applicable checks and ordered reviews on that candidate. Store subsequent verdicts and action records in a separately approved non-deliverable evidence location; do not insert them into the frozen snapshot. Any later edit to a frozen deliverable requires revalidation and ordered review. This separation does not waive required evidence or grant permission to create files.
 
 ### 4.0.1 — Canonical Fallback When Fresh Agents Are Unavailable
 

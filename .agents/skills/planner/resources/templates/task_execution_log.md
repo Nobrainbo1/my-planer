@@ -5,13 +5,17 @@ type: template
 
 # Task Execution Log — [Task ID]
 
+Read this template as a source; never fill in the shipped original. Rewrite all copied local links, including the Phase 4 fallback link, relative to the generated ledger. Resolve policy links to the actual installed skill location and verify exact filename case and heading targets.
+
 ## 1. Identity and Resume State
 
 - **Date / plan / task / approved requirements:** [values and approval reference]
 - **Status:** [PENDING / IN PROGRESS / BLOCKED / ACCEPTED]
 - **Ledger path:** [.superpowers/sdd/<plan>/progress.md or chosen local ledger; mandatory]
 - **Workspace / branch / base / current revision:** [absolute cwd, branch, revisions]
-- **Uncommitted content identity:** [diff reference or changed-file hashes]
+- **Original target root / authoritative artifact map:** [original root and absolute brief, glossary, plan, ledger, report paths; owners and write permissions]
+- **Deliverable candidate identity:** [approved base, explicit deliverable paths including additions/deletions, and exact diff/content identity]
+- **Mutable evidence paths / frozen snapshots:** [separate approved locations; any shipping artifact is frozen before checks/reviews, with later verdicts stored separately]
 - **Owned files / preserved unrelated edits:** [paths and ownership]
 - **Dependencies / acceptance criteria:** [task IDs and exact criteria]
 - **Implementer identity / actual model:** [fresh per task; unavailable is not independent execution]
@@ -77,5 +81,5 @@ Rulings cannot expand scope, weaken security thresholds, waive required tests, o
 - **Decision / change / issue log:** [what, why, evidence, unresolved issues]
 - **Saved state and entry points:** [ledger, plan, files, evidence]
 - **Next action / remaining budget:** [exact continuation]
-- **Commit / push / merge / deploy / worktree deletion:** [separate explicit approval for each, or NOT AUTHORIZED]
+- **Commit / push / PR creation / merge / deploy / worktree deletion:** [separate explicit approval for each, or NOT AUTHORIZED]
 - **Whole-branch review / clean status:** [Phase 6 evidence or pending; never discard edits to make status clean]

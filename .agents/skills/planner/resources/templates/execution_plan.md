@@ -16,7 +16,7 @@ type: template
 
 ## Authoring and Execution Rules
 
-Write for an engineer with zero codebase context. Replace every execution placeholder with exact paths, complete proposed code or diffs, commands, and acceptance criteria before approval. Execution evidence remains `Not run` until actually observed. Use target-project-relative file paths; specify the shell and exact working directory for each command. Template source links resolve within the planner skill: [intent brief](./intent_brief.md), [domain glossary](./context_template.md), and [ADR](./adr_template.md). Do not copy these template links into generated project artifacts; use the target project's uppercase artifact names instead.
+Write for an engineer with zero codebase context. Replace every execution placeholder with exact paths, complete proposed code or diffs, commands, and acceptance criteria before approval. Execution evidence remains `Not run` until actually observed. Use target-project-relative file paths; specify the shell and exact working directory for each command. Template source links resolve within the planner skill: [intent brief](./intent_brief.md), [domain glossary](./context_template.md), and [ADR](./adr_template.md). Never fill in the shipped original. Rewrite every copied local link, including the later Phase 4 fallback link, relative to the generated output file. Use exact target-project artifact names and the actual installed workflow-policy location. Verify each target and heading before approval; do not assume the skill is installed inside the target project.
 
 The agent gathers facts from repository files and tools. Record sources below; do not ask the human to look them up. Match detail to scope and mark irrelevant architecture sections N/A with a reason. Apply DRY (Don't Repeat Yourself) by reusing existing behavior and contracts. Apply YAGNI (You Aren't Gonna Need It) by excluding speculative features and abstractions.
 
@@ -181,11 +181,21 @@ Run spec review before quality review. Fix findings and rerun affected checks an
 
 ## Execution Ledger and Resume Contract
 
-- **Ledger path:** [exact target-project-relative path, for example `.superpowers/sdd/feature-name/progress.md`]
+- **Original target root / execution workspace:** [separate absolute paths; branch/worktree identity]
+- **Authoritative artifact map:** [brief, glossary, plan, ledger, verification report; each absolute path, owner, and approved write permissions]
+- **Copy or relocation handling:** [verify permitted copies against approved revision/content identity; keep copies non-authoritative; record authorized relocation and update all entry points]
+- **Deliverable file set / candidate identity:** [approved base, exact paths including additions/deletions, and content/diff identity; current HEAD recorded separately]
+- **Mutable evidence locations:** [explicit approved ledger/report/approval paths excluded from deliverable identity, not from accuracy/security inspection]
+- **Delivery snapshot finalization:** [artifacts that must ship, owner, freeze point before final checks/reviews, and separate approved location for later verdicts; or none]
+- **Ledger path:** [exact target-project-relative path and its authoritative absolute resolution, for example `.superpowers/sdd/feature-name/progress.md`]
 - **Approved intent/plan revisions and evidence:** [revisions; approver; date; approval reference]
 - **Workspace isolation:** [branch/worktree/path and integration owner; any single-agent fallback requires explicit human approval and covers implementation only, never approval of the implementer's own work; use the Phase 4 canonical fallback above]
 
-Update this ledger after every action and review, not only at task completion. A fresh implementer must read it and the approved plan before resuming. Verify recorded state against the working tree and rerun stale checks; never infer completion from chat history.
+Update the authoritative ledger after every action and review, not only at task completion. Pass absolute artifact paths to every fresh agent. A new worktree does not inherit uncommitted planning files; verify access to authoritative artifacts before dispatch. Copies remain non-authoritative unless an authorized relocation is recorded. Verify recorded state against the working tree and rerun stale checks; never infer completion from chat history.
+
+Use the Phase 4 candidate identity contract: routine updates to separately listed mutable evidence do not change deliverable identity, but remain traceable and subject to accuracy, scope, and secret checks. Never exclude intended deliverables. If an artifact must ship, freeze its contents into the candidate before final verification and ordered reviews, and store later verdicts in the separate approved evidence location. Any edit to a frozen deliverable requires revalidation and ordered review. Requirement or design changes still require renewed approval.
+
+Include required documentation and change log work as owned Phase 4 tasks, completed before final Phase 5 verification.
 
 | Task | State | Implementer and Workspace | Last Action | Red/Green/Refactor Evidence | Spec Verdict | Quality Verdict | Blocker | Next Action |
 |------|-------|---------------------------|-------------|----------------------------|--------------|-----------------|---------|-------------|
@@ -241,6 +251,18 @@ Minor rulings cannot change scope, bypass a gate, or authorize restricted action
 | Integration | [tool] | [what] | [X%] |
 | E2E | [tool] | [what] | [key flows] |
 | Security | [tool] | [what] | [all endpoints] |
+
+### Agent Evaluation Plan, When Applicable
+
+For nondeterministic behavior, define output and trajectory evaluation before execution. For ordinary deterministic work or planning-only artifacts, record the applicable tests or manual rubric instead; no agent runtime is required.
+
+- **Case set and revision:** [representative normal, boundary, and failure cases; expected outcomes]
+- **Output rubric and pass threshold:** [correctness, grounding, completeness, or other approved criteria]
+- **Observable trajectory criteria:** [permitted tools/data, required checks, approval and stopping behavior; no private reasoning required]
+- **Trial count / model and configuration / time and cost limits:** [approved values; do not infer reliability from one demo]
+- **Method and permissions:** [actual command or exact manual procedure, dependencies, live-call/data permissions, and evidence destination]
+- **Failure and regression handling:** [owning task, cause grouping, approved repair scope, and rerun criteria]
+- **Planning-only status:** [runtime checks NOT RUN or N/A with reason; actual human approvals remain pending until received]
 
 ---
 

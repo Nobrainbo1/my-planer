@@ -5,12 +5,17 @@ type: template
 
 # Verification Report — [Project/Feature Name]
 
+Read this template as a source; never fill in the shipped original. Record its approved output path in the plan. Rewrite all copied local links, including the Phase 4 fallback link, relative to the generated report. Resolve policy links to the actual installed skill location and verify exact filename case and heading targets.
+
 ## 1. Candidate and Required Checks
 
 - **Date / Orchestrator / approved brief and plan:** [values and approval references]
 - **Status:** [NOT RUN / NEEDS REMEDIATION / BLOCKED / READY FOR DELIVERY]
 - **Workspace / branch / base / current revision:** [absolute cwd and revisions]
-- **Uncommitted content identity:** [diff reference or changed-file hashes]
+- **Original target root / authoritative artifact map:** [original root and absolute brief, glossary, plan, ledger, report paths]
+- **Deliverable candidate identity:** [approved base, explicit deliverable file set including additions/deletions, and exact diff/content identity]
+- **Mutable evidence paths:** [separate approved locations; evidence-only updates do not alter deliverable identity or waive evidence inspection]
+- **Frozen delivery snapshots:** [any shipping plan/report/handoff identity and freeze time before final checks/reviews; later verdicts stored separately; or none]
 - **Ledger / owning tasks / consumed fix rounds:** [persistent path and counts]
 - **Environment / tools / versions:** [redacted values]
 - **Required suites and commands / source:** [manifest, CI, brief, or approved commands]
@@ -44,6 +49,15 @@ Include every FR from the approved brief. A file name alone is not a test result
 - **Explicit scope exclusions:** [FR ID and approved brief reference; excluded is not satisfied]
 - **NFR / performance matrix:** [requirement, approved target, environment/workload, actual measurement, evidence, result]
 - **Missing mappings:** [blockers, owner, next action]
+
+### Output and Trajectory Evaluation
+
+| Evaluation / case-set revision | Rubric and threshold | Model/configuration and trials | Actual results / failures | Redacted evidence | Status |
+|--------------------------------|----------------------|--------------------------------|---------------------------|-------------------|--------|
+| Output correctness | [approved rubric] | [actual configuration/count] | [observed results] | [reference] | [NOT RUN / PASS / FAIL / BLOCKED / justified N/A] |
+| Observable trajectory | [tool, permission, check, source, stop, and budget criteria] | [actual configuration/count] | [observed actions and deviations] | [event/decision records, not private reasoning] | [status] |
+
+Use the plan's evaluation method and approved cases. Report live-call permissions, failure groups, and regression reruns. For planning-only or documentation work, cite the artifact-review rubric and justify runtime N/A; do not invent approvals or process evidence. A passing output does not erase a failed required trajectory criterion.
 
 ## 4. Quality, Security, and Advisories
 
@@ -89,7 +103,7 @@ Whole-branch reviews are **additional**, not substitutes for the per-task pairs.
 | Whole-branch spec compliance before merge | [fresh reviewer or named human; not implementer] | [base/current revision + diff identity; all included commits and intended uncommitted changes] | [reference] | [APPROVED / CHANGES REQUIRED / BLOCKED] | [approver/date/reference or not used] |
 | Whole-branch quality/test, after spec approval | [distinct reviewer or named human; not implementer or spec reviewer] | [same whole-branch candidate and scope] | [reference and preceding spec approval] | [verdict] | [authorization reference or not used] |
 
-If fresh agents are unavailable, use only the [Phase 4 canonical fallback](../../references/04_IMPLEMENTATION.md#401--canonical-fallback-when-fresh-agents-are-unavailable). Explicit human approval of single-agent implementation covers implementation only; the implementer cannot approve its own work. Unavailable subagent reviews may be replaced by two distinct named human reviewers, neither the implementer, spec first then quality/test. Record the exact candidate, scope, evidence, verdict, and human authorization for each review above; record model `N/A` for humans. Missing either approval or fallback authorization blocks acceptance. Never label self-review independent review. Revalidate fixes and repeat ordered reviews on the final state. Whole-branch review may be pending at Phase 5 transition, but must pass before merge or deployment.
+If fresh agents are unavailable, use only the [Phase 4 canonical fallback](../../references/04_IMPLEMENTATION.md#401--canonical-fallback-when-fresh-agents-are-unavailable). Explicit human approval of single-agent implementation covers implementation only; the implementer cannot approve its own work. Unavailable subagent reviews may be replaced by two distinct named human reviewers, neither the implementer, spec first then quality/test. Record the exact candidate, scope, evidence, verdict, and human authorization for each review above; record model `N/A` for humans. Missing either approval or fallback authorization blocks acceptance. Never label self-review independent review. Revalidate fixes and repeat ordered reviews on the final state. Whole-branch review may be pending at Phase 5 transition, but must pass before completion, including an uncommitted handoff, publication, merge, or deployment.
 
 ## 7. Definition of Done and Approval State
 
@@ -106,6 +120,7 @@ If fresh agents are unavailable, use only the [Phase 4 canonical fallback](../..
 - **Whole-branch review readiness:** [passed or pending/blocking for merge]
 - **Commit approval:** [reference or NOT AUTHORIZED]
 - **Push approval:** [separate reference or NOT AUTHORIZED]
+- **PR creation approval:** [separate reference for exact base/branch and scope or NOT AUTHORIZED]
 - **Merge approval:** [separate reference for exact candidate/target or NOT AUTHORIZED]
 - **Deploy approval:** [separate environment/candidate reference or NOT AUTHORIZED]
 - **Worktree deletion approval:** [separate path-specific reference or NOT AUTHORIZED]

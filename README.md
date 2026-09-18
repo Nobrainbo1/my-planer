@@ -1,203 +1,144 @@
-# Agentic Engineering Workflow Template
-**Framework:** Agentic SDLC  
-**Origin:** Inspired by *"The New SDLC With Vibe Coding"* — Addy Osmani, Shubham Saboo, Sokratis Kartakis (Google, 2026)  
-**Purpose:** A universal, harness-agnostic foundation for orchestrating AI agents through a full software development lifecycle.
+# IntentFlow
 
----
+**An AI-assisted software planning and workflow toolkit.**
 
-## Philosophy
+Turn an idea into clear requirements, an approved plan, and a reviewable handoff using Markdown instructions and templates. Use IntentFlow with the AI coding assistant you already have.
 
-> **"Structure scales, vibes don't."**  
-> **"Generation is solved. The craft is now specifying, constraining, and verifying."**
+Inspired by *The New SDLC With Vibe Coding* — Addy Osmani, Shubham Saboo, and Sokratis Kartakis (Google, 2026): [whitepaper](https://www.kaggle.com/whitepaper-the-new-SDLC-with-vibe-coding) · [coauthor's companion article](https://addyosmani.com/blog/new-sdlc-vibe-coding/).
 
-This template transforms you from a "vibe coder" (ad-hoc prompt-and-ship) into an **Agentic Engineer** — an orchestrator who designs intent, governs execution, and validates output.
+IntentFlow is an independent adaptation, not an official implementation or a claim of compliance with the paper.
 
-An AI agent is not just a model. It is a **Model + Harness**. The model is the engine; the **harness** — instructions, rule files, tools, sandboxes, observability — is where engineering happens. This template IS the harness blueprint.
+## What It Is—and Is Not
 
----
+- **A planning toolkit:** reusable discovery questions, project templates, tool-selection guidance, and implementation/review procedures.
+- **Planning-only is a complete use case:** draft and review `INTENT_BRIEF.md`, `CONTEXT.md`, and `EXECUTION_PLAN.md`, then stop.
+- **Execution is optional:** your coding assistant can follow the approved plan if you request implementation and provide the required capabilities and permissions.
+- **Not a runtime:** Markdown does not install agents, enforce permissions, run tests, or register commands automatically.
+- **Not a starter application:** the bundled Python scaffolds are optional architecture references with known limitations, not validated runnable projects.
 
-## Structure
+No API keys, agent framework, or implementation reviewers are needed to draft a plan. Those requirements belong to the execution path when applicable.
 
-This workflow is a **modular system of Markdown files**, each handling one phase of the Agentic SDLC. They are designed to be read by any top AI coding harness:
+## Start Here
 
-| File | Phase | Purpose |
-|------|-------|---------|
-| [`WHY_THIS_WORKS.md`](./.agents/skills/planner/references/WHY_THIS_WORKS.md) | **Start here** | The thinking behind every design decision — teaches you to build workflows without AI |
-| [`GLOSSARY.md`](./.agents/skills/planner/references/GLOSSARY.md) | Reference | Plain-English definitions of AI coding terms (model, harness, context, handoff, etc.) |
-| [`AGENTS.md`](./.agents/AGENTS.md) | Global | Universal agent rules, identity & orchestrator mindset |
-| [`SCAFFOLDS.md`](./.agents/skills/planner/references/SCAFFOLDS.md) | Reference | Catalog of scaffolds, skills, MCP servers, and harnesses by project type |
-| [`01_DISCOVERY.md`](./.agents/skills/planner/references/01_DISCOVERY.md) | Phase 1 | Scope classification, discovery interviews, live domain glossary, intent approval |
-| [`02_PLANNING.md`](./.agents/skills/planner/references/02_PLANNING.md) | Phase 2 | Exact execution tasks, architecture decision gates, preflight conflict checks |
-| [`03_TOOLING.md`](./.agents/skills/planner/references/03_TOOLING.md) | Phase 3 | Tool, skill, and optional persona discovery and evaluation |
-| [`04_IMPLEMENTATION.md`](./.agents/skills/planner/references/04_IMPLEMENTATION.md) | Phase 4 | Fresh subagents, ordered independent reviews, TDD, persistent execution ledger |
-| [`05_VERIFICATION.md`](./.agents/skills/planner/references/05_VERIFICATION.md) | Phase 5 | Fresh evidence, systematic debugging, security checks, requirement coverage |
-| [`06_DELIVERY.md`](./.agents/skills/planner/references/06_DELIVERY.md) | Phase 6 | Whole-branch review, approved delivery, handoff, retrospective |
-| [`templates/`](./.agents/skills/planner/resources/templates/) | — | Intent brief, context, execution plan, ADR, tool discovery, handoff, verification, task log, retrospective |
+1. Make the `.agents/` directory available without changing its internal layout. Tell your coding assistant to read [the root rules](./.agents/AGENTS.md) and [the planner skill](./.agents/skills/planner/SKILL.md). Use your assistant's supported instruction mechanism; do not assume automatic discovery.
+2. Identify the target project directory. Keep shipped templates unchanged; create project artifacts from them in the target project.
+3. Ask for planning only. The assistant inspects available facts, asks about unresolved goals and choices, and prepares a brief and plan for review.
+4. Review exact artifact revisions. If you only wanted a plan, stop here—even after approval. Downloads, installations, scaffold copying, and implementation are not authorized by a planning-only request.
 
-## Reading Order — For Humans
-
-Use the links in the Structure table. Phase and supporting references live in `.agents/skills/planner/references/`; shipped templates live in `.agents/skills/planner/resources/templates/`.
-
-1. `WHY_THIS_WORKS.md` — understand the thinking behind every phase.
-2. `README.md` (this file) — see the full structure.
-3. `GLOSSARY.md` — look up terms as you go.
-4. `.agents/AGENTS.md` — understand agent identity and your role as orchestrator.
-5. `01_DISCOVERY.md` — draft project-local `INTENT_BRIEF.md`, maintain live `CONTEXT.md`, and obtain explicit intent approval.
-6. `02_PLANNING.md` — draft project-local `EXECUTION_PLAN.md` and obtain explicit approval of both exact artifact revisions before any code, including a Spike.
-7. `SCAFFOLDS.md` and `03_TOOLING.md` — read-only discovery can inform planning; installation needs separate approval.
-8. `04_IMPLEMENTATION.md` — execute approved tasks with SDD and TDD.
-9. `05_VERIFICATION.md` — collect evidence before shipping.
-10. `06_DELIVERY.md` — obtain delivery approvals and write a project-local retrospective from the template; preserve shipped originals.
-
----
-
-## Harness Compatibility
-
-These files use **standard Markdown with optional YAML frontmatter**, making them natively readable by:
-
-| Harness | Config Location | Notes |
-|---------|----------------|-------|
-| **Cursor** | `.cursor/rules/*.mdc` | Copy relevant sections into `.mdc` files with globs |
-| **Cline / Roo Code** | `.clinerules/*.md` | Drop files directly into `.clinerules/` |
-| **Claude Code** | `CLAUDE.md` | Merge into root `CLAUDE.md` |
-| **GitHub Copilot** | `.github/copilot-instructions.md` | Merge into instructions file |
-| **Antigravity** | `.gemini/config/skills/` or `AGENTS.md` | Use as skills or drop `AGENTS.md` at root |
-| **Windsurf** | `.windsurfrules` | Merge into rules file |
-| **Any LLM** | System prompt | Paste relevant phases into context |
-
----
-
-## Skills
-
-| Skill | Purpose |
-|-------|---------|
-| [planner](./.agents/skills/planner/SKILL.md) | Orchestrate discovery, approved planning, execution, and delivery |
-| [grill-with-docs](./.agents/skills/grill-with-docs/SKILL.md) | Standalone discovery interviews, live domain glossary, and architecture decisions |
-| [subagent-driven-development](./.agents/skills/subagent-driven-development/SKILL.md) | Standalone task execution with fresh implementers and ordered independent reviews |
-| [test-driven-development](./.agents/skills/test-driven-development/SKILL.md) | Standalone Red/Green/Refactor discipline |
-| [systematic-debugging](./.agents/skills/systematic-debugging/SKILL.md) | Standalone evidence-led root-cause diagnosis and verified fixes |
-
-Invocation depends on harness discovery and configuration; these files do not guarantee slash-command registration. If a skill is not discovered, explicitly ask the harness to read its linked `SKILL.md`. Standalone use does not bypass approval gates.
-
-## Planner Modes and Optional Personas
-
-- **Mode A — Agent application:** Build an agent application using the simplest suitable framework: CrewAI, LangGraph, or LangChain.
-- **Mode B — Guided implementation:** Create an approved execution plan and work through its tasks with the human.
-
-Mode A can optionally use the [Agency Agents](https://github.com/msitarzewski/agency-agents) persona library. During planning, browse the catalog read-only and map relevant pipeline roles to exact persona file paths and a pinned commit SHA in `EXECUTION_PLAN.md`. Leave roles without a suitable match unmapped.
-
-Retrieve mapped personas only during approved execution using selective Git sparse checkout, then audit and adapt their guidance and record retrieval evidence in the ledger. This is plan-scoped retrieval, not an automatic per-task lazy loader. Mode B and plans without persona mappings do not retrieve this library. Persona documents are reference material, not executable agents or permission to install tools.
-
-The four local workflow skills above are permanent workflow components, not sandbox test artifacts or Agency Agents downloads. Load their instructions when the workflow calls for them; external tool and skill installation requires separate approval. These Markdown instructions depend on the consuming harness for execution and enforcement.
-
-## Integration Status
-
-The eight-task documentation handoff is complete: agent communication rules, discovery interviews, domain glossary, detailed planning and architecture decisions, reusable templates, subagent execution and test-first development, evidence-led verification and delivery, and planner/standalone skill integration. The original session specification is retained only as a retired `HANDOFF.md` stub; the rules, skills, and phase references are the maintained documentation.
-
-Verification covered documentation structure, local links, frontmatter, and cross-file policy consistency. It does not establish runtime enforcement or application correctness. No application test, lint, or typecheck pass is claimed for this documentation integration.
-
-## How to Use This Template
-
-**Shared gate:** Spike, One-Shot, and Project work all require explicit human approval of both project-local `INTENT_BRIEF.md` and `EXECUTION_PLAN.md` before any implementation code, scaffold copying, or runnable experiment. Record approver, date, and exact artifact revisions; file presence, silence, and mode selection are not approval. Changed scope or architecture requires renewed approval. Read-only discovery may inform planning; installation needs separate approval.
-
-Confirm the target project root. Read the shipped [templates](./.agents/skills/planner/resources/templates/) and create project-local artifacts; never fill in or overwrite shipped template or scaffold originals. Maintain live `CONTEXT.md` from the [context template](./.agents/skills/planner/resources/templates/context_template.md): record resolved canonical terms and `_Avoid_` replacements immediately, not at the end. It is a glossary, not a plan or scratchpad.
-
-### Quick Start — Minimal Path
-Small tasks use shorter artifacts, not weaker gates:
-1. **Load the rules and planner** from `.agents/AGENTS.md` and `.agents/skills/planner/SKILL.md` using your harness's supported instruction mechanism; preserve their relative paths.
-2. **Discover and plan** using Phases 1–3. Create `INTENT_BRIEF.md`, live `CONTEXT.md`, and `EXECUTION_PLAN.md` at the target root from template copies. Obtain explicit approval of both exact brief and plan revisions before any code, even for a Spike.
-3. **Execute and verify** the approved tasks using the shared SDD/TDD procedure below and Phases 4–6. Keep evidence and obtain separate delivery permissions.
-
-### Full Workflow — For New Projects
-1. **Make the workflow available** with its `.agents/` layout intact and load the rules through your harness. Confirm a separate target project root for working artifacts; preserve shipped originals.
-2. **Start with Phase 1 discovery** and `grill-with-docs`. Classify the work, resolve blocking decisions, create `INTENT_BRIEF.md`, update live `CONTEXT.md`, and record explicit intent approval.
-3. **Use Phases 2–3 to plan**. Choose an agent application or guided implementation, inspect tools read-only, and create `EXECUTION_PLAN.md` with exact files, contracts, Red/Green/Refactor tasks, reviewers, and verification commands. Obtain explicit approval of both exact brief and plan revisions before any code, scaffold copying, or runnable Spike.
-4. **Execute Phases 4–6** using the shared SDD/TDD procedure below. Verify the final candidate, obtain delivery permissions, and create project-local handoff and retrospective artifacts from templates without changing shipped originals.
-
-### Full Workflow — For Existing Projects
-1. **Inspect the repository read-only** and load the rules. Use Phase 1 to establish or revise `INTENT_BRIEF.md` for the feature or refactor; verify approval evidence rather than assuming an existing brief is approved. Maintain live `CONTEXT.md` as terms are resolved.
-2. **Audit tooling and plan with Phases 2–3**. Preserve existing work and shipped originals; write the project-local `EXECUTION_PLAN.md`. Obtain explicit approval of both exact brief and plan revisions before any code, scaffold copying, or runnable Spike. Tool installation needs separate approval.
-3. **Execute Phases 4–6** using the shared SDD/TDD procedure below, revalidate affected checks after fixes, and leave a verified handoff unless delivery actions are explicitly authorized.
-
-### Shared Execution — SDD and TDD
-- **Subagent-Driven Development (SDD):** Use an isolated workspace and a fresh implementer per approved task. Persist progress and evidence in a project-local ledger, normally `.superpowers/sdd/<plan-id>/progress.md`. Review spec compliance first, then quality/tests with a distinct fresh reviewer. If dispatch is unavailable, disclose it and obtain an approved alternative; self-review is not independent review.
-- **Test-Driven Development (TDD):** Observe the intended failing test, write minimum passing production code, then refactor and rerun checks. Documentation-only work uses structural and link checks, not fabricated runtime tests.
-- **Verify and deliver:** Run required tests, build, lint, and typecheck on the final candidate. Record missing checks as `BLOCKED` or `NOT RUN`. Use `systematic-debugging` for unexpected failures. Commit, push, PR creation, merge, deployment, and worktree deletion each require explicit approval.
-
----
-
-## The Agentic SDLC at a Glance
+Example prompt:
 
 ```text
- ┌─────────────────────────────────────────────────────────┐
- │                  ORCHESTRATOR (Human)                   │
- │       Judgment · Verification · Direction · Safety      │
- └───────────────────────────┬─────────────────────────────┘
-                             │
- ┌───────────────────────────▼─────────────────────────────┐
- │ 1. DISCOVERY          ▶   2. PLANNING                   │
- │ (Intent & Scope)          (Context & Execution Plan)    │
- └───────────────────────────┬─────────────────────────────┘
-                             │
-                    🛑 CHECKPOINT 1: Intent + Execution Plan Approval
-                             │
- ┌───────────────────────────▼─────────────────────────────┐
- │ 3. TOOLING            ▶   4. IMPLEMENTATION             │
- │ (Discover & Equip)        (Builder-Validator Loop)      │
- └───────────────────────────┬─────────────────────────────┘
-                             │
-                    🛑 CHECKPOINT 2: Implementation Review
-                             │
- ┌───────────────────────────▼─────────────────────────────┐
- │ 5. VERIFICATION       ▶   6. DELIVERY                   │
- │ (Evals & DoD)             (Package & Retrospective)     │
- └───────────────────────────┬─────────────────────────────┘
-                             │
-                    🛑 CHECKPOINT 3: Deployment Approval
+Read .agents/AGENTS.md and .agents/skills/planner/SKILL.md.
+Plan only: help me add blank-title validation to my existing todo app.
+Confirm the target project directory, inspect its current behavior and tests,
+ask me about unresolved decisions, and draft the brief, glossary, and plan.
+Reuse existing tools. Do not install, download, implement, commit, or deploy.
 ```
 
----
+For a new project, replace the example feature with your idea. State who it serves, the problem it solves, and important constraints. Unknown facts should remain explicit—not be invented to fill a template.
 
-## Cost Curve Awareness
+## What the Planner Produces
 
-The paper presents a critical insight about the **CapEx/OpEx tradeoff**:
+| Artifact | Purpose |
+|----------|---------|
+| `INTENT_BRIEF.md` | Problem, scope, requirements, assumptions, decisions, acceptance criteria, and actual approval evidence |
+| `CONTEXT.md` | Resolved domain vocabulary and terms to avoid; not task notes or execution logs |
+| `EXECUTION_PLAN.md` | Exact tasks, affected files, dependencies, verification methods, reviewer requirements, and approval state |
+| `docs/adr/000X-<slug>.md` | Architecture decisions only when they are hard to reverse, surprising without context, and involve a real trade-off |
+| Project-local execution ledger | Progress, observed checks, review verdicts, blockers, and resume state—only when execution is requested |
 
-| Approach | Upfront Cost (CapEx) | Long-term Cost (OpEx) | Best For |
-|----------|---------------------|-----------------------|----------|
-| **Vibe Coding** | 🟢 Low | 🔴 High (debugging, maintenance, rewrites) | Prototypes, scripts, hackathons |
-| **Agentic Engineering** | 🟡 Medium | 🟢 Low (structured, maintainable, governed) | Production systems, team projects |
+Use the [artifact templates](./.agents/skills/planner/resources/templates/) as sources. Rewrite copied links for their destination and record authoritative artifact paths when using separate worktrees.
 
-This template applies Agentic Engineering rigor while preserving the speed of vibe coding for early exploration phases.
+## How IntentFlow Applies the New SDLC
 
----
+The conceptual alignment below is based on the coauthor's readable companion article. The full whitepaper text was not available during this review; this is not an exhaustive paper audit.
 
-## What Makes a Good Agentic Engineer (Orchestrator)
+| Source principle | IntentFlow's application |
+|------------------|-------------------------|
+| **Agent = model + harness** | Supply instructions, context, boundaries, and review procedures to an existing coding assistant. Runtime enforcement remains the assistant's responsibility. |
+| **Context engineering matters** | Keep essential rules available; load relevant skills, examples, tool results, and references when needed rather than loading the whole catalog. |
+| **Verification separates demos from engineering** | Define acceptance criteria before implementation and retain actual test or review evidence. A successful demo alone does not establish reliability. |
+| **Evaluate the result and the process** | Check whether outputs satisfy requirements, and inspect observable tool calls, checks, permissions, and review records. A correct-looking answer does not excuse skipped gates. |
+| **Human judgment remains central** | Humans decide goals, architectural trade-offs, acceptable risk, and delivery authorization. |
+| **The lifecycle is iterative** | Use findings from implementation, evaluation, and maintenance to revise the plan. Material scope or design changes require renewed approval. |
+| **Optimize total ownership cost** | Reuse suitable tools, limit context and unnecessary orchestration, and consider review effort, latency, model cost, and maintenance—not generation speed alone. |
 
-The paper's core thesis is that **"generation is solved"** — the new craft is *specifying, constraining, and verifying*. Here is what the research says makes a great orchestrator:
+The source distinguishes six context types: **instructions, knowledge, memory, examples, tools, and guardrails**. The planning guide's four collection groups are a local checklist, not a replacement taxonomy attributed to the paper.
 
-### Mindset Shift
-| Old Mindset | New Mindset |
-|------------|-------------|
-| "I write code" | "I design intent and govern execution" |
-| "Prompt better" | "Engineer better context" |
-| "Use one AI tool" | "Orchestrate an ensemble of agents" |
-| "Ship fast" | "Ship structured — then iterate fast" |
-| "Learn the framework" | "Learn to decompose, delegate, and verify" |
+### Local Policies, Not Paper Requirements
 
-### Core Skills
+IntentFlow deliberately adds stricter rules: approval of both the intent and execution plan before code—even a Spike—ordered independent reviews, a shared five-fix-round limit, and separate permission for restricted actions. These are this toolkit's choices, not requirements established by the source.
 
-1. **Task Decomposition** — Break complex problems into narrow, specialized sub-tasks that agents can handle independently.
-2. **Context Engineering** — Design the complete information package (instructions, codebase maps, tool definitions, memory) that an agent consumes. Quality of context bounds quality of output.
-3. **Spec-Driven Development** — Write executable contracts (Intent Briefs, acceptance criteria) instead of conversational prompts. Specs are the source of truth.
-4. **Evaluation Design** — Build automated quality gates that monitor agent performance, output accuracy, and cost in real-time. "Evals, not vibes."
-5. **Harness Design** — Configure the Model + Harness stack: rules files, tool permissions, sandbox boundaries, and observability.
-6. **Scaffold Awareness** — Know the ecosystem of existing frameworks, MCP servers, and starter templates (see [`SCAFFOLDS.md`](./.agents/skills/planner/references/SCAFFOLDS.md)). Discover before you build.
-7. **Bounded Autonomy** — Set clear limits on what agents can do without approval. The most reliable systems give agents freedom within strict guardrails.
-8. **Retrospective Discipline** — After every project, evolve the harness. Update rules, add skills, remove friction. The workflow improves with every cycle.
+The source allows rapid prototyping alongside requirements and choosing rigor according to stakes. Here, keep small-task artifacts short and use an explicitly approved, timeboxed Spike to learn before revising the brief. Do not silently waive the toolkit's active gates. The six phases organize responsibilities; they are not a claim that development proceeds only once through a rigid sequence.
 
-### The Complexity Ladder
-Start simple and only escalate when necessary:
-```
-Single Agent → Sequential Pipeline → Orchestrator-Worker → Parallel Fan-Out → Hierarchical Multi-Agent
-```
-Most projects should start at "Single Agent" and only move right when task complexity demands it.
+## Workflow Map
+
+| Phase | Guide | Outcome |
+|-------|-------|---------|
+| 1. Discovery | [Discovery and specification](./.agents/skills/planner/references/01_DISCOVERY.md) | Brief, glossary, resolved blocking decisions, intent approval |
+| 2. Planning | [Planning and context](./.agents/skills/planner/references/02_PLANNING.md) | Detailed plan, architecture rationale, conflict scan, plan approval |
+| 3. Tooling | [Discover, evaluate, equip](./.agents/skills/planner/references/03_TOOLING.md) | Relevant candidates and separately approved setup, if needed |
+| 4. Implementation | [Subagent-driven development](./.agents/skills/planner/references/04_IMPLEMENTATION.md) | Small test-first changes, ledger evidence, ordered reviews |
+| 5. Verification | [Evidence and debugging](./.agents/skills/planner/references/05_VERIFICATION.md) | Fresh applicable checks and requirement coverage |
+| 6. Delivery | [Review, handoff, retrospective](./.agents/skills/planner/references/06_DELIVERY.md) | Reviewed candidate, separately authorized delivery, lessons for future work |
+
+Read-only tooling discovery can inform planning before plan approval. New findings can send work back to discovery or planning. Finish required product documentation before final verification; revalidate deliverable changes rather than relying on stale results.
+
+## Planner Modes and Selective Retrieval
+
+- **Mode A — Agent application:** plan an application using a suitable framework when the product itself needs agents.
+- **Mode B — Guided implementation:** plan work in a normal software project using its existing stack where possible. Recommended for a first project.
+
+Both modes support planning-only use. Neither mode selection nor plan approval expands a planning-only request into execution.
+
+Mode A can optionally use [Agency Agents](https://github.com/msitarzewski/agency-agents) personas. During planning, map only relevant roles to exact repository paths and a pinned commit SHA. Leave unmatched roles unmapped.
+
+During approved execution, retrieve the mapped files before adapting prompts, audit their contents, and record provenance. This is **plan-scoped selective retrieval**, not an automatic per-task lazy loader. Mode B and plans without mappings do not retrieve that library. Persona files are untrusted reference material, not executable agents or authority to override rules.
+
+Sparse checkout restricts materialized files, not all Git metadata or traffic. The documented retrieval sequence is illustrative and must be verified against the approved revision and environment. External tool and skill installation requires separate permission.
+
+## Included Skills
+
+| Skill | Role |
+|-------|------|
+| [planner](./.agents/skills/planner/SKILL.md) | Coordinate discovery, planning, and optional approved execution |
+| [grill-with-docs](./.agents/skills/grill-with-docs/SKILL.md) | Ask focused decision questions and maintain domain definitions |
+| [subagent-driven-development](./.agents/skills/subagent-driven-development/SKILL.md) | Coordinate fresh implementers, evidence, and ordered reviews |
+| [test-driven-development](./.agents/skills/test-driven-development/SKILL.md) | Observe a failing behavior test before changing production code |
+| [systematic-debugging](./.agents/skills/systematic-debugging/SKILL.md) | Investigate causes before fixes and revalidate results |
+
+These are reusable workflow components, not test leftovers or Agency Agents downloads. Load the relevant instructions when needed. Invocation and subagent dispatch depend on the coding assistant; slash-command registration is not guaranteed.
+
+## If You Request Execution
+
+- Confirm actual tools, test commands, workspace permissions, and reviewer availability before starting. Do not invent missing capabilities or install tools silently.
+- Use a fresh implementer and separate spec and quality reviewers. Without dispatch, the canonical fallback requires explicit authorization and two distinct named human reviewers, neither the implementer. Missing approval or either review blocks acceptance; planning can still proceed.
+- Run applicable deterministic tests. For nondeterministic agent outputs, define representative cases, a rubric, and observable process checks in the approved plan. Record missing evidence honestly.
+- Documentation-only work uses content, structure, link, and readback checks. These are not application runtime tests.
+- Preserve progress and remaining fix rounds. Never mark a predicted result, invented human approval, or one reviewer acting as two independent reviewers as accepted evidence.
+- Commit, push, PR creation, merge, deployment, and worktree deletion each require explicit authorization. An uncommitted handoff is a valid stopping point once the required checks and reviews are satisfied.
+
+## Readiness and Limitations
+
+IntentFlow's documentation has received structural and cross-file review. That does not prove automatic enforcement, broad reliability, or a compliant end-to-end consuming-project run. The earlier temporary fixture's tests do not establish that workflow-level claim.
+
+The optional code references are **not validated runnable starters**:
+
+| Reference | Known adoption work |
+|-----------|---------------------|
+| [CrewAI](./.agents/skills/planner/resources/scaffolds/crewai/README.md) | Package entry point, tool API, CLI arguments, mock research, and offline tests |
+| [LangChain](./.agents/skills/planner/resources/scaffolds/langchain/README.md) | Unsafe optional calculator, incomplete integrations, dependency validation, and offline tests |
+| [LangGraph](./.agents/skills/planner/resources/scaffolds/langgraph/README.md) | Package/environment setup, research-to-writer handoff, unrestricted file tool, and offline tests |
+
+Adopting a reference requires a scoped repair and validation plan, secret exclusions, bounded permissions, and approval for live calls. None of that work is required merely to use IntentFlow for planning. No toolkit-wide automated test, lint, or typecheck pass is claimed.
+
+## Further Reading and References
+
+- [Why this works](./.agents/skills/planner/references/WHY_THIS_WORKS.md): teaching model, trade-offs, and local design choices.
+- [Glossary](./.agents/skills/planner/references/GLOSSARY.md): terminology.
+- [Scaffold and tool catalog](./.agents/skills/planner/references/SCAFFOLDS.md): discovery leads, not mandatory installations or audited endorsements.
+- [Addy Osmani's agent-skills](https://github.com/addyosmani/agent-skills): lifecycle skills and specification/test discipline.
+- [Everything Claude Code](https://github.com/affaan-m/ECC): selective capabilities, context management, and persistent evidence patterns.
+- [LangGraph](https://github.com/langchain-ai/langgraph): runtime state, orchestration, and persistence concepts—not capabilities supplied by this Markdown toolkit.
+
+These repositories were consulted read-only. IntentFlow does not require installing them together or stacking their workflow routers.

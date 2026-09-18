@@ -8,7 +8,7 @@ description: >-
 
 # Grill with Docs
 
-Use this skill independently or during planner discovery and architecture review. This is a local adaptation of the interview methodology specified in the planner handoff, not an installed upstream package. Follow [root rules](../../AGENTS.md).
+Use this skill independently or during planner discovery and architecture review. This is a local adaptation of the interview methodology defined in [Phase 1](../planner/references/01_DISCOVERY.md) and [Phase 2](../planner/references/02_PLANNING.md), not an installed upstream package. Follow [root rules](../../AGENTS.md).
 
 ## Inputs and Boundaries
 

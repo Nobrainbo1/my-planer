@@ -16,7 +16,7 @@ checkpoint: false
 
 ## Step 3.0 — Scaffold Consultation
 
-Before discovering individual tools, check if an existing scaffold can jumpstart the entire project.
+Reuse the existing project structure and harness by default. No new tooling is a valid outcome when available tools meet the approved plan. Consider a scaffold only for approved greenfield work or an explicitly approved migration; a small existing-project change does not authorize replacing its structure.
 
 > **Consult [`SCAFFOLDS.md`](./SCAFFOLDS.md)** — the reference catalog of scaffolds, frameworks, harnesses, and starter templates organized by project type.
 
@@ -24,8 +24,9 @@ Before discovering individual tools, check if an existing scaffold can jumpstart
 
 | Situation | Action |
 |-----------|--------|
-| A scaffold exists that covers 80%+ of needs | **Adopt it.** Layer project-specific rules on top. |
-| A scaffold covers 50-80% of needs | **Fork or extend it.** Fill gaps with individual tools below. |
+| Existing project and adequate tools | Reuse them; record that no new tooling is needed. |
+| A scaffold exists that covers 80%+ of approved greenfield or migration needs | Evaluate adoption; record affected tasks and permissions before acting. |
+| A scaffold covers 50-80% of approved greenfield or migration needs | Evaluate a fork or extension; plan gaps and permissions before acting. |
 | No adequate scaffold exists | **Proceed to Step 3.1** — assemble tools individually. |
 | Starting from absolute zero (no codebase, no tech stack) | **Check Category 8 in SCAFFOLDS.md** for project-type starters (Next.js, FastAPI, etc.) and **Category 1** for agent harness scaffolds (ECC, agent-project, etc.) |
 
@@ -75,7 +76,7 @@ For each Tool Need (T-XX):
       • agenticskills.io — Security-audited skills
       • npx skills search <keyword> — CLI search across skill registries
       • GitHub: "SKILL.md" in:path <your-domain>
-      → If YES: Install with `npx skills add <repo> --skill <name>`, evaluate (Step 3.3).
+      → If YES: Record the candidate; evaluate it before the approval gate in Step 3.3.
 
 2b. FOR MODE A PIPELINE AGENTS: SEARCH PERSONA LIBRARIES
    └─ Does an existing persona match each agent the pipeline will create?
@@ -86,11 +87,11 @@ For each Tool Need (T-XX):
       → If YES: Map each pipeline agent to the single most relevant persona file.
         Record exact repository-relative paths plus a pinned commit SHA in
         EXECUTION_PLAN.md. Do NOT clone or install during planning. Retrieval
-        happens at execution time fetching only the mapped files with
-        no-cone sparse checkout (leading-slash file patterns; cone mode
-        rejects file paths — see planner SKILL.md Step 4A for verified
-        commands). Evaluate fetched personas with the matrix in Step 3.3
-        before adopting their guidance.
+        happens during approved execution before adapting prompts, using
+        anchored exact-file sparse patterns. See planner SKILL.md Step 4A
+        for illustrative commands, pinned-revision retrieval, and acceptance
+        checks. Sparse checkout limits working-tree files, not all metadata
+        or network traffic. Evaluate fetched personas with Step 3.3 before use.
    → If NO: Document why no persona fits; write the role from the intent.
 
 3. SEARCH MCP SERVER REGISTRIES
@@ -102,7 +103,7 @@ For each Tool Need (T-XX):
       • smithery.ai — Registry with install commands
       • github.com/modelcontextprotocol/servers — Reference implementations
       • GitHub: "modelcontextprotocol" OR "mcp server" <your-capability>
-      → If YES: Evaluate it (Step 3.3), then install/configure.
+      → If YES: Record the candidate; evaluate it before the approval gate in Step 3.3.
 
 4. SEARCH PACKAGE REGISTRIES
    └─ Is there a well-maintained library/CLI that does this?
@@ -110,14 +111,14 @@ For each Tool Need (T-XX):
       • npm / PyPI / crates.io / Go modules (language-specific)
       • GitHub search for "[capability] CLI tool"
       • Awesome lists (e.g., awesome-mcp-servers, awesome-devtools)
-      → If YES: Evaluate it (Step 3.3), then integrate.
+      → If YES: Record the candidate; evaluate it before the approval gate in Step 3.3.
 
 5. SEARCH FOR EXISTING APIs
    └─ Is there a hosted API/service that provides this?
       Sources to check:
       • RapidAPI, Postman API Network
       • Official service documentation (e.g., GitHub API, Stripe API)
-      → If YES: Evaluate it (Step 3.3), then integrate.
+      → If YES: Record the candidate; evaluate it before the approval gate in Step 3.3.
 
 6. BUILD CUSTOM (Last Resort)
    └─ If nothing adequate was found in steps 1-5:
@@ -147,16 +148,24 @@ For every discovered tool, score it before adopting.
 ```
 
 **Decision Thresholds:**
-- **Score ≥ 4.0:** Adopt immediately.
-- **Score 3.0–3.9:** Adopt with caveats (document limitations).
-- **Score 2.0–2.9:** Consider building custom or look for alternatives.
+- **Score ≥ 4.0:** Recommend adoption, subject to security and approval gates.
+- **Score 3.0–3.9:** Recommend adoption with documented caveats, subject to the same gates.
+- **Score 2.0–2.9:** Consider planning a custom tool or look for alternatives.
 - **Score < 2.0:** Reject.
+
+### Installation and Change Approval Gate
+
+Discovery is read-only. Evaluate source, version, security, permissions, and side effects before installation or adoption; a score is not authorization. Do not use a discovery command that downloads or executes an unapproved package. If evaluation needs restricted access or execution, request that permission first.
+
+Record the exact pinned source/version, proposed command, shell, working directory, destination, configuration changes, and side effects. Obtain separate explicit installation approval with approver, date, and message/reference before installing. Configuration, retrieval, and integration must stay within approved scope and permissions. Record actual validation evidence after the approved action; harness approval alone is not installation permission.
+
+If discovery changes architecture, dependencies, owned files, or implementation tasks, return to Phase 2. Update tasks, tests, ownership, and preflight, and obtain renewed approval of affected intent/plan revisions before acting. Custom tooling and scaffold implementation use Phase 4's checks and ordered reviews, not an unreviewed Phase 3 shortcut.
 
 ---
 
 ## Step 3.4 — Custom Tool Creation (When Discovery Fails)
 
-If no existing tool meets the need, create a minimal custom tool. Choose the right format:
+If no existing tool meets the need, propose a minimal custom tool in the execution plan. Obtain any required renewed plan and action approvals, then implement through Phase 4. Choose the right format:
 
 | What You Need | Create | Guide |
 |---------------|--------|-------|
@@ -277,4 +286,4 @@ A fully documented **Harness Configuration** listing every tool the agent has ac
 
 > Use the template at [`tool_discovery_report.md`](../resources/templates/tool_discovery_report.md) to document the discovery process.
 
-> **Proceed to [Phase 4: Implementation](./04_IMPLEMENTATION.md)** once the harness is assembled.
+> **Proceed to [Phase 4: Implementation](./04_IMPLEMENTATION.md)** when prerequisite tools are available, required action approvals are recorded, and any changed plan has renewed approval and passed preflight. A custom tool planned as a Phase 4 task need not exist yet; order it before its consumers and ensure its own prerequisites are available. Record unmet prerequisites as blockers, never as assembled capability.

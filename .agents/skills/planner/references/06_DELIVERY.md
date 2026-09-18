@@ -10,7 +10,9 @@ checkpoint: true
 
 ## Step 6.0 — Whole-Branch Completion Review
 
-Before any merge, review the **entire branch against the approved base**, not only the last commit or individual task diffs.
+Before completion, publication, merge, or deployment, review the **entire branch against the approved base**, not only the last commit or individual task diffs. This includes an uncommitted handoff. Required documentation must already be finished and verified.
+
+Use the plan's authoritative artifact map and the [Phase 4 candidate identity contract](./04_IMPLEMENTATION.md#candidate-identity-contract). Inspect mutable evidence separately for accuracy, scope, and secrets; do not treat its routine updates as deliverable changes. If an evidence artifact will ship, freeze it into the candidate before final checks and ordered reviews, and record later verdicts and actions in a separate approved non-deliverable location. Never exclude intended deliverables to preserve an obsolete approval.
 
 1. Read the approved brief, plan, task ledger, and [verification report](../resources/templates/verification_report.md). Require fresh Phase 5 evidence and transition approval. Identify the base branch and merge base, current HEAD, and uncommitted content identity.
 2. Inspect all included commits, the complete base-to-candidate diff, staged and unstaged changes, and untracked files. For an uncommitted handoff, include the intended working-tree diff in the candidate. Preserve unrelated work; do not include it in the changeset or silently claim it was reviewed.
@@ -79,9 +81,11 @@ After approval, execute only the approved steps. Record command/cwd/revision/exi
 
 If deployment is not requested or approved, hand off artifacts and record `NOT DEPLOYED`; do not claim a live release.
 
-## Step 6.3 — Documentation Update
+## Step 6.3 — Confirm Documentation Is Complete
 
-Update only approved deliverables as applicable: README setup and usage, change log, API documentation, architecture records, and operations runbook. Do not create or change extra files without scope approval. Do not add comments unless requested.
+Required README, change log, API documentation, architecture records, and operations runbook changes must already be complete as approved Phase 4 tasks and included in Phase 5 verification and whole-branch review before any publication or deployment. This step confirms their state; it is not a post-deployment writing step. The change log format below is for those planned tasks.
+
+If a deliverable still needs editing, stop further publication or deployment. Return the change to its owning task, preserve its shared fix count, and repeat applicable Phase 5 checks, transition approval, and whole-branch ordered reviews on the new candidate. Do not claim that a previously deployed candidate contains later documentation edits. Do not create or change extra files without scope approval or add comments unless requested.
 
 ```markdown
 ## [Version] — [Date]

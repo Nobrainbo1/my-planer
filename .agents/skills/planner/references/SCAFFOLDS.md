@@ -15,7 +15,9 @@ alwaysApply: false
 
 1. **Identify your project type** from the categories below.
 2. **Evaluate candidates** using the Tool Evaluation Matrix from [03_TOOLING.md](./03_TOOLING.md).
-3. **Adopt the scaffold** that best fits, then layer your project-specific `AGENTS.md` and rules on top.
+3. **Reuse first.** Keep an existing project's stack unless migration is approved. No new tooling is a valid outcome. Evaluate the smallest relevant subset; obtain separate installation approval before adoption.
+
+Catalog entries are discovery leads, not audited endorsements or guaranteed compatible releases. Verify current ownership, license, APIs, supported platforms, and installation side effects. Do not stack multiple workflow routers with conflicting instructions. The bundled CrewAI, LangChain, and LangGraph layouts are unvalidated adaptation references; read their README blockers before planning any use.
 
 ---
 
@@ -124,7 +126,7 @@ Not every project needs an MCP server or a cloud service. These lightweight opti
 
 | Skill | Source | What It Does | Best For |
 |-------|--------|-------------|----------|
-| **Agency Agents** | [msitarzewski/agency-agents](https://github.com/msitarzewski/agency-agents) | MIT-licensed roster of 279+ specialized agent persona files (identity, workflows, deliverables, success metrics) organized into division folders: engineering, design, product, project-management, testing, security, marketing, sales, finance, research, academic, gis, healthcare, game-development, spatial-computing, support, specialized, paid-media. Each file is a frontmatter plus persona Markdown document. | Mode A (agent applications): mapping each planned pipeline agent to a battle-tested persona. During planning, map and pin a commit SHA only. At execution, fetch just the mapped persona files via no-cone Git sparse checkout (verified commands in planner SKILL.md Step 4A); never clone the full roster. Audit and adapt each fetched persona before use. |
+| **Agency Agents** | [msitarzewski/agency-agents](https://github.com/msitarzewski/agency-agents) | MIT-licensed roster of 279+ specialized agent persona files (identity, workflows, deliverables, success metrics) organized into division folders: engineering, design, product, project-management, testing, security, marketing, sales, finance, research, academic, gis, healthcare, game-development, spatial-computing, support, specialized, paid-media. Each file is a frontmatter plus persona Markdown document. | Mode A (agent applications): mapping each planned pipeline agent to a battle-tested persona. During planning, map and pin a commit SHA only. At execution, fetch just the mapped persona files via no-cone Git sparse checkout (illustrative commands and acceptance checks in planner SKILL.md Step 4A); never clone the full roster. Audit and adapt each fetched persona before use. |
 | **Anthropic-Cybersecurity-Skills** | [mukul975/Anthropic-Cybersecurity-Skills](https://github.com/mukul975/Anthropic-Cybersecurity-Skills) | 817 cybersecurity playbooks mapped to MITRE ATT&CK, NIST CSF 2.0, MITRE ATLAS, D3FEND. Covers threat intel, DFIR, red teaming, DevSecOps, cloud security. | Security audits in Phase 5, compliance verification, any project handling sensitive data |
 | **detect-skill** | [resemble-ai/detect-skill](https://github.com/resemble-ai/detect-skill) | Deepfake/synthetic media detection via Resemble AI API. Audio fingerprinting, video forensics, source attribution. | Projects with user-generated media, content moderation, anti-fraud pipelines |
 | **archify** | [tt-a1i/archify](https://github.com/tt-a1i/archify) | Generates interactive, schema-validated architecture diagrams (architecture, workflow, sequence, data-flow, lifecycle) from code or specs. Typed JSON IR → deterministic HTML/SVG. | Phase 2 planning visualization, PR architecture diffs, living documentation |
@@ -168,6 +170,7 @@ my-project/
 | **Mem0** | [mem0.ai](https://mem0.ai/) | Universal memory layer — persistent long-term context across agent sessions. | Preventing agent amnesia, remembering team patterns and decisions |
 | **SDL-MCP** | Community | Symbol Delta Ledger — compacts large codebases into high-signal context. | Large monorepos with tight token budgets |
 | **Basemind** | Community | Unified context layer (code-maps, RAG, shared memory) over MCP. | Multi-agent coding setups needing shared codebase awareness |
+| **RTK (Run Time context)** | [rtk-ai/rtk](https://github.com/rtk-ai/rtk) | Helps manage log and error log context to prevent consuming too many tokens. | **Token optimization** — keeping context limits safe while debugging large logs |
 | **MCP Memory Server** | [Official](https://github.com/modelcontextprotocol/servers) | Stores entities, relations, and observations in local JSONL. | Lightweight project memory without full knowledge graph |
 
 ---

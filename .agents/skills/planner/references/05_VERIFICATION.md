@@ -12,7 +12,7 @@ Use [the verification report](../resources/templates/verification_report.md). Pr
 
 ## Step 5.1 — Fresh Full-Suite Execution
 
-1. Confirm Phase 4 approval, task acceptance, workspace, base/current revision, and the exact uncommitted diff identity. Record tool versions and relevant environment settings without secrets.
+1. Confirm Phase 4 approval, task acceptance, and completion of required documentation. Read the authoritative artifact paths from the plan. Record workspace, base/current revision, deliverable file set and exact content identity, and separate mutable evidence paths under the [Phase 4 candidate identity contract](./04_IMPLEMENTATION.md#candidate-identity-contract). Finalize any evidence snapshots that must ship before final checks. Record tool versions and relevant environment settings without secrets.
 2. Discover the project's actual commands from its manifest, CI configuration, and documentation. Identify all required suites from the approved brief. Do not assume a framework, install tools without permission, or silently narrow the suite.
 3. Run broad unit, integration, and end-to-end suites fresh on the delivery candidate, not only tests touched by the task. Run the build, lint, typecheck, and other required gates too. Cached summaries, old CI runs, watch-mode results from another revision, and an implementer's statement are not fresh verification.
 4. Capture evidence per command: time, revision and diff identity, absolute cwd, exact command, exit code, actual output or durable redacted output reference, test names, executed/pass/fail/skipped counts, and measured coverage if produced.
@@ -75,6 +75,12 @@ Map **every functional requirement** in the approved `INTENT_BRIEF.md`, not only
 | FR-02 / [behavior] | [path:line or missing] | [test ID or missing] | [E-ID or absent] | [FAIL / BLOCKED / NOT RUN] |
 
 Any in-scope requirement without passing proof blocks readiness. Explicitly out-of-scope items must cite the approved brief and remain visible as excluded, not satisfied. Changing a priority label or recording a safe ruling does not remove an acceptance obligation. Documentation requirements map to structural checks and readback evidence instead of invented runtime tests. Track non-functional requirements and DoD items with the same evidence discipline.
+
+### Output and Trajectory Evaluation
+
+For nondeterministic agent behavior, run the evaluation cases and rubric defined in the approved plan alongside deterministic tests. Output evaluation checks the final result against requirements. Trajectory evaluation checks observable actions: tool calls, permissions, required checks, source use, stopping conditions, and resource limits. Use recorded events and concise decision records, not private model reasoning. A plausible answer with unauthorized actions or skipped required checks fails the applicable process criterion.
+
+Record case-set and rubric revisions, model/configuration, number of trials, pass thresholds, actual results, and redacted evidence. Include representative normal, boundary, and failure cases. Obtain permission for live calls or sensitive data transfer; blocked required evaluations prevent readiness. Group failures by cause, improve only approved prompts/tools/code, and rerun affected evaluations and regressions. For planning-only or documentation work, use an explicit artifact-review rubric and mark runtime evaluations N/A with a scope reason; never simulate human approval to satisfy it.
 
 ## Step 5.6 — Four-Phase Systematic Debugging
 

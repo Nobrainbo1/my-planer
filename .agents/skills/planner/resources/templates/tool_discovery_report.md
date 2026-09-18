@@ -6,7 +6,11 @@ type: template
 # Tool Discovery Report — [Project/Feature Name]
 
 > **Date:** [YYYY-MM-DD]  
-> **Execution Plan:** [Execution Plan](./execution_plan.md)
+> **Output:** [exact approved target-project report path]
+> **Execution Plan:** `EXECUTION_PLAN.md` [authoritative absolute path and approved revision]
+> **Outcome:** [reuse existing tools / proposed additions / blocked]
+
+Read this template as a source; never fill in the shipped original. Rewrite copied local links relative to the generated output and verify exact filename case and heading targets. No new tooling is a valid outcome. If an existing tool is adequate, record it and mark later searches unnecessary with a reason.
 
 ---
 
@@ -61,7 +65,15 @@ type: template
 - **Tool:** [chosen tool/server/API]
 - **Source:** [where it came from]
 - **Score:** [X.X / 5.0]
-- **Config:** [how to set it up]
+- **Config:** [proposed setup; no secret values]
+- **Pinned source/version and evaluation evidence:** [exact source identity; functionality, trust, security, permissions, side effects, caveats]
+- **Proposed action:** [exact install/configuration/retrieval command, shell, cwd, destination, and affected files; or no action]
+- **Plan impact:** [owning tasks/tests; updated preflight and renewed intent/plan approval if material; or none]
+- **Separate install approval:** [approver, date, explicit message/reference for this action; NOT AUTHORIZED or N/A with reason]
+- **Other required permissions:** [action, exact scope and approval reference; or none]
+- **Actual action and validation:** [timestamp, command/cwd, exit code, output reference; NOT RUN until observed]
+
+Evaluate before installation or adoption. A score or harness approval is not install permission. Do not run discovery commands that download or execute unapproved packages. New custom tooling or scaffold implementation must be approved in the plan and executed through Phase 4's checks and ordered reviews.
 
 ---
 
@@ -91,6 +103,10 @@ type: template
 
 ## Approval
 
-- [ ] All tool needs addressed (discovered or flagged for custom build).
-- [ ] No unnecessary custom tools — existing solutions prioritized.
+- [ ] All tool needs addressed by available tools or approved custom-build tasks with satisfied prerequisites; unavailable capability remains explicitly blocked.
+- [ ] No unnecessary custom tools — existing solutions prioritized; no new tooling is a valid outcome.
+- [ ] Candidates evaluated before installation or adoption; separate action approvals and actual validation evidence recorded.
+- [ ] Material changes returned to planning for renewed approval and preflight before affected execution.
 - [ ] Orchestrator reviewed and approved harness configuration.
+
+**Harness approval:** [approver, date, exact configuration revision, explicit message/reference; not installation permission]

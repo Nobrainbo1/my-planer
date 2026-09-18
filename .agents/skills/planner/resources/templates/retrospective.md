@@ -39,13 +39,17 @@ type: template
 | Total tasks | [X] |
 | Completed autonomously | [X / Y] ([Z%]) |
 | Required escalation | [X / Y] ([Z%]) |
-| Self-correction cycles (total) | [X] |
-| Avg self-corrections per task | [X.X] |
+| Consumed shared fix rounds (total) | [sum of per-task ledger counts; evidence references] |
+| Avg shared fix rounds per task | [total divided by task count; not hypothesis count] |
 | False positives | [X] |
 | Missed issues (caught in human review) | [X] |
 | Total wall-clock time | [duration] |
-| Estimated time without agent | [duration] |
-| Time saved | [duration] ([Z%]) |
+| Estimated time without agent (optional) | [Unknown, or explicitly estimated duration with method and evidence] |
+| Estimated time saved (optional) | [Unknown, or calculation from the stated estimate; not a measured saving] |
+
+Use the authoritative ledger for task, fix-round, and escalation counts. Record unavailable models/reviewers, verification gaps, and evidence sources; do not invent metrics. Initial attempts and expected Red are not fix rounds.
+
+Read this template as a source and write only to an approved output path. Proposed harness improvements need separate scope approval before edits or installs; this retrospective grants no implementation authority.
 
 ---
 
