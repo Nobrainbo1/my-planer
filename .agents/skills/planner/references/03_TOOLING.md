@@ -159,13 +159,13 @@ Discovery is read-only. Evaluate source, version, security, permissions, and sid
 
 Record the exact pinned source/version, proposed command, shell, working directory, destination, configuration changes, and side effects. Obtain separate explicit installation approval with approver, date, and message/reference before installing. Configuration, retrieval, and integration must stay within approved scope and permissions. Record actual validation evidence after the approved action; harness approval alone is not installation permission.
 
-If discovery changes architecture, dependencies, owned files, or implementation tasks, return to Phase 2. Update tasks, tests, ownership, and preflight, and obtain renewed approval of affected intent/plan revisions before acting. Custom tooling and scaffold implementation use Phase 4's checks and ordered reviews, not an unreviewed Phase 3 shortcut.
+If discovery changes architecture, dependencies, owned files, or implementation tasks, return to Phase 2. Update tasks, tests, ownership, and preflight, and obtain renewed approval of affected intent/plan revisions before acting. Custom tooling and scaffold implementation will be handled by the external scaffolder during Phase 4.
 
 ---
 
 ## Step 3.4 — Custom Tool Creation (When Discovery Fails)
 
-If no existing tool meets the need, propose a minimal custom tool in the execution plan. Obtain any required renewed plan and action approvals, then implement through Phase 4. Choose the right format:
+If no existing tool meets the need, propose a minimal custom tool in the execution plan. Obtain any required renewed plan and action approvals, then leave it to the Scaffolder to implement in Phase 4. Choose the right format:
 
 | What You Need | Create | Guide |
 |---------------|--------|-------|

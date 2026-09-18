@@ -224,17 +224,9 @@ Phase 3: TOOLING  ◄──── CONSULT THIS CATALOG
   ├─ Set up Automation scaffold (Category 7)
   └─ Pick a Project starter template (Category 8)
        │
-Phase 4: IMPLEMENTATION
-  ├─ Execute using the assembled scaffold + harness
-  └─ Skills like /build, /test, /review guide each step
-       │
-Phase 5: VERIFICATION
-  ├─ Security skills (Cybersecurity-Skills) for audit
-  ├─ archify for architecture diff verification
-  └─ codebase-memory-mcp for dependency impact analysis
-       │
-Phase 6: DELIVERY
-  └─ archify for living documentation diagrams
+Phase 4-6: IMPLEMENTATION, VERIFICATION, DELIVERY
+  └─ HANDOFF TO EXTERNAL SCAFFOLDER (e.g. ECC, Superpower, Cline)
+  └─ They will execute the plan using the assembled scaffold + harness
 ```
 
 ---

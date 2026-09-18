@@ -199,7 +199,7 @@ Define this final acceptance checklist during discovery. It applies at delivery 
 - [ ] Documentation-only deliverables pass structural checks (links, fences, structure, acceptance readback); these are not runtime evidence.
 - [ ] No known security vulnerabilities (dependency audit clean).
 - [ ] Required documentation updated (README and API docs as applicable).
-- [ ] Self-review checklist completed by Agent (Phase 5).
+- [ ] Scaffolding execution agent has completed its own verification steps.
 - [ ] Orchestrator has reviewed and approved (Checkpoint).
 - [ ] Change log updated with summary of modifications.
 ```

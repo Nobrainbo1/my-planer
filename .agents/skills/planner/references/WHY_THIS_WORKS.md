@@ -31,14 +31,15 @@ For teaching purposes, this template groups decisions into three types. Its 6 ph
 WHAT decisions          HOW decisions           DID-IT-WORK decisions
 (Define the problem)    (Solve the problem)     (Verify the solution)
      │                       │                         │
-     ├── Phase 1: DISCOVERY  ├── Phase 3: TOOLING      ├── Phase 5: VERIFICATION
-     └── Phase 2: PLANNING   └── Phase 4: IMPLEMENTATION └── Phase 6: DELIVERY
+[ PLANNER TOOLKIT ]     [ EXTERNAL SCAFFOLDER ]   [ EXTERNAL SCAFFOLDER ]
+     ├── Phase 1             ├── Phase 4               ├── Phase 5
+     ├── Phase 2             └── Phase 6 (Delivery)
+     └── Phase 3 (Tooling)
 ```
 
-**Why two phases per type?** Because each type has a *thinking* step and a *doing* step:
-- WHAT: *What do we want?* (Discovery) → *How do we get there?* (Planning)
-- HOW: *What tools do we need?* (Tooling) → *Write the code* (Implementation)
-- DID IT WORK: *Does it pass tests?* (Verification) → *Is it shipped and learned from?* (Delivery)
+**Why separate the Planner from the Scaffolder?** 
+- WHAT: *What do we want?* (Discovery) → *How do we get there?* (Planning) → *What tools do we need?* (Tooling) -> **This is the Planner.**
+- HOW & DID IT WORK: *Write the code* (Implementation) → *Does it pass tests?* (Verification) → *Is it shipped?* (Delivery) -> **This is the Scaffolder (ECC, etc).**
 
 ### The Cost Trade-off — Why Early Feedback Matters
 
@@ -115,51 +116,13 @@ That's the entire template in 6 steps. Everything else is detail.
 
 ---
 
-### Phase 4: IMPLEMENTATION — "Write the code."
+### Phase 4, 5, and 6: IMPLEMENTATION, VERIFICATION, & DELIVERY
 
-**What goes wrong without it (the process):** Code without a loop just keeps going in one direction. If the first approach is wrong, you end up with 500 lines of wrong code instead of catching it at line 50.
+**Handled by:** External Scaffolder (e.g., ECC, Superpower).
 
-**The key insight: Builder-Validator.** This is a local implementation of the verification ideas in the paper. The agent is split into two roles that alternate:
+**Why we hand off:** Our Planner Toolkit focuses exclusively on getting the spec, architecture, and tool choices perfectly right. Once the Execution Plan is approved, the actual loop of writing code (Phase 4), running tests (Phase 5), and delivering (Phase 6) requires a dedicated execution agent harness. By separating planning from execution, we prevent agent confusion and prevent conflicting loops. 
 
-```
-Builder writes code → Validator checks it → Builder fixes issues → Validator re-checks → ...
-```
-
-This is like having a junior developer (Builder) paired with a senior reviewer (Validator). The Builder generates; the Validator verifies. Neither is useful alone — generation without verification is vibe coding; verification without generation is just complaining.
-
-**Local policy — fix budget and human review:** The five-round limit, escalation rules, and human-review fallback below are template policy, not source prescriptions.
-
-**Why a shared five-round fix budget?** A bounded correction loop prevents endless retries. Each task gets one initial attempt, excluded from the budget, then at most 5 total fix rounds shared across build, test, spec review, and quality/test review. Expected TDD Red is not a fix round. Persist the count across sessions and phases; stop and escalate after 5 failed fix rounds, with no automatic sixth round. See the [Phase 4 policy](./04_IMPLEMENTATION.md).
-
-For fix rounds 4–5, request a higher-tier model if available. Record actual availability and selection; never claim a model switch that did not occur. If unavailable, record the limitation and use a fresh reviewer at the available tier. If subagent review is unavailable, acceptance remains blocked unless the [canonical human-review fallback](./04_IMPLEMENTATION.md#401--canonical-fallback-when-fresh-agents-are-unavailable) is authorized and both ordered reviews approve the candidate.
-
-Escalate security issues, scope changes, destructive actions, and missing permissions immediately, regardless of the remaining budget.
-
-**On paper:** Code a small piece. Test it. Investigate failures before fixing them. Track the shared fix count and seek human help when the budget is exhausted; safety concerns cannot wait.
-
----
-
-### Phase 5: VERIFICATION — "Does it actually work?"
-
-**What goes wrong without it:** "It works on my machine." The code passes the happy path but fails on edge cases, has a security vulnerability, or silently breaks an existing feature.
-
-**The key insight: "Evals, not vibes."** A local phrasing of the paper's point that verification — not AI use itself — separates vibe coding from engineering: don't *feel* like it works, *prove* it works. Every requirement from Phase 1 should trace to a test in Phase 5. If you can't point to proof, you don't know it works.
-
-The paper distinguishes **output evaluation** (is the final result correct?) from **trajectory evaluation** (was the path sound — the tool calls, checks, and permissions used?). This template evaluates on observed evidence: recorded test runs, reviewer verdicts, and permission checks — never hidden or claimed reasoning. An answer that looks right but skipped its checks is treated as unverified.
-
-**The Spec Compliance Matrix:** This is the bridge between Phase 1 and Phase 5. For each requirement, you ask: "Where is the code that implements this? Where is the test that proves it works?" If any cell is empty, that requirement is unverified.
-
-**On paper:** Go through your Definition of Done checklist from Phase 1. For each item, check: does it pass? Yes → next. No → fix it.
-
----
-
-### Phase 6: DELIVERY — "Ship it and learn from it."
-
-**What goes wrong without it:** You ship and immediately forget everything you learned. Next project, you make the same mistakes. The workflow never improves.
-
-**The key insight: The retrospective loop.** Record evidence-backed improvements to rules, skills, tools, and phases. Apply them only under separately approved scope, not automatically. Required product documentation is completed during implementation and verified before delivery; a retrospective is not permission for late deliverable edits.
-
-**On paper:** After shipping, write down: (1) What went well? (2) What went wrong? (3) What would I change for next time?
+**On paper:** You write the blueprint, give it to the builders, and wait for them to finish.
 
 ---
 
@@ -213,9 +176,7 @@ If you ever need a phase this template doesn't have, use this formula:
 5. Try one project:   01_DISCOVERY.md → create target-project INTENT_BRIEF.md from the source template
 6. Continue:          02_PLANNING.md → create target-project EXECUTION_PLAN.md from the source template
 7. As needed:         SCAFFOLDS.md, 03_TOOLING.md (when you need tools)
-8. During building:   04_IMPLEMENTATION.md
-9. Before shipping:   05_VERIFICATION.md → 06_DELIVERY.md
-10. After shipping:   06_DELIVERY.md → retrospective at an approved target-project path
+8. End of Planner Workflow: Hand off to external scaffolder!
 ```
 
 Template sources live under the planner skill's `resources/templates/`: [intent brief](../resources/templates/intent_brief.md), [execution plan](../resources/templates/execution_plan.md), and [retrospective](../resources/templates/retrospective.md). Read these originals; never fill them in. Write live artifacts only to approved target-project paths. Rewrite copied links relative to each output and verify their targets and headings. Keep one authoritative artifact map across worktrees; a new worktree does not inherit uncommitted planning files.

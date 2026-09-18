@@ -22,7 +22,7 @@ Read the approved `INTENT_BRIEF.md` and live `CONTEXT.md` at the target project 
 
 Record the original target root separately from each execution workspace. Choose one authoritative absolute path for the brief, glossary, plan, ledger, and verification report; record their owners and approved write permissions. Pass these paths to every fresh agent. A new worktree does not inherit uncommitted planning artifacts. Before dispatch, verify access to the authoritative files. Any permitted copies must match their approved revision/content identity and remain non-authoritative; record relocation explicitly rather than creating divergent live copies.
 
-Include required README, change log, API, and operations documentation as owned Phase 4 tasks. Finish these deliverables before final Phase 5 verification, not after delivery. Record the deliverable file set and separate mutable evidence locations using the Phase 4 candidate identity contract.
+Include required README, change log, API, and operations documentation as tasks in the plan.
 
 Match detail to Spike, One-Shot, or Project scope without omitting execution essentials. Mark irrelevant sections N/A with a reason rather than inventing architecture. Use **DRY (Don't Repeat Yourself)**: reuse existing code and shared contracts instead of duplicating behavior. Use **YAGNI (You Aren't Gonna Need It)**: exclude speculative features, dependencies, and abstractions.
 
@@ -171,14 +171,8 @@ Each task must contain:
 - A stable task ID, requirement IDs from `INTENT_BRIEF.md`, acceptance criteria, dependencies, and exact read/write file ownership.
 - Required context with exact target-project-relative paths and symbols or line anchors, setup prerequisites, shell, and working directory. Include test fixtures, imports, and contracts so a fresh implementer needs no prior conversation.
 - Exact proposed test and production code blocks or diffs, including insertion/replacement anchors. No "implement validation" instructions, ellipses, or unresolved execution placeholders in an approved plan.
-- **Red:** Write the failing test first. Supply the exact focused test command and expected assertion failure. During execution, actually run it and record timestamp, exit code, failing test, and observed output before production code changes. A syntax, import, setup, or unrelated failure is not evidence of missing behavior; fix the test setup and rerun.
-- **Green:** Apply only the minimum approved production change to pass the observed Red test. Rerun the exact focused command and record actual passing output.
-- **Refactor:** Remove duplication and improve clarity without changing behavior. Rerun focused and relevant regression tests, lint, and typecheck; record actual results. If no cleanup is needed, record the reason and still verify.
-- For documentation-only work, specify an exact reproducible structural or content acceptance check in place of a runtime test. Record the observed pre-change failure and post-change result; do not fabricate TDD output. Flag unavailable checks explicitly and agree on a review-based alternative before execution.
-- Two review assignments: spec compliance first, then code quality and tests. For documentation-only tasks, reviewers verify the structural acceptance equivalent and record runtime checks as `N/A` with a reason. Name the reviewer or role, review inputs, acceptance criteria, findings, fix rounds, and evidence required for each verdict. If separate reviewers are unavailable, disclose that and obtain agreement on the fallback; do not claim independent review.
-- An exact execution ledger path, such as `.superpowers/sdd/<plan-id>/progress.md`, resolved to a real path in the approved plan. Record task state, approved revision, implementer/workspace, evidence references, review outcomes, blockers, operational rulings with impact, and next action after every step. Resume from the ledger after context loss.
 
-Expected outputs in the draft plan are predictions, not observed evidence. Leave execution evidence as `Not run` until execution occurs. Task completion requires recorded Red/Green/Refactor results, or for documentation-only tasks the approved structural equivalent with runtime checks recorded `N/A` and a reason. Both ordered review approvals are required in either case; checked boxes alone do not count. Unavailable subagent reviews must follow the [Phase 4 canonical fallback](./04_IMPLEMENTATION.md#401--canonical-fallback-when-fresh-agents-are-unavailable). Rulings may resolve minor operational details but must not bypass approval or expand scope.
+Expected outputs in the draft plan are predictions, not observed evidence. The execution agent will fill out the evidence once the plan is handed off.
 
 ---
 

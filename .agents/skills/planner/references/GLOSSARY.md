@@ -83,7 +83,7 @@ alwaysApply: false
 
 | Term | Plain English |
 |------|--------------|
-| **Human-in-the-loop** | A human reviews and approves at key checkpoints. The agent proposes; the human decides. This template uses three numbered checkpoints: after Phase 2 (Plan Approval), after Phase 4 (Implementation Review), and in Phase 6 (Deployment Approval, when requested). Explicit intent approval and delivery-readiness approval are also required. Installation and restricted delivery actions each need separate authorization. |
+| **Human-in-the-loop** | A human reviews and approves at key checkpoints. The agent proposes; the human decides. This template uses strict checkpoints like Plan Approval. Installation actions also need separate authorization. |
 | **Vibe Coding** | Prompting an AI without structure — ad-hoc, conversational, no spec, no verification. Fast for prototypes, expensive for production (low CapEx, high OpEx). |
 | **Agentic Engineering** | Structured orchestration of AI agents through defined workflows — spec-driven, tool-assisted, verified. What this template teaches (medium CapEx, low OpEx). |
 | **Grilling** | An intensive Q&A session where the agent interviews you to extract requirements. The agent asks; you answer. Used in Phase 1 Discovery. |
