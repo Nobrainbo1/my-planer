@@ -95,9 +95,14 @@ Create `docs/adr/000X-<slug>.md` only if all three gates are Yes with evidence. 
 
 Retain Foundation, Core Features, and Integration groups when useful, but split them into one-behavior tasks. Each action should normally take 2 to 5 minutes. An effort label does not replace executable detail. Repeat the task card below for every task.
 
-| Task ID | Group | Requirement IDs | Behavior | Dependencies | Read Files | Write Files | Action Estimates |
-|---------|-------|-----------------|----------|--------------|------------|-------------|------------------|
-| T-01 | [Foundation / Core Features / Integration] | [FR/NFR IDs] | [one testable behavior] | [IDs or none] | [exact paths] | [exact paths] | [minutes per action] |
+**Advanced Agentic Patterns Required:**
+- **ReWOO/DAG Dependency Mapping:** Explicitly state variables passed between tasks (e.g., `T-02 depends on outputs of T-01`).
+- **Parallelization:** Group non-dependent tasks so the execution agent can run them concurrently (LLMCompiler pattern).
+- **Reflexion:** For each task, define exactly how the execution agent will verify its own success and attempt self-correction before reporting failure.
+
+| Task ID | Group | Requirement IDs | Behavior | Dependencies (DAG) | Read Files | Write Files | Action Estimates |
+|---------|-------|-----------------|----------|--------------------|------------|-------------|------------------|
+| T-01 | [Foundation / Core Features / Integration] | [FR/NFR IDs] | [one testable behavior] | [IDs or outputs needed] | [exact paths] | [exact paths] | [minutes per action] |
 
 ### Task T-01 — [One Testable Behavior]
 

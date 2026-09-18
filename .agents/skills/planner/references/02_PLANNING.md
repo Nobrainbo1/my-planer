@@ -162,17 +162,26 @@ Record Yes/No and rationale for each gate in `EXECUTION_PLAN.md`. If any gate is
 
 ---
 
-## Step 2.3 — Zero-Context Execution Tasks
+## Step 2.3 — Zero-Context Execution Tasks & Advanced Planning Patterns
 
-Write `EXECUTION_PLAN.md` using [`execution_plan.md`](../resources/templates/execution_plan.md). Break the architecture into ordered, bite-sized tasks. Each task covers one testable behavior; each action should normally take 2 to 5 minutes. Split broad items such as "build the API" instead of labeling them small.
+Write `EXECUTION_PLAN.md` using [`execution_plan.md`](../resources/templates/execution_plan.md). Break the architecture into ordered, bite-sized tasks. Each task covers one testable behavior; each action should normally take 2 to 5 minutes. 
+
+To ensure the highest reliability during execution, apply the following **Advanced Agentic Planning Patterns** to your task breakdown:
+
+1. **Plan-and-Execute (Plan-and-Solve):** Decouple reasoning from execution. Create the entire blueprint before any code is written. The execution agent should only focus on completing one task at a time, not rethinking the architecture.
+2. **ReWOO (Reasoning Without Observation):** Pre-compute the dependency graph. Assign variables to future outputs (e.g., `Result_Task1 = create_database()`, `Task2 = populate(Result_Task1)`). This minimizes the need for the execution agent to pause and "think" between every step.
+3. **LLMCompiler (Parallel Execution Graph):** Identify which tasks are strictly sequential and which are independent. Group independent tasks into parallel execution branches (Directed Acyclic Graph - DAG) so the execution agent can run them simultaneously to reduce latency.
+4. **Reflexion (Self-Correction Loops):** Build evaluation and correction steps directly into the plan. For critical tasks, add a sub-task for the agent to verify its own work against the acceptance criteria, analyze failures, and attempt self-correction before proceeding.
+5. **Chain/Tree-of-Thought Guardrails:** Require the execution agent to explicitly output its reasoning for complex logic tasks before generating code.
 
 Each task must contain:
 
-- A stable task ID, requirement IDs from `INTENT_BRIEF.md`, acceptance criteria, dependencies, and exact read/write file ownership.
+- A stable task ID, requirement IDs from `INTENT_BRIEF.md`, acceptance criteria, dependencies (explicitly using the ReWOO/DAG pattern), and exact read/write file ownership.
 - Required context with exact target-project-relative paths and symbols or line anchors, setup prerequisites, shell, and working directory. Include test fixtures, imports, and contracts so a fresh implementer needs no prior conversation.
 - Exact proposed test and production code blocks or diffs, including insertion/replacement anchors. No "implement validation" instructions, ellipses, or unresolved execution placeholders in an approved plan.
+- Explicit **Reflexion/Verification** criteria: How the execution agent will verify the task is complete and correct itself if it fails.
 
-Expected outputs in the draft plan are predictions, not observed evidence. The execution agent will fill out the evidence once the plan is handed off.
+Expected outputs in the draft plan are predictions (ReWOO style), not observed evidence. The execution agent will fill out the evidence once the plan is handed off.
 
 ---
 

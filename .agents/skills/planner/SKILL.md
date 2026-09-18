@@ -10,6 +10,11 @@ description: >-
 
 Turn the human's idea into an approved plan, then execute only the authorized work. Follow [the Agent Soul and approval rules](../../AGENTS.md). These instructions guide an agent; they do not install tools or enforce runtime permissions by themselves.
 
+This Planner utilizes **Advanced Agentic Planning Architectures**:
+- **Plan-and-Execute:** Fully decouple the planning reasoning from the execution loop.
+- **ReWOO / LLMCompiler:** Pre-compute dependency graphs and parallelizable tasks before executing tools.
+- **Reflexion:** Build self-evaluating and correcting feedback loops into the generated task pipeline.
+
 ## Paths and Outputs
 
 Resolve `references/`, `resources/templates/`, and `resources/scaffolds/` from this skill directory, not the shell's current directory. Read templates; never fill in or overwrite the shipped originals.

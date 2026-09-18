@@ -54,10 +54,10 @@ IntentFlow separates **Thinking** from **Building** so you always stay in contro
 ## 🪄 What Happens When You Run `/planner`?
 
 1. **Interactive Interview:** The AI uses the `planner` and `grill-with-docs` skills to ask you 1–3 simple questions at a time about your goals, features, and tech stack.
-2. **Blueprint Generation:** The AI creates three plain-text files in your project root:
+2. **Blueprint Generation:** The AI creates three plain-text files in your project root, powered by **Advanced AI Planning Architectures (ReWOO, Plan-and-Execute, LLMCompiler, Reflexion)**:
    - 📄 **`INTENT_BRIEF.md`** — *What we're building:* Goals, scope, and target features.
    - 📖 **`CONTEXT.md`** — *Vocabulary:* A simple glossary of terms so the AI doesn't mix up concepts.
-   - 🗺️ **`EXECUTION_PLAN.md`** — *The Master Blueprint:* A step-by-step roadmap breaking down every task, file, and test needed.
+   - 🗺️ **`EXECUTION_PLAN.md`** — *The Master Blueprint:* A step-by-step roadmap that maps dependencies (DAG), parallelizes tasks, and includes self-correcting feedback loops.
 3. **Tool Conflict Check & In-Project Installation:** The AI checks for port or environment variable collisions, recommends required tools (like `rtk-ai/rtk` for token optimization), and installs them directly in your project upon your approval.
 4. **Clean Transition & Handoff:** The AI archives internal planner guides into `.planning/` and transitions `AGENTS.md` to authorize execution, leaving your project completely ready for your AI coding tool (Cursor, Cline, Claude Code, ECC, etc.) to build!
 
