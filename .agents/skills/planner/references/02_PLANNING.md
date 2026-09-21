@@ -79,10 +79,11 @@ Deliberately choose **static context** (core instructions, global memory, and gu
 - [ ] Search for existing similar implementations before writing new ones
 
 #### 3. Tool/Skill Context
-*What the agent can DO — via MCP servers, APIs, CLIs, and plugins.*
+*What the agent can DO — via AXI CLIs, MCP servers, APIs, and skills.*
+- [ ] Check for token-efficient AXI CLI tools (e.g. `gh-axi`, `sqlite-axi`, see [axi.md](https://axi.md/)) before defaulting to heavy MCP servers
 - [ ] List available MCP servers (see [Phase 3: Tooling](./03_TOOLING.md))
-- [ ] List available CLI tools in the environment
-- [ ] List available APIs and their authentication status
+- [ ] List available CLI tools and package runners in the environment
+- [ ] Enforce Anti-Bloat Tool Budget (≤ 3–5 active tools) to protect agent attention and token capacity
 - [ ] Identify any existing automation scripts or CI/CD pipelines
 - [ ] Note any AI tools available (code generation, image generation, search)
 

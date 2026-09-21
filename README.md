@@ -58,8 +58,8 @@ IntentFlow separates **Thinking** from **Building** so you always stay in contro
    - 📄 **`INTENT_BRIEF.md`** — *What we're building:* Goals, scope, and target features.
    - 📖 **`CONTEXT.md`** — *Vocabulary:* A simple glossary of terms so the AI doesn't mix up concepts.
    - 🗺️ **`EXECUTION_PLAN.md`** — *The Master Blueprint:* A step-by-step roadmap that maps dependencies (DAG), parallelizes tasks, and includes self-correcting feedback loops.
-3. **Tool Conflict Check & In-Project Installation:** The AI checks for port or environment variable collisions, recommends required tools (like `rtk-ai/rtk` for token optimization), and installs them directly in your project upon your approval.
-4. **Clean Transition & Handoff:** The AI archives internal planner guides into `.planning/` and transitions `AGENTS.md` to authorize execution, leaving your project completely ready for your AI coding tool (Cursor, Cline, Claude Code, ECC, etc.) to build!
+3. **Tool Conflict Check & Lean In-Project Setup (Anti-Bloat):** The AI checks for port or environment variable collisions, enforces an **Anti-Bloat Tool Budget** (≤ 3–5 active tools), prioritizes token-efficient [AXI CLIs](https://axi.md/) over heavy MCP servers, and installs required tools (like `rtk-ai/rtk`) directly in your project upon your approval.
+4. **Clean Transition & Handoff:** The AI archives internal planner guides into `.planning/` and transitions `AGENTS.md` to authorize execution, leaving your project completely ready for your AI coding tool (Cursor, Cline, Claude Code, ECC, Superpowers, Firstmate, etc.) to build!
 
 ---
 
@@ -67,23 +67,25 @@ IntentFlow separates **Thinking** from **Building** so you always stay in contro
 
 If you inspect the `.agents/` folder, here is what powers the `/planner`:
 
-- 📜 **`AGENTS.md`**: The core rules for the AI. It instructs the AI to listen to you, ask questions, and focus strictly on planning.
-- 🧰 **`skills/planner/SKILL.md`**: The main `/planner` skill that orchestrates discovery, architecture decisions, and task breakdowns.
+- 📜 **`AGENTS.md`**: The core rules for the AI. It instructs the AI to listen to you, ask questions, enforce lean tooling, and focus strictly on planning.
+- 🧰 **`skills/planner/SKILL.md`**: The main `/planner` skill that orchestrates discovery, architecture decisions, anti-bloat advice, and task breakdowns.
 - 🔍 **`skills/grill-with-docs/SKILL.md`**: The interview skill the AI uses to ask targeted decision questions without overwhelming you.
-- 📚 **`skills/planner/references/`**: Detailed guides on project discovery, architecture decisions, and discovering battle-tested tools/libraries.
+- 📚 **`skills/planner/references/`**: Detailed guides on project discovery, architecture decisions, AXI vs MCP comparisons, and discovering battle-tested tools/libraries.
 
 ---
 
-## 🤝 Recommended Execution Tools to Hand Off To
+## 🤝 Recommended Execution Tools & Scaffolds
 
 Once IntentFlow generates your `EXECUTION_PLAN.md`, you can hand it off to any of these battle-tested tools:
 
-| Tool | Specialty | Best When |
-| :--- | :--- | :--- |
-| **[Superpowers](https://github.com/obra/superpowers)** | Strict TDD & Engineering Discipline | You want mandatory Red-Green-Refactor testing and subagent code reviews. |
-| **[ECC](https://github.com/affaan-m/ECC)** | Full Agent Operating System | You want persistent memory across sessions and hundreds of specialized skills. |
-| **[Roo Code](https://github.com/RooVetGit/Roo-Code) / Cline** | VS Code Autonomous Roles | You want fine-grained role control (Architect, Code, Test) inside VS Code. |
-| **[OpenHands](https://github.com/All-Hands-AI/OpenHands)** | Sandboxed Full-Stack Dev | You want autonomous Docker-isolated code generation and testing. |
+| Tool | Specialty | Best When | Overhead Warning |
+| :--- | :--- | :--- | :--- |
+| **[Superpowers](https://github.com/obra/superpowers)** | Strict TDD & Engineering Discipline | You want mandatory Red-Green-Refactor testing and subagent code reviews. | Low-to-moderate overhead. |
+| **[ECC](https://github.com/affaan-m/ECC)** | Full Agent Operating System | You want persistent memory across sessions and hundreds of specialized skills. | Moderate overhead. |
+| **[Firstmate](https://github.com/kunchenguid/firstmate)** | Agent Distro & Crew Fleet | You have a large or production pipeline requiring multiple agents working in parallel in tmux/zellij worktrees. | **Heavy overhead:** Overpowered for small projects; use only for large fleets. |
+| **[no-mistakes](https://github.com/kunchenguid/no-mistakes)** | Pre-Push AI Gatekeeper & Clean PRs | You use unopinionated tools (Aider, Claude Code, Cline) and want an automated worktree QA pipeline. | Skip if using Superpowers to avoid redundant review loops. |
+| **[Roo Code](https://github.com/RooVetGit/Roo-Code) / Cline** | VS Code Autonomous Roles | You want fine-grained role control (Architect, Code, Test) inside VS Code. | Minimal overhead. |
+| **[OpenHands](https://github.com/All-Hands-AI/OpenHands)** | Sandboxed Full-Stack Dev | You want autonomous Docker-isolated code generation and testing. | Requires Docker sandbox. |
 
 ---
 

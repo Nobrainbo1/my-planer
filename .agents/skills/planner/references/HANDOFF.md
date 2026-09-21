@@ -89,12 +89,36 @@ alwaysApply: false
   2. Add the plan: `/add EXECUTION_PLAN.md CONTEXT.md`
   3. Prompt: *"Let's implement Task 1 from EXECUTION_PLAN.md. Show the proposed diff and run test commands."*
 
+### 6. Handoff to Firstmate (`kunchenguid/firstmate`)
+* **Philosophy:** Agent Distro for running a multi-agent crew across clean disposable git worktrees in tmux/zellij with zero-token watcher supervision.
+* **Best when:** You have a **large or production multi-task project** where multiple agents (Claude Code, Grok, Pi) must work in parallel on separate features without colliding.
+* **Overhead Warning:** **Overpowered for small projects.** Do NOT use Firstmate for single-agent tasks, spikes, or simple scripts.
+* **How to transition:**
+  1. Initialize Firstmate in your environment (ensure `tmux`, `gh`, and a supported CLI like Claude Code or Grok are available).
+  2. Provide `EXECUTION_PLAN.md` to the First Mate liaison.
+  3. Instruct the First Mate:
+     > *"Read `EXECUTION_PLAN.md` and `CONTEXT.md`. Dispatch crewmates into isolated worktrees for independent DAG tasks. Supervise each crewmate to test completion before merging."*
+
+---
+
+## PR Quality Gating: Configuring `no-mistakes` (`kunchenguid/no-mistakes`)
+
+If your project requires automated pre-push validation and clean PR generation:
+
+* **When to adopt `no-mistakes`:**
+  - When using unopinionated coding tools (Aider, Claude Code CLI, Cursor, Cline) that do not enforce built-in TDD or subagent reviews.
+  - Set git remote push target to `no-mistakes`. Pushing triggers a disposable worktree pipeline (`review → test → docs → lint → push → PR → CI`) that auto-fixes safe issues before opening a PR.
+* **When to SKIP `no-mistakes` (Conflict / Overhead check):**
+  - **If using Superpowers (`obra/superpowers`):** Skip `no-mistakes`. Superpowers already enforces strict Red-Green-Refactor TDD and subagent reviews. Stacking `no-mistakes` introduces redundant review loops and worktree hook conflicts.
+  - **If building a small Spike or One-Shot:** Skip `no-mistakes` to avoid proxy overhead.
+
 ---
 
 ## Workspace Hygiene Checklist
 
 Before starting implementation:
 - [ ] **`EXECUTION_PLAN.md` is approved** with exact file paths and test commands.
+- [ ] **Anti-Bloat tool budget verified:** Active tools/skills are capped (≤ 3–5) to prevent context saturation and reasoning degradation.
 - [ ] **`rtk-ai/rtk` is installed** to protect the context window from runaway error logs.
 - [ ] **`.env.example` is created** with placeholder variables; no secrets in version control.
 - [ ] **Planner reference guides are moved to `.planning/`** so the coding agent doesn't read obsolete planning instructions.

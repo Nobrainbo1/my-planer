@@ -8,9 +8,11 @@ checkpoint: false
 
 > **Goal:** Equip the agent's **harness** with the tools it needs to execute the plan. This phase follows the paper's core principle: the agent = **Model + Harness**, and the harness is where engineering effort should be concentrated.
 
-> **Critical Rule:** **DISCOVER before you BUILD.** For every capability needed, the agent must first search for existing, battle-tested tools. Only create custom tooling when no adequate solution exists or when integration cost exceeds build cost.
+> **Critical Rule 1:** **DISCOVER before you BUILD.** For every capability needed, the agent must first search for existing, battle-tested tools. Only create custom tooling when no adequate solution exists or when integration cost exceeds build cost.
 
-> **💡 Why This Phase Exists:** Without this, you reinvent the wheel. You spend 3 hours writing a custom tool when a well-maintained npm package does the same thing. The ecosystem of skills, MCP servers, and packages is huge — your custom tool should be the last resort, not the first instinct. **On paper:** For each capability you need, Google for 5 minutes before building it yourself.
+> **Critical Rule 2:** **LEAN TOOLING OVER BLOAT (Anti-Bloat Principle).** Never equip tools or skills "just in case." Every extra tool loaded into an agent's context consumes prompt real estate, increases attention degradation, and degrades reasoning accuracy. Strive for the **Minimum Viable Harness** (target ≤ 3–5 active tools/skills per phase).
+
+> **💡 Why This Phase Exists:** Without this, you either reinvent the wheel or build a bloated monster. You spend 3 hours writing a custom tool when an AXI CLI or npm package does the same thing — or you install 15 MCP servers and watch the agent fail because its context window is overflowing with tool schemas. Discover existing tools, but adopt ONLY what is strictly needed. **On paper:** For each capability you need, search for 5 minutes before building it yourself, and reject any tool that overlaps with your existing scaffold.
 
 ---
 
@@ -94,7 +96,24 @@ For each Tool Need (T-XX):
         or network traffic. Evaluate fetched personas with Step 3.3 before use.
    → If NO: Document why no persona fits; write the role from the intent.
 
-3. SEARCH MCP SERVER REGISTRIES
+2c. SEARCH AXI (AGENT EXPERIENCE INTERFACE) TOOLS (https://axi.md/)
+   └─ Is there an agent-ergonomic CLI tool that provides this capability?
+      Sources to check:
+      • AXI Catalog (https://axi.md/) — e.g., `gh-axi` (GitHub ops), `chrome-devtools-axi`
+        (browser automation), `sqlite-axi`, `npm-axi`, `lavish-axi`
+      • GitHub search: "axi" OR topic:agent-experience-interface
+      • npx: `npx -y <tool>-axi`
+      → WHY PREFER AXI OVER MCP:
+        AXI tools are native, deterministic CLI binaries/scripts designed specifically for
+        AI agents. Benchmarks show AXI achieves 100% task success with ~40% lower token cost
+        and faster execution than heavy MCP servers (no persistent JSON-RPC daemon overhead,
+        no massive schema definitions bloating the prompt context).
+      → LIMITATION / CAUTION:
+        The community AXI catalog is emerging and smaller than the MCP ecosystem.
+        If a matching AXI tool exists, prefer it over MCP.
+        If NO matching AXI tool exists, proceed to Step 3 (MCP Server Registries).
+
+3. SEARCH MCP SERVER REGISTRIES (Ecosystem Fallback)
    └─ Is there an existing MCP server that provides this capability?
       Sources to check (in order):
       • registry.modelcontextprotocol.io — Official MCP registry
@@ -138,12 +157,12 @@ For every discovered tool, score it before adopting.
 
 | Criteria | Weight | Score (1-5) | Notes |
 |----------|--------|-------------|-------|
-| **Functionality Match** | 30% | [1-5] | Does it do what we need? |
-| **Maintenance & Community** | 20% | [1-5] | Active development? Stars? Last commit? |
-| **Security & Trust** | 20% | [1-5] | Known CVEs? Trusted publisher? Open source? |
-| **Integration Effort** | 15% | [1-5] | How easy to plug into our harness? |
-| **Documentation Quality** | 10% | [1-5] | Can the agent understand how to use it? |
-| **Cost** | 5% | [1-5] | Free? Token costs? API pricing? |
+| **Functionality Match** | 25% | [1-5] | Does it directly satisfy the capability need? |
+| **Token & Context Footprint (Anti-Bloat)** | 20% | [1-5] | Lightweight AXI/CLI (5) vs Heavy JSON-RPC MCP schema injecting bloat (2)? |
+| **Non-Redundancy (Scaffold Overlap Check)** | 15% | [1-5] | Does the scaffold (Superpowers, ECC) already do this? (1 = duplicate/conflict, 5 = unique) |
+| **Maintenance & Security** | 20% | [1-5] | Known CVEs? Trusted author? Last commit < 3 months? |
+| **Integration Effort** | 15% | [1-5] | Simple `npx` or script (5) vs complex multi-service setup (2)? |
+| **Cost** | 5% | [1-5] | Free open-source vs paid API usage? |
 | **TOTAL** | 100% | [weighted] | |
 ```
 
@@ -292,6 +311,8 @@ Before running any installation command, check for these 4 conflict types:
 |---------------|------|-------------------|
 | **Harness & `AGENTS.md` Collision** | Incoming scaffolder (e.g., ECC) brings its own `AGENTS.md` or rule files, colliding with the planner's rules | Inspect whether the incoming tool installs root rule files. If yes, prepare to merge or yield governance to the incoming harness. |
 | **"Planner Only" Instruction Lock** | An execution agent reading our planner `AGENTS.md` sees "Execution Prohibited" and halts | Execute the **Handoff Transition Routine** below to update `AGENTS.md` before execution starts. |
+| **PR Gatekeeper & Scaffold Overlap (`no-mistakes`)** | Installing `no-mistakes` when the scaffold (e.g., Superpowers) already enforces TDD and subagent reviews creates duplicate review loops and git worktree collisions | Check if scaffold already has verification gates. If yes, skip `no-mistakes`. If using an unopinionated harness (Aider, Claude Code, Cline), `no-mistakes` provides a powerful clean PR gate. |
+| **Fleet Distro Overhead (`firstmate`)** | Using `firstmate` on small projects or spikes introduces unnecessary session management and worktree overhead | Verify project scale: use `firstmate` ONLY for large, production multi-worktree pipelines across terminal sessions. Never use on small projects. |
 | **Environment Variable Collision** | Multiple tools or MCP servers using identical keys (e.g., `API_KEY`, `PORT`) | Namespace every variable in `.env.example` (e.g., `GITHUB_MCP_PAT`, `DB_PORT`). |
 | **Port / Stdio Resource Conflicts** | Two MCP servers or dev servers competing for the same port or stdio channel | Assign distinct ports and inspect MCP config JSON before starting services. |
 | **Package Dependency Version Lock** | Incompatible version constraints in `package.json` or `pyproject.toml` | Check existing project manifests and run dry-run installation checks before committing. |

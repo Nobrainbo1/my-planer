@@ -32,18 +32,17 @@ Catalog entries are discovery leads, not audited endorsements or guaranteed comp
 | **oh-my-pi** | [can1357/oh-my-pi](https://github.com/can1357/oh-my-pi) | Minimalist, extensible agent harness. Features core editing and shell tools, relying on modular Markdown capability files without framework lock-in. | Developers wanting a lightweight, unopinionated agent environment |
 | **agent-harness-generator** | [ruvnet/agent-harness-generator](https://github.com/ruvnet/agent-harness-generator) | Meta-harness that scaffolds your own branded agent environment. Manages skills, memory, and learning loops. | Building a custom-branded agent environment from scratch |
 | **agent-project** | [SuperiorByteWorks-LLC/agent-project](https://github.com/SuperiorByteWorks-LLC/agent-project) | Production-grade template using `AGENTS.md` as entry point for repo standards, CI/CD integration, AI review policies. | Enterprise repos that need agent-friendly governance baked in |
+| **firstmate** | [kunchenguid/firstmate](https://github.com/kunchenguid/firstmate) | Agent distro for running a fleet of coding agents. You talk to a single liaison agent ("first mate"), which dispatches crewmates into clean disposable git worktrees in tmux/zellij with event-driven zero-token watcher supervision. | Large or production multi-task pipelines where multiple agents must work concurrently without colliding |
 | **CodelyTV/agent-harness** | [CodelyTV/agent-harness](https://github.com/CodelyTV/agent-harness) | Collection of skills, hooks, and utilities to enforce development conventions. | Teams wanting modular, plug-and-play quality enforcement |
 
-### Deep Dive: ECC vs. Superpowers (Which Should You Pick?)
+### Deep Dive: Choosing Your Execution Scaffold (ECC vs. Superpowers vs. Firstmate)
 
-Both ECC and Superpowers are industry-leading meta-harnesses, but they solve different challenges:
-
-| Dimension | ECC (Everything Claude Code) | Superpowers (obra/superpowers) |
-| :--- | :--- | :--- |
-| **Core Philosophy** | **Full Agent Operating System** | **Rigorous Engineering Discipline** |
-| **Key Superpower** | Persistent memory across sessions, context compaction, and security scanning (AgentShield) | Mandatory TDD (agents cannot write code without failing tests), Socratic questioning, subagent review gates |
-| **Skill Invocation** | Modular on-demand commands & instructions | Context-aware auto-activating skills |
-| **Best Used When** | You need long-term memory across sessions and want an extensive library of specialized roles | You want bulletproof code quality and want to stop agents from rushing to write buggy code |
+| Dimension | ECC (affaan-m) | Superpowers (obra) | Firstmate (kunchenguid) |
+| :--- | :--- | :--- | :--- |
+| **Core Model** | **Full Agent OS** | **Rigorous TDD & Discipline** | **Agent Distro & Fleet Crew** |
+| **Architecture** | Single-agent, 100+ skills, persistent memory, security | Context-aware auto-skills, mandatory Red-Green-Refactor TDD | One liaison agent running crewmates in disposable git worktrees (tmux/zellij) |
+| **Best Used When** | You need long-term memory across sessions and want an extensive library of specialized roles | You want bulletproof code quality, strict testing, and want to stop agents from rushing to write buggy code | You have large, multi-task parallel production pipelines requiring separate worktree workers |
+| **Overhead Rating** | Moderate (skill indexing) | Low-to-Moderate (TDD cycles) | **Heavy:** Overpowered for small projects or spikes; use only for large fleets |
 
 ---
 
@@ -171,14 +170,41 @@ my-project/
 
 ---
 
-## Category 7: Repository Automation Scaffolds
+## Category 6b: Agent-Ergonomic CLIs (AXI) vs. Protocol Servers (MCP)
 
-*For CI/CD, issue management, PR workflows, and repo-level automation.*
+*When choosing tools for an agent, CLIs optimized with the Agent eXperience Interface ([AXI](https://axi.md/)) offer major token and latency advantages over traditional MCP servers.*
 
-| Scaffold | Source | What It Does | Best For |
-|----------|--------|-------------|----------|
-| **GitHub Agentic Workflows (gh-aw)** | [GitHub Next](https://githubnext.github.io/gh-aw) | Define workflows in Markdown → compiled to GitHub Actions. MemoryOps for state across runs. | Repository automation (triage, PR reviews, docs) |
-| **harness/harness-skills** | [harness/harness-skills](https://github.com/harness/harness-skills) | Natural language CI/CD pipeline integration. | DevOps teams wanting NL-driven pipelines |
+### What is AXI?
+AXI defines 10 design principles for CLI tools built specifically for agents. Rather than running a background JSON-RPC server daemon (MCP) that constantly injects massive schema declarations into system prompts, AXI tools run as deterministic CLI commands (`npx -y <tool>-axi`) outputting token-efficient, plain-text or TOON formats.
+
+| Dimension | AXI (Agent eXperience Interface) | MCP (Model Context Protocol) |
+| :--- | :--- | :--- |
+| **Execution Model** | Standalone CLI / one-shot command | Persistent background client-server daemon (stdio/SSE) |
+| **Token Cost** | **~40% lower** (compact TOON/text, no schema bloat) | Higher (full tool schema injected every turn) |
+| **Execution Latency** | **Fast (avg 21.5s per task on benchmarks)** | Moderate-to-Slow (avg 36.2s per task on benchmarks) |
+| **Ecosystem Size** | Emerging (curated catalog at [axi.md](https://axi.md/)) | Massive (thousands of community & official servers) |
+| **Best Used When** | A matching AXI tool exists for your capability need | No AXI exists; need broad third-party service coverage |
+
+### Notable AXI Tools (from [axi.md](https://axi.md/))
+- **`gh-axi`** (`npx -y gh-axi`): GitHub operations (issues, PRs, CI runs) with token-efficient formatting.
+- **`chrome-devtools-axi`** (`npx -y chrome-devtools-axi`): Browser navigation, filling, clicking, and extracting with combined operations.
+- **`sqlite-axi`** (`npx -y sqlite-axi`): Fast, token-efficient read-only SQL queries and schema introspection.
+- **`npm-axi`** (`npx -y npm-axi`): Token-efficient npm registry inspection and dependency checks.
+- **`quota-axi`** (`npx -y quota-axi`): Local AI model quota and usage monitoring for Claude, Cursor, Copilot, Codex.
+
+> **💡 Planner Rule:** Check for an AXI tool first. If an AXI tool covers the capability, prefer it to minimize token burn and speed up the agent. Fall back to MCP only when no AXI tool exists.
+
+---
+
+## Category 7: Repository Automation & PR Gatekeepers
+
+*For CI/CD, issue management, automated PR quality gating, and repo-level automation.*
+
+| Tool / Scaffold | Source | What It Does | Best For | Overhead / Conflict Caution |
+|-----------------|--------|-------------|----------|-----------------------------|
+| **no-mistakes** | [kunchenguid/no-mistakes](https://github.com/kunchenguid/no-mistakes) | Local git proxy (`git push no-mistakes`) that spins up an isolated worktree, runs an AI validation pipeline (review → test → docs → lint → push → PR → CI), auto-fixes safe issues, and opens a clean PR only when green. | Clean PR creation and automated pre-push AI gating in unopinionated harnesses (Aider, Claude Code, Cline) | **Do not stack with Superpowers:** Superpowers already enforces strict Red-Green-Refactor TDD and subagent reviews. Stacking `no-mistakes` on top creates redundant review overhead and worktree collisions. |
+| **GitHub Agentic Workflows (gh-aw)** | [GitHub Next](https://githubnext.github.io/gh-aw) | Define workflows in Markdown → compiled to GitHub Actions. MemoryOps for state across runs. | Repository automation (triage, PR reviews, docs) in CI | Requires GitHub Actions infrastructure |
+| **harness/harness-skills** | [harness/harness-skills](https://github.com/harness/harness-skills) | Natural language CI/CD pipeline integration. | DevOps teams wanting NL-driven pipelines | Enterprise CI environments |
 
 ---
 
@@ -221,9 +247,36 @@ Phase 3: TOOLING  ◄──── CONSULT THIS CATALOG
   └─ Pick a Project starter template (Category 8)
        │
 Phase 4-6: IMPLEMENTATION, VERIFICATION, DELIVERY
-  └─ HANDOFF TO EXTERNAL SCAFFOLDER (e.g. ECC, Superpower, Cline)
+  └─ HANDOFF TO EXTERNAL SCAFFOLDER (e.g. ECC, Superpowers, Firstmate, Cline)
   └─ They will execute the plan using the assembled scaffold + harness
 ```
+
+---
+
+## 🛑 The Lean Harness Principle: Preventing Tool & Skill Bloat
+
+> **Rule:** *More tools ≠ smarter agent. More tools = confused agent.*
+
+Loading too many tools or skills into an AI agent causes critical failure modes:
+1. **Context Window Saturation:** Every tool description and skill prompt consumes tokens on *every single interaction*, leaving less room for code and reasoning.
+2. **Attention & Reasoning Degradation:** When presented with 20+ tool options, LLMs suffer from "lost-in-the-middle" effects, picking incorrect tools or hallucinating arguments.
+3. **Scaffold & Hook Collisions:** Stacking overlapping tools (e.g., combining Superpowers subagents + `no-mistakes` git proxy + custom git hooks) leads to deadlock, race conditions, or infinite review loops.
+4. **Latency and Token Cost:** Overloaded agent environments run 2x–3x slower and drain API credits rapidly.
+
+### Recommended Tool Budgets by Project Scope
+
+| Project Scope | Active Skills Allowed | Active MCP / AXI Tools | Recommended Harness |
+| :--- | :--- | :--- | :--- |
+| **Spike** (Throwaway experiment) | 0–1 | 1 (built-in terminal/file editor only) | Single agent (Cursor, Aider) |
+| **One-Shot** (Small bounded task) | 1–2 | 1–2 (e.g. `rtk`, `sqlite-axi`) | Single agent or Roo Code |
+| **Project** (Standard multi-step feature) | 2–3 | 2–4 (e.g. `rtk`, `codebase-memory-mcp`, `gh-axi`) | Superpowers, ECC, or Cline |
+| **Fleet / Crew** (Large parallel production) | 3–5 | 3–5 dedicated tools | **firstmate** (tmux/worktree fleet) |
+
+> **Anti-Bloat Checklist Before Equipping Any Tool:**
+> - [ ] Does the current agent harness already have a built-in tool that can do this?
+> - [ ] Does an existing scaffold or framework already handle this step?
+> - [ ] Is there a lightweight AXI CLI alternative before turning to an MCP server?
+> - [ ] Will this tool cause duplicate review cycles or git worktree conflicts?
 
 ---
 

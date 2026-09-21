@@ -6,14 +6,15 @@ description: >-
   Triggers: /planner, "plan a project", "use the planner", "generate agents for this".
 ---
 
-# Agent Factory & Planner
+# Agent Factory & Planner / Advisor
 
-Turn the human's idea into an approved plan, then execute only the authorized work. Follow [the Agent Soul and approval rules](../../AGENTS.md). These instructions guide an agent; they do not install tools or enforce runtime permissions by themselves.
+Turn the human's idea into an approved plan, then equip only the authorized, right-sized tools. Follow [the Agent Soul and approval rules](../../AGENTS.md). As a **Planner & Advisor**, you guide the human on choosing the right tools while strictly preventing tooling bloat and unnecessary overhead.
 
 This Planner utilizes **Advanced Agentic Planning Architectures**:
 - **Plan-and-Execute:** Fully decouple the planning reasoning from the execution loop.
 - **ReWOO / LLMCompiler:** Pre-compute dependency graphs and parallelizable tasks before executing tools.
 - **Reflexion:** Build self-evaluating and correcting feedback loops into the generated task pipeline.
+- **Lean Tooling / Anti-Bloat:** Strive for the Minimum Viable Harness (≤ 3–5 tools). Reject overlapping or overpowered tools. Prefer token-efficient AXI CLIs over heavy MCP servers where available.
 
 ## Paths and Outputs
 
@@ -42,7 +43,15 @@ Record the choice. Mode selection does not authorize implementation. Both modes 
 ## Step 3 — Tooling and Shared Plan Approval
 
 1. Read [Phase 2](references/02_PLANNING.md), [Phase 3](references/03_TOOLING.md), and the [execution plan template](resources/templates/execution_plan.md). Inspect existing dependencies and verification commands. Read-only tool discovery may inform the draft plan; installation needs separate approval.
-2. For Mode A, choose the simplest suitable framework:
+2. **Apply Lean Tooling (Anti-Bloat Protocol):**
+   - Enforce a strict Tool Budget (≤ 3–5 active tools/skills per phase). Do not equip tools "just in case".
+   - **Prefer AXI over MCP:** Check for [AXI CLIs](https://axi.md/) (`gh-axi`, `chrome-devtools-axi`, `sqlite-axi`, etc.) before installing heavy MCP servers. AXI tools cut token costs by ~40% and eliminate persistent JSON-RPC daemon overhead. Use MCP only as an ecosystem fallback when no AXI exists.
+   - **Right-Size the Execution Scaffold:**
+     - For small projects/spikes: Single agent (Cursor, Aider, Roo Code).
+     - For strict quality & TDD: **Superpowers** (`obra/superpowers`).
+     - For large parallel multi-task production pipelines: **Firstmate** (`kunchenguid/firstmate`). Warn the human that Firstmate is overpowered and introduces excessive overhead for small projects.
+     - For PR gating: Recommend **no-mistakes** (`kunchenguid/no-mistakes`) only when using unopinionated harnesses (Aider, Claude Code, Cline). **Skip `no-mistakes` if using Superpowers** to prevent redundant review loops and worktree conflicts.
+3. For Mode A, choose the simplest suitable framework:
 
    | Need | Candidate | Scaffold to inspect |
    |------|-----------|---------------------|
@@ -51,25 +60,25 @@ Record the choice. Mode selection does not authorize implementation. Both modes 
    | Loops, conditional state, or resumable graph execution | LangGraph | [README](resources/scaffolds/langgraph/README.md) |
 
     Explain the recommendation and verify it against actual requirements. Read the selected scaffold's files, imports, and readiness warnings before planning adaptations. These are unvalidated reference layouts, not runnable starters. Include setup, safety repairs, offline tests, and dependency validation as approved tasks before live execution. Reuse an existing project's stack by default; no new scaffold or tool is a valid outcome.
-3. For Mode A, offer the optional [Agency Agents](https://github.com/msitarzewski/agency-agents) persona library. It is an MIT-licensed catalog of hundreds of specialized agent persona files (identity, workflow, deliverables, metrics) in division folders such as `engineering/`, `design/`, `product/`, `testing/`, and `security/`. Browse its README read-only and map every pipeline agent you plan to create to the one most relevant persona file. Record the mapping in `EXECUTION_PLAN.md` as exact repository paths pinned to a commit SHA. Offer only relevant agents; do not plan to copy the whole roster. If no persona fits a pipeline agent, leave it unmapped and write its role from the intent.
-4. Write for a junior engineer with zero codebase context. Include exact files, insertion anchors, proposed code blocks or diffs, contracts, prerequisites, shell/cwd, commands, and expected results. Use DRY (reuse rather than duplicate) and YAGNI (omit speculative features).
-5. Break work into bite-sized tasks. Specify requirement IDs, ownership, dependencies, and expected verification criteria for each task.
-6. Stress-test architecture with the grilling protocol. Create an ADR only when all three gates pass: hard to reverse, surprising without context, and a real trade-off. Otherwise keep the rationale in the plan. Use the [ADR template](resources/templates/adr_template.md).
-7. Run the preflight scan for file collisions, contract discrepancies, and circular dependencies. Resolve and rescan all blocking findings. Assign an explicit integration task if work is parallel.
-8. Obtain explicit approval of the exact plan and intent revisions. Changed scope or architecture requires renewed approval. Do not generate implementation code.
+4. For Mode A, offer the optional [Agency Agents](https://github.com/msitarzewski/agency-agents) persona library. It is an MIT-licensed catalog of hundreds of specialized agent persona files (identity, workflow, deliverables, metrics) in division folders such as `engineering/`, `design/`, `product/`, `testing/`, and `security/`. Browse its README read-only and map every pipeline agent you plan to create to the one most relevant persona file. Record the mapping in `EXECUTION_PLAN.md` as exact repository paths pinned to a commit SHA. Offer only relevant agents; do not plan to copy the whole roster. If no persona fits a pipeline agent, leave it unmapped and write its role from the intent.
+5. Write for a junior engineer with zero codebase context. Include exact files, insertion anchors, proposed code blocks or diffs, contracts, prerequisites, shell/cwd, commands, and expected results. Use DRY (reuse rather than duplicate) and YAGNI (omit speculative features).
+6. Break work into bite-sized tasks. Specify requirement IDs, ownership, dependencies, and expected verification criteria for each task.
+7. Stress-test architecture with the grilling protocol. Create an ADR only when all three gates pass: hard to reverse, surprising without context, and a real trade-off. Otherwise keep the rationale in the plan. Use the [ADR template](resources/templates/adr_template.md).
+8. Run the preflight scan for file collisions, contract discrepancies, and circular dependencies. Resolve and rescan all blocking findings. Assign an explicit integration task if work is parallel.
+9. Obtain explicit approval of the exact plan and intent revisions. Changed scope or architecture requires renewed approval. Do not generate implementation code.
 
 For planning-only requests in either mode, stop here and hand over the brief, glossary, and plan with their actual approval status and outstanding execution prerequisites. Do not retrieve personas, install dependencies, copy scaffolds, or start implementation. Plan approval alone does not expand a planning-only request into execution.
 
 ## Step 4 — In-Project Tool Installation & Handoff Transition
 
-1. **Pre-Install Conflict Check**: Follow [Phase 3 §3.7](references/03_TOOLING.md#step-37--in-project-tool-installation--conflict-safety-check). Inspect for port/stdio collisions, `.env` collisions, and harness/`AGENTS.md` collisions before running installation.
+1. **Pre-Install Conflict & Bloat Check**: Follow [Phase 3 §3.7](references/03_TOOLING.md#step-37--in-project-tool-installation--conflict-safety-check). Inspect for port/stdio collisions, `.env` collisions, scaffold rule collisions (`AGENTS.md`), redundant PR gatekeepers (`no-mistakes` vs Superpowers), and excessive fleet overhead (`firstmate` on small projects).
 2. **Install Approved Tools**: With explicit human approval, install tools directly in the project folder:
    - Mandatory: configure [`rtk-ai/rtk`](https://github.com/rtk-ai/rtk) for token and log optimization.
-   - Configure approved MCP servers in `.cursor/mcp.json` or `.claude/mcp.json`.
+   - Configure approved AXI runners or MCP servers in `.cursor/mcp.json` or `.claude/mcp.json`.
    - Install approved project dependencies and create `.env.example`.
 3. **Transition `AGENTS.md` (Prevent Rule Conflict)**:
    - Archive planner reference documents (`references/`, templates) into `.planning/` so the workspace is clean.
    - Update `AGENTS.md` from "Planner Only" mode to "Execution Mode" (or yield root governance if an external harness like ECC provides its own rules), authorizing the coding agent to build the tasks in `EXECUTION_PLAN.md`.
-4. **Handoff**: The project folder is now fully equipped and ready for the execution agent (ECC, Cursor, Cline, etc.) to begin building.
+4. **Handoff**: The project folder is now fully equipped and ready for the execution agent (ECC, Superpowers, Firstmate, Cursor, Cline, etc.) to begin building.
 
 *End of Planner instructions. Remind the user they are ready to build!*
