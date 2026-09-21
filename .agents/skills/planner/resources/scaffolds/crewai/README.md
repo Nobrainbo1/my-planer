@@ -64,7 +64,7 @@ tasks.yaml ───┘         │
 
 ## Approval, Data, Cost, and Output Boundaries
 
-1. Obtain approval of the intent, plan, and target directory before copying or adapting this scaffold. Preserve shipped code originals; make application repairs in the approved target project. See [planner execution rules](../../../SKILL.md#step-4a--execute-mode-a).
+1. Obtain approval of the intent, plan, and target directory before copying or adapting this scaffold. Preserve shipped code originals; make application repairs in the approved target project. See [planner rules](../../../SKILL.md#step-2--choose-mode).
 2. Dependency installation needs separate approval. First select a supported Python environment and dependency set for validation, with an isolated environment, exact shell, and working directory. No compatible versions are asserted here.
 3. OpenAI model calls require credentials, network access, and explicit approval for paid execution. Kickoff can make multiple calls. CrewAI `test` is repeated live execution and model evaluation, not an offline unit suite; training can also repeat billable work. Do not repair the CLI and then treat these operations as free checks.
 4. Current CrewAI documentation describes default usage telemetry, including role and tool names. The researcher role includes the input topic. Review version-specific telemetry and tracing controls, including inherited user preferences, before execution; keep additional tracing opt-in. Mock search does not make the application offline.
@@ -95,7 +95,7 @@ All items below are target-project acceptance work, not completed checks. No tes
 - [ ] Verify package discovery, tool imports, YAML agent/task/context wiring, valid and invalid CLI arguments, and meaningful failure exit statuses.
 - [ ] Replace placeholder roles and mock research with approved behavior or clearly labelled fixtures. Assert that research evidence reaches the report and that missing sources cannot masquerade as successful research.
 - [ ] Verify output collision protection, credential exclusion, redaction, and bounded execution. Record artifact locations and observed side effects.
-- [ ] Run and record configured offline tests, lint, typecheck, and other required gates only when authorized. Missing commands or execution evidence remain blocked or not run. See [verification rules](../../../references/05_VERIFICATION.md).
+- [ ] Run and record configured offline tests, lint, typecheck, and other required gates only when authorized. Missing commands or execution evidence remain blocked or not run. See [Phase 2 planning rules](../../../references/02_PLANNING.md).
 - [ ] Request separate approval for any live provider evaluation after offline acceptance. Record observed results and cost/data boundaries; an offline pass does not prove live integration.
 
 ---

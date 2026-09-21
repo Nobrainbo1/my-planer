@@ -352,7 +352,7 @@ Before adopting any discovered tool, verify:
 
 ## Contributing to This Catalog
 
-After each project retrospective (Phase 6), update this catalog:
+After each project handoff or execution cycle, update this catalog:
 - Add scaffolds, skills, and MCP servers you discovered and found useful.
 - Remove entries that are deprecated or unmaintained.
 - Update notes based on real-world experience.

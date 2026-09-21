@@ -54,7 +54,7 @@ your_project/
 
 ## Approval, Data, Cost, and Output Boundaries
 
-1. Obtain approval of the intent, plan, and target directory before copying or adapting this scaffold. Preserve shipped code originals; make application repairs in the approved target project. See [planner execution rules](../../../SKILL.md#step-4a--execute-mode-a).
+1. Obtain approval of the intent, plan, and target directory before copying or adapting this scaffold. Preserve shipped code originals; make application repairs in the approved target project. See [planner rules](../../../SKILL.md#step-2--choose-mode).
 2. Dependency installation needs separate approval. First select a supported Python environment and dependency set for validation, with an isolated environment, exact shell, and working directory. No compatible versions are asserted here.
 3. The default example sends its analysis prompt/input to OpenAI when invoked. This needs credentials, network access, and explicit approval for paid execution. The summarization invocation is commented out; the separate reasoning client is constructed but not invoked by the default demo. Client construction is not evidence of a completed model call.
 4. LangSmith tracing settings are commented out, not enabled by the template. Enabling tracing, or inheriting enabled environment settings, can send inputs and outputs to a remote tracing service. Review destinations and data consent before execution; keep tracing opt-in.
@@ -83,7 +83,7 @@ All items below are target-project acceptance work, not completed checks. No tes
 - [ ] Replace generic prompts and schemas with approved contracts. Assert correct handling of valid and invalid fake responses instead of expecting identical live output at temperature zero.
 - [ ] If tools are required, verify actual tool dispatch separately from binding, reject unsafe calculation inputs, and label search fixtures honestly. Keep unapproved tools disabled.
 - [ ] Verify credential exclusion, output redaction/retention, no unexpected file writes or network calls, and bounded execution.
-- [ ] Run and record configured offline tests, lint, typecheck, and other required gates only when authorized. Missing commands or execution evidence remain blocked or not run. See [verification rules](../../../references/05_VERIFICATION.md).
+- [ ] Run and record configured offline tests, lint, typecheck, and other required gates only when authorized. Missing commands or execution evidence remain blocked or not run. See [Phase 2 planning rules](../../../references/02_PLANNING.md).
 - [ ] Request separate approval for any live provider evaluation after offline acceptance. Record observed results and cost/data boundaries; an offline pass does not prove live integration.
 
 ---

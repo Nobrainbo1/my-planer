@@ -36,7 +36,14 @@ Read this template as a source; never fill in the shipped original. Rewrite copi
 - **Searched:** [sources checked]
 - **Candidates Found:** [list or "none"]
 
-#### Step 3 — MCP Servers
+#### Step 2c — AXI CLIs (Agent eXperience Interface — axi.md)
+- **Searched:** [axi.md catalog, npm-axi, gh-axi, etc.]
+- **Candidates Found:**
+  | AXI Tool | Command / Source | Token Savings | Notes |
+  |----------|------------------|---------------|-------|
+  | [name]   | [npx runner/CLI] | [~40% vs MCP] | [notes] |
+
+#### Step 3 — MCP Servers (Ecosystem Fallback)
 - **Searched:** [registries checked]
 - **Candidates Found:**
   | Server Name | Source | Score | Notes |
@@ -83,6 +90,11 @@ Evaluate before installation or adoption. A score or harness approval is not ins
 | Tool | Capability |
 |------|-----------|
 | [tool] | [capability] |
+
+### AXI CLIs (Agent eXperience Interface)
+| Tool / Command | Capability | Token Overhead | Config Required |
+|----------------|-----------|----------------|-----------------|
+| [e.g. gh-axi]  | [GitHub ops] | Low (~40% less) | [None / token]  |
 
 ### MCP Servers
 | Server | Capability | Protocol | Config Required |

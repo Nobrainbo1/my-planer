@@ -179,7 +179,7 @@ If you ever need a phase this template doesn't have, use this formula:
 8. End of Planner Workflow: Hand off to external scaffolder!
 ```
 
-Template sources live under the planner skill's `resources/templates/`: [intent brief](../resources/templates/intent_brief.md), [execution plan](../resources/templates/execution_plan.md), and [retrospective](../resources/templates/retrospective.md). Read these originals; never fill them in. Write live artifacts only to approved target-project paths. Rewrite copied links relative to each output and verify their targets and headings. Keep one authoritative artifact map across worktrees; a new worktree does not inherit uncommitted planning files.
+Template sources live under the planner skill's `resources/templates/`: [intent brief](../resources/templates/intent_brief.md), [execution plan](../resources/templates/execution_plan.md), and [handoff artifact](../resources/templates/handoff_artifact.md). Read these originals; never fill them in. Write live artifacts only to approved target-project paths. Rewrite copied links relative to each output and verify their targets and headings. Keep one authoritative artifact map across worktrees; a new worktree does not inherit uncommitted planning files.
 
 ---
 

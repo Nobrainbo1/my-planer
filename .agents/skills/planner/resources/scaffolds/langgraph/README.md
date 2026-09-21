@@ -61,7 +61,7 @@ The intended flow is researcher → optional tools → researcher → writer. Th
 
 ## Approval, Data, Cost, and Output Boundaries
 
-1. Obtain approval of the intent, plan, and target directory before copying or adapting this scaffold. Preserve shipped code originals; make application repairs in the approved target project. See [planner execution rules](../../../SKILL.md#step-4a--execute-mode-a).
+1. Obtain approval of the intent, plan, and target directory before copying or adapting this scaffold. Preserve shipped code originals; make application repairs in the approved target project. See [planner rules](../../../SKILL.md#step-2--choose-mode).
 2. Dependency installation needs separate approval, including the optional server CLI. First select a supported Python environment and dependency set for validation, with an isolated environment, exact shell, and working directory. No compatible versions are asserted here.
 3. Live execution sends prompts and message history to OpenAI. The researcher uses `gpt-4o-mini`; the writer uses `gpt-4o`. Tool loops can cause repeated paid requests. Obtain explicit paid-call/data-transfer approval and set request/retry/tool-call/cost limits; framework recursion limits are not a spending budget. Mock search does not make execution offline.
 4. The default file reader can expose local file contents to remote model calls, terminal output, and enabled traces. Windows network-share paths can also cause network filesystem access. Remove it before a live demo unless scoped access is explicitly approved and enforced.
@@ -94,7 +94,7 @@ All items below are target-project acceptance work, not completed checks. No tes
 - [ ] Remove or constrain the file reader. Test denied access outside approved data, secret exclusions, size limits, and the absence of unapproved transfers. Do not use real private files as fixtures.
 - [ ] Verify tool/no-tool routing, bounded repeated calls, error handling, meaningful failure exits, and approved output/retention behavior.
 - [ ] If persistence or human approval is required, implement and test thread identity, storage lifetime, resume behavior, and approval boundaries. Otherwise document those features as absent.
-- [ ] Run and record configured offline tests, lint, typecheck, and other required gates only when authorized. Missing commands or execution evidence remain blocked or not run. See [verification rules](../../../references/05_VERIFICATION.md).
+- [ ] Run and record configured offline tests, lint, typecheck, and other required gates only when authorized. Missing commands or execution evidence remain blocked or not run. See [Phase 2 planning rules](../../../references/02_PLANNING.md).
 - [ ] Request separate approval for live provider calls, remote tracing, or server/infrastructure checks after offline acceptance. Record observed results and side effects; an offline pass does not prove live integration.
 
 ---
