@@ -34,6 +34,30 @@ Reuse the existing project structure and harness by default. No new tooling is a
 
 ---
 
+## Step 3.0b — Environment & Harness Profiling (OS & Platform Check)
+
+Before searching for or recommending any tool, profile the runtime host:
+
+```markdown
+### Host & Harness Profile
+- **Host Operating System:** [Windows / macOS / Linux / WSL]
+- **Active AI Harness:** [Antigravity / Claude Code / Cursor / Cline / Codex / OpenHands / Other]
+- **Shell & Path Syntax:** [pwsh / powershell / bash / zsh]
+```
+
+### Harness Compatibility & Hazard Rule:
+1. **Prioritize Verified Harness Support:**
+   - If a tool or repository README explicitly features tutorials, configuration examples, or native plugins for your active harness (e.g., native Claude Code hooks, Cursor `.cursorrules`, Antigravity skills), give it **highest priority**.
+2. **Handle Unlisted Harnesses with Caution (The Antigravity / New Harness Rule):**
+   - If a tool does not mention your harness in its documentation (e.g., Antigravity is not listed in the tool's repo), **do not assume it works**.
+   - Check if the tool uses universal protocols (clean CLI commands, standard stdio MCP) or proprietary harness hooks. If it requires unsupported hooks, **postpone or ignore** the tool to avoid breaking the harness environment.
+3. **Disqualify OS & Platform Hazards:**
+   - Tools with strict POSIX/Unix assumptions (e.g., requiring native `tmux`, bash-only terminal controls, or `/dev/pts`) are **hazards on native Windows**.
+   - If on native Windows without WSL, strictly disqualify tools like native Firstmate sessions unless running inside WSL.
+   - Prefer cross-platform node/npm CLIs ([AXI](https://axi.md/)) and single-binary tools.
+
+---
+
 ## Step 3.1 — Tool Needs Assessment
 
 Based on the Execution Plan from Phase 2, identify every capability the agent needs.
@@ -158,10 +182,10 @@ For every discovered tool, score it before adopting.
 | Criteria | Weight | Score (1-5) | Notes |
 |----------|--------|-------------|-------|
 | **Functionality Match** | 25% | [1-5] | Does it directly satisfy the capability need? |
+| **OS & Harness Compatibility** | 20% | [1-5] | Verified support/tutorial for current OS & Harness (5) vs Unlisted (2) vs OS/Harness Hazard (1)? |
 | **Token & Context Footprint (Anti-Bloat)** | 20% | [1-5] | Lightweight AXI/CLI (5) vs Heavy JSON-RPC MCP schema injecting bloat (2)? |
 | **Non-Redundancy (Scaffold Overlap Check)** | 15% | [1-5] | Does the scaffold (Superpowers, ECC) already do this? (1 = duplicate/conflict, 5 = unique) |
-| **Maintenance & Security** | 20% | [1-5] | Known CVEs? Trusted author? Last commit < 3 months? |
-| **Integration Effort** | 15% | [1-5] | Simple `npx` or script (5) vs complex multi-service setup (2)? |
+| **Maintenance & Security** | 15% | [1-5] | Known CVEs? Trusted author? Last commit < 3 months? |
 | **Cost** | 5% | [1-5] | Free open-source vs paid API usage? |
 | **TOTAL** | 100% | [weighted] | |
 ```
@@ -169,8 +193,8 @@ For every discovered tool, score it before adopting.
 **Decision Thresholds:**
 - **Score ≥ 4.0:** Recommend adoption, subject to security and approval gates.
 - **Score 3.0–3.9:** Recommend adoption with documented caveats, subject to the same gates.
-- **Score 2.0–2.9:** Consider planning a custom tool or look for alternatives.
-- **Score < 2.0:** Reject.
+- **Score 2.0–2.9:** Postpone or look for alternatives.
+- **Score < 2.0 or Compatibility Score = 1:** **Strict Rejection / Disqualification.** Any tool that is hazardous to the host OS (e.g., native Unix tools on Windows without WSL) or unsupported by the active harness (e.g., requiring unverified harness hooks that could destabilize Antigravity) is immediately disqualified.
 
 ### Installation and Change Approval Gate
 
@@ -309,6 +333,8 @@ Before running any installation command, check for these 4 conflict types:
 
 | Conflict Type | Risk | Prevention Action |
 |---------------|------|-------------------|
+| **OS & Platform Hazard** | Tool requires POSIX/Unix shell or daemons (e.g. `tmux`, `/dev/pts`) that fail on native Windows | Check Host OS. Disqualify Unix-only tools on native Windows unless WSL is explicitly configured and verified. |
+| **Harness Incompatibility / Instability** | Tool relies on proprietary harness hooks (e.g. Claude Code hooks) that don't exist in Antigravity or Cursor, risking crashes | Check active harness. Only install tools verified for the active harness. Postpone or use universal AXI CLI/MCP alternatives for unlisted harnesses. |
 | **Harness & `AGENTS.md` Collision** | Incoming scaffolder (e.g., ECC) brings its own `AGENTS.md` or rule files, colliding with the planner's rules | Inspect whether the incoming tool installs root rule files. If yes, prepare to merge or yield governance to the incoming harness. |
 | **"Planner Only" Instruction Lock** | An execution agent reading our planner `AGENTS.md` sees "Execution Prohibited" and halts | Execute the **Handoff Transition Routine** below to update `AGENTS.md` before execution starts. |
 | **PR Gatekeeper & Scaffold Overlap (`no-mistakes`)** | Installing `no-mistakes` when the scaffold (e.g., Superpowers) already enforces TDD and subagent reviews creates duplicate review loops and git worktree collisions | Check if scaffold already has verification gates. If yes, skip `no-mistakes`. If using an unopinionated harness (Aider, Claude Code, Cline), `no-mistakes` provides a powerful clean PR gate. |

@@ -58,7 +58,7 @@ IntentFlow separates **Thinking** from **Building** so you always stay in contro
    - 📄 **`INTENT_BRIEF.md`** — *What we're building:* Goals, scope, and target features.
    - 📖 **`CONTEXT.md`** — *Vocabulary:* A simple glossary of terms so the AI doesn't mix up concepts.
    - 🗺️ **`EXECUTION_PLAN.md`** — *The Master Blueprint:* A step-by-step roadmap that maps dependencies (DAG), parallelizes tasks, and includes self-correcting feedback loops.
-3. **Tool Conflict Check & Lean In-Project Setup (Anti-Bloat):** The AI checks for port or environment variable collisions, enforces an **Anti-Bloat Tool Budget** (≤ 3–5 active tools), prioritizes token-efficient [AXI CLIs](https://axi.md/) over heavy MCP servers, and installs required tools (like `rtk-ai/rtk`) directly in your project upon your approval.
+3. **Environment Profiling & Lean Tool Setup (Anti-Bloat):** The AI automatically detects your **Host OS** (Windows, macOS, Linux) and **Active AI Harness** (Antigravity, Claude Code, Cursor, Cline, etc.). It prioritizes tools with verified tutorials for your harness, disqualifies dangerous platform hazards (e.g., native Unix daemons on Windows or unverified harness hooks), enforces a strict **Anti-Bloat Tool Budget** (≤ 3–5 active tools), prioritizes token-efficient [AXI CLIs](https://axi.md/) over heavy MCP servers, and installs required tools (like `rtk-ai/rtk`) directly in your project upon your approval.
 4. **Clean Transition & Handoff:** The AI archives internal planner guides into `.planning/` and transitions `AGENTS.md` to authorize execution, leaving your project completely ready for your AI coding tool (Cursor, Cline, Claude Code, ECC, Superpowers, Firstmate, etc.) to build!
 
 ---
@@ -78,14 +78,14 @@ If you inspect the `.agents/` folder, here is what powers the `/planner`:
 
 Once IntentFlow generates your `EXECUTION_PLAN.md`, you can hand it off to any of these battle-tested tools:
 
-| Tool | Specialty | Best When | Overhead Warning |
+| Tool | Specialty | Best When | Compatibility & Overhead |
 | :--- | :--- | :--- | :--- |
-| **[Superpowers](https://github.com/obra/superpowers)** | Strict TDD & Engineering Discipline | You want mandatory Red-Green-Refactor testing and subagent code reviews. | Low-to-moderate overhead. |
-| **[ECC](https://github.com/affaan-m/ECC)** | Full Agent Operating System | You want persistent memory across sessions and hundreds of specialized skills. | Moderate overhead. |
-| **[Firstmate](https://github.com/kunchenguid/firstmate)** | Agent Distro & Crew Fleet | You have a large or production pipeline requiring multiple agents working in parallel in tmux/zellij worktrees. | **Heavy overhead:** Overpowered for small projects; use only for large fleets. |
-| **[no-mistakes](https://github.com/kunchenguid/no-mistakes)** | Pre-Push AI Gatekeeper & Clean PRs | You use unopinionated tools (Aider, Claude Code, Cline) and want an automated worktree QA pipeline. | Skip if using Superpowers to avoid redundant review loops. |
-| **[Roo Code](https://github.com/RooVetGit/Roo-Code) / Cline** | VS Code Autonomous Roles | You want fine-grained role control (Architect, Code, Test) inside VS Code. | Minimal overhead. |
-| **[OpenHands](https://github.com/All-Hands-AI/OpenHands)** | Sandboxed Full-Stack Dev | You want autonomous Docker-isolated code generation and testing. | Requires Docker sandbox. |
+| **[Superpowers](https://github.com/obra/superpowers)** | Strict TDD & Engineering Discipline | You want mandatory Red-Green-Refactor testing and subagent code reviews. | Universal (Claude Code, Cursor, Cline, Antigravity). Low-to-moderate overhead. |
+| **[ECC](https://github.com/affaan-m/ECC)** | Full Agent Operating System | You want persistent memory across sessions and hundreds of specialized skills. | Best on Claude Code. Needs adaptation for other harnesses. |
+| **[Firstmate](https://github.com/kunchenguid/firstmate)** | Agent Distro & Crew Fleet | You have a large or production pipeline requiring multiple agents working in parallel in tmux/zellij worktrees. | **Heavy overhead:** Requires macOS/Linux (WSL on Windows). Overpowered for small projects. |
+| **[no-mistakes](https://github.com/kunchenguid/no-mistakes)** | Pre-Push AI Gatekeeper & Clean PRs | You use unopinionated tools (Aider, Claude Code, Cline) and want an automated worktree QA pipeline. | Universal git worktrees. Skip if using Superpowers. |
+| **[Roo Code](https://github.com/RooVetGit/Roo-Code) / Cline** | VS Code Autonomous Roles | You want fine-grained role control (Architect, Code, Test) inside VS Code. | VS Code / JetBrains extension. Minimal overhead. |
+| **[OpenHands](https://github.com/All-Hands-AI/OpenHands)** | Sandboxed Full-Stack Dev | You want autonomous Docker-isolated code generation and testing. | Requires Docker sandbox across all platforms. |
 
 ---
 

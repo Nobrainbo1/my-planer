@@ -15,6 +15,7 @@ This Planner utilizes **Advanced Agentic Planning Architectures**:
 - **ReWOO / LLMCompiler:** Pre-compute dependency graphs and parallelizable tasks before executing tools.
 - **Reflexion:** Build self-evaluating and correcting feedback loops into the generated task pipeline.
 - **Lean Tooling / Anti-Bloat:** Strive for the Minimum Viable Harness (≤ 3–5 tools). Reject overlapping or overpowered tools. Prefer token-efficient AXI CLIs over heavy MCP servers where available.
+- **Host OS & Harness Environment Profiling:** Detect Host OS (Windows, macOS, Linux) and active AI harness (Antigravity, Claude Code, Cursor, Cline, etc.). Prioritize tools with first-party support/tutorials for the active harness; strictly ignore or postpone unlisted tools (e.g., tools without verified Antigravity support) to prevent operational hazards.
 
 ## Paths and Outputs
 
@@ -26,7 +27,7 @@ Confirm the target project root. Write `INTENT_BRIEF.md`, `CONTEXT.md`, and `EXE
 
 1. Read [Phase 1](references/01_DISCOVERY.md) and the [intent template](resources/templates/intent_brief.md). For structured input, read the existing brief and its approval evidence rather than assuming it is approved.
 2. Classify the work as Spike, One-Shot, or Project. A Spike is a timeboxed feasibility experiment; a One-Shot is a bounded change; a Project needs a full multi-step plan.
-3. Use [grill-with-docs](../grill-with-docs/SKILL.md). Gather repository and environment facts with tools. Ask the human only for goals, preferences, and unresolved decisions.
+3. Use [grill-with-docs](../grill-with-docs/SKILL.md). Gather repository and environment facts with tools (Host OS, terminal shell, and Active AI Harness). Ask the human only for goals, preferences, and unresolved decisions.
 4. Build a Design Tree of dependent decisions in the brief. Ask 1 to 3 frontier questions per round, with at most 2 to 3 options and a `Recommendation:` for each. Wait for answers before dependent questions.
 5. Update resolved terms immediately in `CONTEXT.md` using the [context template](resources/templates/context_template.md). Include canonical terms and `_Avoid_` replacements. This file is a glossary, not a plan or scratchpad.
 6. Resolve blocking questions and record explicit intent approval, approver, date, and artifact revision. Do not infer agreement from silence or from the presence of a file.
@@ -43,13 +44,14 @@ Record the choice. Mode selection does not authorize implementation. Both modes 
 ## Step 3 — Tooling and Shared Plan Approval
 
 1. Read [Phase 2](references/02_PLANNING.md), [Phase 3](references/03_TOOLING.md), and the [execution plan template](resources/templates/execution_plan.md). Inspect existing dependencies and verification commands. Read-only tool discovery may inform the draft plan; installation needs separate approval.
-2. **Apply Lean Tooling (Anti-Bloat Protocol):**
-   - Enforce a strict Tool Budget (≤ 3–5 active tools/skills per phase). Do not equip tools "just in case".
+2. **Apply Lean Tooling & Environment Compatibility Protocol:**
+   - **Environment Profiling:** Inspect Host OS and Active AI Harness. Tools with tutorials/verified support for the active harness (e.g., Claude Code, Cursor) are prioritized. Unlisted tools without verified support for the active harness (e.g., Antigravity) are postponed or ignored to prevent operational hazards. Tools requiring native Unix daemons (e.g., `tmux` in Firstmate) are blocked on native Windows unless inside WSL.
+   - **Enforce Anti-Bloat Tool Budget:** Keep active tools capped (≤ 3–5 active tools/skills per phase). Do not equip tools "just in case".
    - **Prefer AXI over MCP:** Check for [AXI CLIs](https://axi.md/) (`gh-axi`, `chrome-devtools-axi`, `sqlite-axi`, etc.) before installing heavy MCP servers. AXI tools cut token costs by ~40% and eliminate persistent JSON-RPC daemon overhead. Use MCP only as an ecosystem fallback when no AXI exists.
    - **Right-Size the Execution Scaffold:**
      - For small projects/spikes: Single agent (Cursor, Aider, Roo Code).
      - For strict quality & TDD: **Superpowers** (`obra/superpowers`).
-     - For large parallel multi-task production pipelines: **Firstmate** (`kunchenguid/firstmate`). Warn the human that Firstmate is overpowered and introduces excessive overhead for small projects.
+     - For large parallel multi-task production pipelines: **Firstmate** (`kunchenguid/firstmate`) (requires Unix/WSL). Warn the human that Firstmate is overpowered and introduces excessive overhead for small projects.
      - For PR gating: Recommend **no-mistakes** (`kunchenguid/no-mistakes`) only when using unopinionated harnesses (Aider, Claude Code, Cline). **Skip `no-mistakes` if using Superpowers** to prevent redundant review loops and worktree conflicts.
 3. For Mode A, choose the simplest suitable framework:
 
@@ -71,7 +73,7 @@ For planning-only requests in either mode, stop here and hand over the brief, gl
 
 ## Step 4 — In-Project Tool Installation & Handoff Transition
 
-1. **Pre-Install Conflict & Bloat Check**: Follow [Phase 3 §3.7](references/03_TOOLING.md#step-37--in-project-tool-installation--conflict-safety-check). Inspect for port/stdio collisions, `.env` collisions, scaffold rule collisions (`AGENTS.md`), redundant PR gatekeepers (`no-mistakes` vs Superpowers), and excessive fleet overhead (`firstmate` on small projects).
+1. **Pre-Install Conflict, Bloat & OS Safety Check**: Follow [Phase 3 §3.7](references/03_TOOLING.md#step-37--in-project-tool-installation--conflict-safety-check). Inspect for OS/platform hazards (e.g., native Windows vs Unix daemons), harness incompatibility (e.g., unverified Antigravity hooks), port/stdio collisions, `.env` collisions, scaffold rule collisions (`AGENTS.md`), redundant PR gatekeepers (`no-mistakes` vs Superpowers), and excessive fleet overhead (`firstmate` on small projects).
 2. **Install Approved Tools**: With explicit human approval, install tools directly in the project folder:
    - Mandatory: configure [`rtk-ai/rtk`](https://github.com/rtk-ai/rtk) for token and log optimization.
    - Configure approved AXI runners or MCP servers in `.cursor/mcp.json` or `.claude/mcp.json`.

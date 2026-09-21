@@ -10,6 +10,8 @@ type: template
 > **Status:** Draft / In Review / Approved
 > **Output:** `INTENT_BRIEF.md` at the target project root
 > **Target project root:** [exact absolute path]
+> **Host OS & Shell:** [e.g., Windows 11 (pwsh), macOS Sonoma (zsh), Ubuntu 24.04 (bash)]
+> **Active AI Harness:** [e.g., Antigravity, Claude Code, Cursor, Cline/Roo Code]
 > **Scope:** Spike / One-Shot / Project
 > **Brief ID and revision:** [stable ID and exact revision]
 > **Approved write locations:** [exact project paths; preserve existing artifacts]
@@ -82,7 +84,9 @@ Read this template as a source; never fill in the shipped original. Rewrite copi
 - Test coverage: [minimum %]
 - Documentation: [requirements]
 
-### Compatibility
+### Compatibility & Environment
+- Host OS & Shell: [e.g., Windows 11 (pwsh), macOS Sonoma (zsh), Ubuntu (bash)]
+- Active AI Harness: [e.g., Antigravity, Claude Code, Cursor, Cline/Roo Code]
 - Platforms: [list]
 - Browsers: [list]
 - Dependencies: [constraints]

@@ -7,6 +7,8 @@ type: template
 
 > **Date:** [YYYY-MM-DD]  
 > **Output:** [exact approved target-project report path]
+> **Host OS & Shell:** [e.g., Windows 11 (pwsh), macOS Sonoma (zsh), Ubuntu (bash)]
+> **Active AI Harness:** [e.g., Antigravity, Claude Code, Cursor, Cline/Roo Code]
 > **Execution Plan:** `EXECUTION_PLAN.md` [authoritative absolute path and approved revision]
 > **Outcome:** [reuse existing tools / proposed additions / blocked]
 
@@ -72,6 +74,7 @@ Read this template as a source; never fill in the shipped original. Rewrite copi
 - **Tool:** [chosen tool/server/API]
 - **Source:** [where it came from]
 - **Score:** [X.X / 5.0]
+- **OS & Harness Compatibility:** [Verified on Host OS & Active Harness / Degraded / Postponed Hazard]
 - **Config:** [proposed setup; no secret values]
 - **Pinned source/version and evaluation evidence:** [exact source identity; functionality, trust, security, permissions, side effects, caveats]
 - **Proposed action:** [exact install/configuration/retrieval command, shell, cwd, destination, and affected files; or no action]
@@ -85,6 +88,12 @@ Evaluate before installation or adoption. A score or harness approval is not ins
 ---
 
 ## Final Harness Configuration
+
+### Environment & Harness Profile
+- **Host OS & Shell:** [e.g., Windows 11 / pwsh]
+- **Active AI Harness:** [e.g., Antigravity]
+- **Platform Hazard Check:** [Passed — no unverified native daemons or proprietary harness hooks]
+- **Active Tool Budget:** [X / 5 max (Budget Enforced)]
 
 ### Built-in Tools
 | Tool | Capability |
@@ -116,6 +125,8 @@ Evaluate before installation or adoption. A score or harness approval is not ins
 ## Approval
 
 - [ ] All tool needs addressed by available tools or approved custom-build tasks with satisfied prerequisites; unavailable capability remains explicitly blocked.
+- [ ] OS & Harness compatibility verified for all proposed tools (no platform hazards or unverified harness hooks).
+- [ ] Anti-Bloat Tool Budget respected (≤ 3–5 active tools).
 - [ ] No unnecessary custom tools — existing solutions prioritized; no new tooling is a valid outcome.
 - [ ] Candidates evaluated before installation or adoption; separate action approvals and actual validation evidence recorded.
 - [ ] Material changes returned to planning for renewed approval and preflight before affected execution.

@@ -67,6 +67,8 @@ Deliberately choose **static context** (core instructions, global memory, and gu
 - [ ] Read project `AGENTS.md` / `.cursorrules` / `CLAUDE.md` / `.clinerules`
 - [ ] Read any existing coding standards documents
 - [ ] Read the Intent Brief from Phase 1
+- [ ] Profile Host OS (`Windows`, `macOS`, `Linux`) and terminal shell (`pwsh`, `bash`, `zsh`)
+- [ ] Profile Active AI Harness (`Antigravity`, `Claude Code`, `Cursor`, `Cline/Roo Code`, `Windsurf`, `Aider`, `OpenHands`)
 - [ ] Identify any regulatory or compliance requirements
 
 #### 2. Codebase Context
@@ -83,6 +85,7 @@ Deliberately choose **static context** (core instructions, global memory, and gu
 - [ ] Check for token-efficient AXI CLI tools (e.g. `gh-axi`, `sqlite-axi`, see [axi.md](https://axi.md/)) before defaulting to heavy MCP servers
 - [ ] List available MCP servers (see [Phase 3: Tooling](./03_TOOLING.md))
 - [ ] List available CLI tools and package runners in the environment
+- [ ] Cross-check candidate tools against Host OS & Active AI Harness (disqualify platform hazards like native Unix daemons on Windows, or unverified harness hooks)
 - [ ] Enforce Anti-Bloat Tool Budget (≤ 3–5 active tools) to protect agent attention and token capacity
 - [ ] Identify any existing automation scripts or CI/CD pipelines
 - [ ] Note any AI tools available (code generation, image generation, search)
@@ -209,6 +212,7 @@ Run this scan before plan approval and repeat it immediately before execution or
 | File access collisions | All task read/write sets, shared configuration, generated files, lockfiles, and other agents' current ownership | Serialize overlapping writes and read/write hazards, assign a single owner, or isolate workspaces with an explicit integration task |
 | Contract discrepancies | Producer and consumer signatures, types, schemas, error behavior, versions, fixtures, and domain terms | Agree on one exact contract and update every dependent task and test |
 | Circular dependencies | Task prerequisites and module dependency graph | Produce a valid topological task order; break cycles and resolve missing or self-referencing dependencies |
+| OS & Harness Hazards | Planned tools, shell commands, scripts, and harness integrations | Replace or omit tools with unsupported OS requirements (e.g., tmux on native Windows) or unverified harness locks |
 
 A list of possible conflicts is not a passed scan. Record each conflict's owner and actual resolution, then rescan. Unresolved findings block approval and dispatch. Only collision-free tasks with satisfied dependencies may run in parallel. Workspace isolation alone does not resolve incompatible contracts.
 

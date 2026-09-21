@@ -253,6 +253,29 @@ Phase 4-6: IMPLEMENTATION, VERIFICATION, DELIVERY
 
 ---
 
+## 🖥️ Operating System & Harness Compatibility Matrix
+
+Before equipping any tool or recommending a scaffold, the planner checks this matrix. **Never recommend a tool that causes an OS hazard or is unverified for your active harness.**
+
+| Tool / Scaffold | Supported Host OS | Verified Harnesses | Harness Priority & Hazard Guidance |
+| :--- | :--- | :--- | :--- |
+| **`rtk-ai/rtk`** | Windows, macOS, Linux | Antigravity, Claude Code, Cursor, Cline, Roo Code, Terminal | **Mandatory Universal Dependency.** Native CLI that safely filters context-exploding command logs across all operating systems. |
+| **`AXI Tools`** ([axi.md](https://axi.md/)) | Windows, macOS, Linux | Antigravity, Cursor, Claude Code, Cline, Aider | **High Priority.** Fast, token-efficient CLIs (`gh-axi`, `sqlite-axi`, etc.) that execute natively in any terminal without server daemon overhead. |
+| **`no-mistakes`** | Windows, macOS, Linux | Claude Code, Cursor, Antigravity, Codex, Pi, Copilot | **High Priority for Clean PRs** when using unopinionated harnesses. **Skip if using Superpowers** to prevent redundant review loops. |
+| **`Superpowers`** (`obra/superpowers`) | Windows, macOS, Linux | Claude Code (Native plugin), Cursor (via rules), Antigravity (via skills) | **Highest Priority for Strict TDD.** Native plugin support in Claude Code (`/plugin install`); works via Markdown rules on other harnesses. |
+| **`ECC`** (`affaan-m/ECC`) | Windows, macOS, Linux | Claude Code (Native) | **High Priority if using Claude Code.** Caution on other harnesses: many features rely on Claude Code's internal hook architecture. |
+| **`firstmate`** (`kunchenguid/firstmate`) | macOS, Linux native. **Windows: Requires WSL** | Claude Code, Grok, Pi, Codex, OpenCode, Cursor CLI | **Hazard Warning on Native Windows:** Relies strictly on `tmux` and Unix process trees. **Do not run on native Windows without WSL.** Not verified for Antigravity native terminal. Overpowered for small projects. |
+| **`Roo Code` / `Cline`** | Windows, macOS, Linux | VS Code | **Native to VS Code.** Ideal for developers working directly inside the VS Code editor. |
+| **`OpenHands`** | Windows, macOS, Linux | Standalone Web/Docker GUI | **Requires Docker.** Safe isolated sandbox for autonomous execution. |
+| **`codebase-memory-mcp`** | Windows, macOS, Linux | Antigravity, Cursor, Claude Code, Cline | **Universal MCP Server.** Single binary with local SQLite graph. Works reliably across all platforms. |
+
+### The "Unlisted / Antigravity" Rule:
+- **If a tool does not list your active harness (e.g. Antigravity is not in its README):**
+  - **Check implementation type:** If it is a clean standalone CLI (like AXI) or a standard stdio MCP server, it is safe to use.
+  - **If it requires proprietary harness hooks:** (e.g., Claude Code stop hooks, Cursor-specific JSON configs), **postpone or ignore** it. Do not attempt to force-install unverified harness hooks into Antigravity or other harnesses, as it can cause session deadlocks or unhandled exceptions.
+
+---
+
 ## 🛑 The Lean Harness Principle: Preventing Tool & Skill Bloat
 
 > **Rule:** *More tools ≠ smarter agent. More tools = confused agent.*

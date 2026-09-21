@@ -8,6 +8,8 @@ type: template
 > **Date:** [YYYY-MM-DD]
 > **Output:** `EXECUTION_PLAN.md` at the target project root
 > **Target project root:** [exact path]
+> **Host OS & Shell:** [e.g., Windows 11 (pwsh), macOS Sonoma (zsh), Ubuntu 24.04 (bash)]
+> **Active AI Harness:** [e.g., Antigravity, Claude Code, Cursor, Cline/Roo Code]
 > **Scope:** Spike / One-Shot / Project
 > **Intent Brief:** `INTENT_BRIEF.md` [approved revision] at the target project root
 > **Domain glossary:** `CONTEXT.md` at the target project root
@@ -52,10 +54,12 @@ Discover commands from project scripts, configuration, or CI. Do not assume tool
 [ASCII diagram or mermaid code block]
 ```
 
-### Tech Stack
+### Tech Stack & Environment
 
 | Layer | Technology | Version | Rationale |
 |-------|-----------|---------|-----------|
+| Host OS & Shell | [e.g., Windows 11 / pwsh] | [OS/Shell Version] | [Native environment context] |
+| Active AI Harness | [e.g., Antigravity, Claude Code] | [Harness Version] | [Harness-verified tool constraints] |
 | [e.g., Frontend] | [e.g., React] | [e.g., 19.x] | [Why this choice] |
 | [e.g., Backend] | [e.g., FastAPI] | [e.g., 0.115] | [Why this choice] |
 | [e.g., Database] | [e.g., PostgreSQL] | [e.g., 16] | [Why this choice] |
@@ -285,6 +289,7 @@ Run before plan approval, immediately before execution, and after task, ownershi
 | File access collisions | [read/write sets, shared configuration, generated files, lockfiles, active agent ownership] | [overlapping writes or read/write hazards] | [serialize, assign one owner, or isolate with integration task] | [actual rescan result] | Not run |
 | Contract discrepancies | [producer/consumer signatures, types, schemas, errors, versions, fixtures, glossary terms] | [mismatch or none] | [agreed exact contract and all affected tasks updated] | [actual rescan result] | Not run |
 | Circular dependencies | [task prerequisites and module graph] | [cycle, missing dependency, self-reference, or none] | [break cycle and validate topological order] | [actual rescan result] | Not run |
+| OS & Harness Hazards | [planned tools, shell commands, scripts, harness hooks] | [unsupported OS requirement or unverified harness lock] | [replace/omit hazardous tool with verified alternative] | [actual rescan result] | Not run |
 
 Listing conflicts is not a pass. Resolve and rescan each one. Workspace isolation does not fix incompatible contracts.
 

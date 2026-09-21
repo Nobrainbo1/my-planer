@@ -16,7 +16,9 @@ checkpoint: true
 
 ## Step 1.0 — Classify Scope and Lock Implementation
 
-Record the target project root and scope path in `INTENT_BRIEF.md`. All output paths in these phases are relative to that target project, not the workflow repository or skill directory.
+Record the target project root, scope path, **Host Operating System** (Windows/macOS/Linux), and **Active AI Harness** (Antigravity/Claude Code/Cursor/Cline/etc.) in `INTENT_BRIEF.md`. All output paths in these phases are relative to that target project, not the workflow repository or skill directory.
+
+Profiling the OS and Harness during discovery ensures all downstream tool recommendations are fully compatible and never introduce OS hazards (e.g. Unix-only daemons on Windows) or harness instability (e.g. unverified hooks on Antigravity).
 
 Read shipped templates and references as sources; never fill them in or store project material in the skill's resources. Select approved output paths before writing. Rewrite every copied local link relative to its generated output file, preserving exact filename case and checking its target and heading. Links to workflow policy must resolve to the actual installed skill location, not an assumed project layout. Record authoritative artifact paths in the plan before changing execution workspaces.
 
