@@ -1,0 +1,8 @@
+__pycache__/
+*.py[cod]
+
+# Completed teamwork runs are session artifacts, not shipped skills.
+/.agents/*_[0-9]*/
+/.agents/sentinel/
+/.agents/ORIGINAL_REQUEST.md
+/AUDIT_REPORT.md

@@ -1,54 +1,53 @@
 ---
 name: grill-with-docs
 description: >-
-  Interview the user about goals and design trade-offs while maintaining domain
-  language and decision records. Use for /grill-with-docs, /grill-me, or
-  "stress-test this idea".
+  Interview the user about an uncertain idea or consequential design trade-off
+  and record resolved decisions in a working brief. Use when asked to grill,
+  stress-test an idea, work through unresolved goals, or as the planner's
+  discovery step. Skip unnecessary questions when
+  the requirements are clear or the user has delegated the remaining choices.
 ---
 
-# Grill with Docs
+# Grill with docs
 
-Use this skill independently or during planner discovery and architecture review. This is a local adaptation of the interview methodology defined in [Phase 1](../planner/references/01_DISCOVERY.md) and [Phase 2](../planner/references/02_PLANNING.md), not an installed upstream package. Follow [root rules](../../AGENTS.md).
+The planner reads and applies this skill automatically. It can also be used
+independently. Focus on decisions that change the outcome; when the necessary
+details are already known, complete a brief check without redundant questions.
 
-## Inputs and Boundaries
+## Working document
 
-Confirm the target project root, existing intent, scope, and approved write locations. Read repository facts with tools before asking questions. Classify the work as Spike, One-Shot, or Project using [discovery](../planner/references/01_DISCOVERY.md).
+Locate the target project and its existing brief or plan. Update that document
+instead of creating a competing source of truth. If none exists, use `PLAN.md`
+in the project's normal documentation location or root. If the user wants only
+a conversation or no target workspace is available, keep a concise decision
+summary in the conversation.
 
-No implementation, code generation, or scaffold copying occurs until the human explicitly approves both intent and execution plan. Draft planning documents are allowed; recommendations are not consent. Do not install tools or change external services during an interview.
+Read repository evidence before asking about technical facts. Record observations,
+assumptions, decisions, and blockers separately. Follow the target repository's
+instructions. An interview request authorizes discovery and drafting; it does
+not by itself authorize building, installing tools, or changing external services.
 
-## Frontier Round Protocol
+## Interview loop
 
-1. Read relevant code, tests, manifests, and existing decisions. Record evidence and unknown facts in `INTENT_BRIEF.md` at the target root. Ask for access if facts cannot be established; do not ask the human to guess repository facts.
-2. Build a **Design Tree**, a map of decisions and their dependencies, in the brief. Mark nodes resolved, open, or deferred. The **frontier** contains open nodes whose parent decisions are resolved.
-3. Ask 1 to 3 frontier questions per round about human goals, preferences, or trade-offs. Start with the decision that unblocks the most work. Offer at most 2 to 3 viable options per question.
-4. State essential facts and a `Recommendation:` with a reason for every question. Wait for the answers. Do not open dependent branches until their parent choices are resolved.
-5. Immediately record each answer, its scope impact, and newly resolved terminology. Remove irrelevant branches. Repeat until blockers are resolved. Record owners and impact for deferred nonblocking questions.
+1. Identify the open choice that most changes the first useful version. Resolve parent decisions before dependent details.
+2. Ask one to three concise questions. Offer a few viable options when helpful, state the trade-offs, and recommend one with a reason.
+3. Wait for required answers while continuing independent research. Do not treat your recommendation or silence as consent.
+4. Record the answer and its scope impact. Add domain definitions only where different meanings would change the plan.
+5. Drop branches that no longer matter. Defer reversible details with explicit assumptions, especially when the user asks you to use your judgment.
 
-```text
-Question: [goal or preference]
-Options: [A and trade-off]; [B and trade-off]
-Recommendation: [choice and reason]
-Depends on: [resolved decision]
-```
+Test the idea against simpler alternatives, including doing nothing or using an
+existing solution. Challenge contradictions and unsupported assumptions without
+forcing the user to defend every preference.
 
-## Live Domain Language
+## Completion
 
-Create or update target-root `CONTEXT.md` from the [context template](../planner/resources/templates/context_template.md); never edit the shipped template. Write each resolved term during the round, not at the end.
+Stop when the outcome, scope, constraints, acceptance checks, and consequential
+choices are sufficient for the next step. Return resolved decisions, remaining
+blockers, and a recommendation. "Validate the need first" is a valid result.
 
-Use canonical terms, precise meanings, domain relationships, short examples, and sources of agreement. Mark forbidden or confusing alternatives with `_Avoid_`, their canonical replacement, and reason. This shared vocabulary is **ubiquitous language**. Clarify conflicting meanings rather than merging them silently.
-
-`CONTEXT.md` is a glossary only. Put tasks, unanswered questions, implementation plans, and session history elsewhere.
-
-## Architecture Decisions
-
-Use [planning](../planner/references/02_PLANNING.md) to test alternatives against requirements, failure modes, costs, and reversibility. An Architecture Decision Record (ADR) is warranted only when all three gates pass:
-
-- **Hard to reverse:** Changing later has concrete migration or compatibility costs.
-- **Surprising without context:** A future developer needs the rationale to understand the choice.
-- **Real trade-off:** Viable alternatives were considered and rejected, with benefits sacrificed.
-
-Record each gate's evidence in `EXECUTION_PLAN.md`. A No or unknown result means no ADR; keep a lightweight rationale or open question in the plan. When all pass, use the [ADR template](../planner/resources/templates/adr_template.md), inspect existing numbers, and choose a unique target-project `docs/adr/000X-<slug>.md`. Record decision owner, status, consequences, and explicit approval. An ADR does not authorize implementation.
-
-## Completion Check
-
-Read back each answer before the next round. Verify terms were saved immediately, `_Avoid_` replacements are clear, the glossary contains no tasks, and unresolved blockers remain visible. Check document structure and links after writes. Report resolved decisions, remaining blockers, and the next approval needed. Obtain explicit intent and plan approvals before handing off to an external execution agent.
+When called by the planner, return the decisions to its planning step; do not
+invoke the planner again or create a recursive skill loop. When used independently,
+continue with the [planner](../planner/SKILL.md) if a full handoff was requested.
+Do not repeat completed discovery or claim that
+interview completion authorizes execution. Keep short rationale in the plan;
+use an existing architecture decision record convention only when warranted.
