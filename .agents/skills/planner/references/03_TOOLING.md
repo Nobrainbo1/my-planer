@@ -17,6 +17,9 @@ already available. Do not turn every planning request into a marketplace survey.
 Using AI to build a product does not imply the product needs an agent runtime.
 A workflow that writes plans is not necessarily an application starter. Determine
 which category the user means by "scaffolder" before comparing candidates.
+When a new project needs a starting point, scan the [scaffold and framework
+discovery map](SCAFFOLDS.md) for relevant leads. It is a prompt for research,
+not a default stack or a substitute for current documentation.
 
 ## Evaluate the smallest useful set
 
@@ -38,6 +41,8 @@ claims against primary sources. If browsing is unavailable, label candidates
 unverified and provide a concrete check for the next agent; do not imply readiness.
 Missing documentation is an unknown, not proof of incompatibility. A tool need
 not name every AI editor to work as a normal CLI on a supported OS.
+
+For external access, compare any relevant AXI, official CLI/API, MCP server, or existing connector against the actual operation and current environment. AXI is an option, not a mandatory first stop.
 
 Prefer the simplest adequate integration. There is no universal CLI-versus-MCP
 winner, mandatory log optimizer, persona library, or default multi-agent fleet.

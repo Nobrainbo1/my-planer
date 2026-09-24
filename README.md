@@ -25,29 +25,43 @@ your-project/
 ```
 
 Keep your project's existing files. Do not replace its whole `.agents` folder.
-IntentFlow itself needs no package installation.
+IntentFlow itself needs no package installation. If you use Claude Code or Cline,
+also copy this repository's `.claude/skills/planner/` and
+`.claude/skills/grill-with-docs/` folders into the same paths in your project.
+These small adapters point to the canonical `.agents/skills/` files, so copy both
+sets together. For Gemini CLI or OpenCode, also copy the relevant `planner` command
+file from `.gemini/commands/` or `.opencode/commands/` if you want `/planner`.
+
+The root `AGENTS.md`, `CLAUDE.md`, and `GEMINI.md` describe **this IntentFlow
+repository**. Do not overwrite a target project's own instruction files with
+them. In a target project with an existing root `AGENTS.md`, a new `CLAUDE.md`
+can contain `@AGENTS.md` and a new `GEMINI.md` can contain `@./AGENTS.md` if those
+hosts need to read the same project rules. Merge with any existing host files.
 
 ## 2. Start the planner
 
 Open your project in your coding tool and start a new chat.
 
-**In Antigravity:**
+Use the form for your coding tool, followed by your idea:
 
-```text
-/planner I want to build a booking app for my small shop.
-```
+| Coding tool | Start with | Extra files needed |
+| --- | --- | --- |
+| [Antigravity](https://antigravity.google/docs/migration/workflows-to-skills) | `/planner` | None |
+| [Codex](https://developers.openai.com/plugins/build/skills) | `$planner` | None |
+| [Cursor](https://prod.cursor.com/docs/skills) | `/planner` in Agent chat | None |
+| [Claude Code](https://code.claude.com/docs/en/skills) | `/planner` | Both `.claude/skills/` adapters |
+| [Gemini CLI](https://geminicli.com/docs/cli/custom-commands/) | `/planner` | `.gemini/commands/planner.toml` |
+| [OpenCode](https://opencode.ai/docs/commands) | `/planner` | `.opencode/commands/planner.md` |
+| [Cascade / Devin Desktop](https://docs.devin.ai/desktop/cascade/skills) | `@planner` | None |
+| [GitHub Copilot](https://docs.github.com/en/copilot/concepts/agents/about-agent-skills) | `Use the planner skill to ...` | None |
+| [Cline](https://docs.cline.bot/customization/skills) | `Use the planner skill to ...` | Both `.claude/skills/` adapters |
 
-**In Codex:**
+Gemini CLI may ask you to activate the skill. These are documented discovery
+paths and invocation forms; this repository has not been live-tested in every
+coding tool. If your tool does not show the skill, check its skill list and
+restart or refresh the session after copying files.
 
-```text
-$planner I want to build a booking app for my small shop.
-```
-
-The prefix depends on the host: Antigravity supports `/<skill-name>` and Codex
-uses the `$` prefix for skills. See the official [Antigravity guide](https://antigravity.google/docs/migration/workflows-to-skills)
-and [OpenAI skill guide](https://developers.openai.com/plugins/build/skills).
-
-If the shortcut is not recognized, use this instead:
+If the shortcut is not recognized, use this in any coding agent with file access:
 
 ```text
 Read .agents/skills/planner/SKILL.md and follow the complete workflow.
@@ -100,10 +114,14 @@ workflow already does this well, you can use that directly.
 
 ## For maintainers
 
+- [Shared project instructions](AGENTS.md)
 - [Planner instructions](.agents/skills/planner/SKILL.md)
 - [Interview skill](.agents/skills/grill-with-docs/SKILL.md)
+- [Claude and Cline planner adapter](.claude/skills/planner/SKILL.md)
+- [OpenCode planner command](.opencode/commands/planner.md)
 - [Plan template](.agents/skills/planner/resources/templates/execution_plan.md)
 - [Setup template](.agents/skills/planner/resources/templates/setup.md)
+- [Scaffold discovery map](.agents/skills/planner/references/SCAFFOLDS.md)
 - [Behavioral evaluation cases](.agents/skills/planner/references/EVALUATION.md)
 
 Check local documentation links and the link-checker regression tests:
